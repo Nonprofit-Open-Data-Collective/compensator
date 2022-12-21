@@ -5,35 +5,42 @@
 \title{dat_filtering}
 \format{
 \subsection{\code{dat_filtering}}{
-
-\describe{
-\item{BroadCategroy}{vector of braod categories you wish to include in returned data s}
-\item{MajorGroup}{vector of major categroies you wish to include in returned data set}
-\item{Decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within MajorGroup }
-\item{CommonCode}{TRUE of FALSE, do you want to include common code orgainzations?}
-\item{Hostipal}{TRUE of FALSE, do you want to include hospitals}
-\item{University}{TRUE of FALSE, do you want to include universities}
-\item{Location}{"metro" or "rural" or "both"}
-\item{State}{vector of 2 letter state abbreviations to be included}
-\item{TotalExpenses}{vector of c(min,max) of range of total expenses to be included}
-}
 }
 }
 \usage{
 dat_filtering(
-  BroadCategroy,
-  MajorGroup,
-  Decile,
-  CommonCode,
-  Hostipal,
-  Location,
-  State,
-  TotalExpenses
+  BroadCategroy = NA,
+  MajorGroup = NA,
+  Decile = NA,
+  CommonCode = NA,
+  University = NA,
+  Hostipal = NA,
+  Location = NA,
+  State = NA,
+  TotalExpenses = c(0, Inf)
 )
+}
+\arguments{
+\item{BroadCategroy}{vector of broad categories you wish to include in returned data set}
+
+\item{MajorGroup}{vector of major categories you wish to include in returned data set}
+
+\item{Decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within MajorGroup}
+
+\item{CommonCode}{"speciality" or "regular" , do you want to include common code orgainzations?}
+
+\item{University}{TRUE of FALSE, do you want to include universities}
+
+\item{Hostipal}{TRUE of FALSE, do you want to include hospitals}
+
+\item{Location}{"metro" or "rural" or "both"}
+
+\item{State}{vector of 2 letter state abbreviations to be included}
 }
 \description{
 STILL NEED TO EDIT
+STILL NEED TO ADD EXAMPLE
 }
 \details{
-Filtering \code{nonprofits} with given search critera
+Filtering \code{nonprofits} with given search criteria
 }
