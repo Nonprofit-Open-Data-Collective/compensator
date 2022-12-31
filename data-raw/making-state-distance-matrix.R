@@ -63,5 +63,6 @@ state_dist <- as.data.frame(distances(g)) / max(distances(g)) # divide by 12 to 
 colnames(state_dist) <- rownames(state_dist) <- state_list$abb
 
 ### Save Matrix -----------------------------------
-state_dist_mat <- state_dist
-usethis::use_data(state_dist_mat, overwrite = T)
+state.dist.mat <- state_dist
+save(state.dist.mat, file = "data/state-dist-matrix.rda")
+#usethis::use_data(state.dist.mat, overwrite = T)

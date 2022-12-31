@@ -25,13 +25,14 @@
 #' 
 "nonprofits"
 
-#' EIN_filtering
+#' EIN.filtering
 #'
 #' data used for filtering in`dat-filtering`.
 #' Use EIN to match with `nonprofits` data set. 
 #' 
 #' 
 #' @format ## `EIN_filtering`
+#' A data frame with 12,847 rows and 21 columns:
 #' \describe{
 #'   \item{EIN}{Employer Identification Number}
 #'   \item{NTEE}{Orignal NTEE Code}
@@ -51,16 +52,16 @@
 #'   \item{State}{2 letter state abbreviation of locaiton of organization.}
 #'   \item{LocationType}{"Metropolitan" or "Rural" for location type of organization. }
 #' }
-"EIN_filtering"
+"EIN.filtering"
 
-#' state_abb
+#' state.abb52
 #' 
-#' Two letter abbreviations of all states plus D.C. and Puerto Rico. 
+#' Two letter abbreviations of all states plus Washington D.C. and Puerto Rico. 
 #' 
 #' @format ## `state_abb`
 #' A vector with 52 elements
 #' 
-"state_abb"
+"state.abb52"
 
 #' State Distance Matrix
 #'
@@ -73,9 +74,9 @@
 #' Equivalently, this is the number of states you need to go through to drive from state A to state B,
 #' with the added boarders of Alaska/Washington, Hawaii/California, and Puerto Rico/Florida.
 #'
-#' @format ## `state_distance_matrix`
+#' @format ## `state.distance.mat`
 #' - the (i, j) entry is the path length from state i to state j. 
 #' - the diagonal is 0
 #' 
 #' 
-"state_distance_matrix"
+"state.distance.mat"

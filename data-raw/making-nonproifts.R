@@ -1,7 +1,7 @@
 ## This script crease both nonprofits.rda and EIN_filtering.rda
 
 ## Read in data --------------------------------------------------------
-dat.clean<- read_csv("data-raw/all_dat_cleaned.csv")
+dat.clean<- read_csv("data-raw/all-dat-cleaned.csv")
 
 
 ### Formatting data for package --------------------------------------------------------
@@ -57,10 +57,11 @@ nonprofits <-
          CEOCompensation, Gender,
          State, ZIP5, LocationType)
 
-usethis::use_data(nonprofits, overwrite = T)
+save(nonprofits, file = "data/nonprofits.rda")
+#usethis::use_data(nonprofits, overwrite = T)
 
 ### Data for the back end -------------------------------------------------
-EIN_filtering <-
+EIN.filtering <-
   temp %>%
   dplyr::select(EIN, NTEE, BroadCategory, MajorGroup, type.org,
                 two.digit, two.digit.s, tens, ones, us.state,
@@ -68,5 +69,5 @@ EIN_filtering <-
                 TotalExpense,
                 State, LocationType)
 
-
-usethis::use_data(EIN_filtering, overwrite = T)
+save(EIN.filtering, file = "data/EIN-filtering.rda")
+#usethis::use_data(EIN.filtering, overwrite = T, internal = T)
