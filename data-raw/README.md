@@ -1,0 +1,8 @@
+The following data objects are used by the package: 
+
+| Data Object Name |  StorageLocation/FileName.rda  | data-raw/FileName.R | Description | 
+-------------------| -------------------------------| -----------------------------| ---------------------| 
+| `nonprofits`       | data/nonprofits.rda       | data-raw/making-nonprofits.R |  table of all nonprofits available for comparison. Rows are a unique EIN, columns are characteristics of that organization that would be useful to the user. See R/data.R for details on characteristics included. | 
+| `EIN.filtering` |  ? (does it need to be in sysdata? or just in data/ ? ) | data-raw/making-nonprofits.R | table of all nonprofits available for comparison, each row is a unique EIN, columns are characteristics of that organization that are helpful in filtering and distance calculation. Can be matched to  `nonprofits` through EIN. See R/data.R for details on characteristics included. This table essentially gives the crosswalk between the only NTEE codes and how we are choosing to categorize mission.  | 
+| `state.dist.mat` | data/state-dist-matrix.rda | data-raw/making-state-distance-matrix.R | 52-by-52 matrix of distances between every pair of states + DC + PR. Equivalently, this is the number of state you would need to drive through to get to state A to state B (where Alaska is connected to Washington, Hawaii is connected to California, and Puerto Rico is connected to Florida). |
+| `state.abb52` | data/state_abb.rda | data-raw/making-state-abb.R | 52 state two-letter abbreviations. Not named `state.abb` as this is a data set in the `base` package.  | 
