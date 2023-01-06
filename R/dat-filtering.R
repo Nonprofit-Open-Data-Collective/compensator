@@ -2,7 +2,7 @@
 #'
 #' STILL NEED TO ADD EXAMPLE
 #'
-#' STILL NEED TO EDIT DESCRIPTION
+#' STILL NEED TO EDIT DESCRIPtion
 #' Filtering `EIN_filtering` with given search criteria.
 #' EIN's that make it through this filtering, will be used to filter `nonprofits` for final comparison sets. 
 #' Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations. 
@@ -34,7 +34,7 @@ dat_filtering <- function(broad.category = 1:12,
                           university = FALSE,
                           hospital = FALSE, 
                           location = "both", 
-                          state = state_abb, 
+                          state = state.abb52, 
                           total.expenses = c(0, Inf)){
   
   #load data 

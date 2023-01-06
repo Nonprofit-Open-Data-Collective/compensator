@@ -9,33 +9,33 @@
 }
 \usage{
 dat_filtering(
-  BroadCategroy = NA,
-  MajorGroup = NA,
-  Decile = NA,
-  CommonCode = NA,
-  University = NA,
-  Hostipal = NA,
-  Location = NA,
-  State = NA,
-  TotalExpenses = c(0, Inf)
+  broad.category = NA,
+  major.group = NA,
+  decile = NA,
+  common.code = NA,
+  university = NA,
+  hospital = NA,
+  location = NA,
+  state = NA,
+  total.expenses = c(0, Inf)
 )
 }
 \arguments{
-\item{BroadCategroy}{vector of broad categories you wish to include in returned data set}
+\item{broad.category}{vector of broad categories you wish to include in returned data set}
 
-\item{MajorGroup}{vector of major categories you wish to include in returned data set}
+\item{major.group}{vector of major categories you wish to include in returned data set}
 
-\item{Decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within MajorGroup}
+\item{decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group}
 
-\item{CommonCode}{"speciality" or "regular" , do you want to include common code orgainzations?}
+\item{common.code}{"speciality" or "regular" , do you want to include common code orgainzations?}
 
-\item{University}{TRUE of FALSE, do you want to include universities}
+\item{university}{TRUE of FALSE, do you want to include universities}
 
-\item{Hostipal}{TRUE of FALSE, do you want to include hospitals}
+\item{hospital}{TRUE of FALSE, do you want to include hospitals}
 
-\item{Location}{"metro" or "rural" or "both"}
+\item{location}{"metro" or "rural" or "both"}
 
-\item{State}{vector of 2 letter state abbreviations to be included}
+\item{state}{vector of 2 letter state abbreviations to be included}
 }
 \description{
 STILL NEED TO EDIT
