@@ -12,7 +12,8 @@ temp <-
                 MajorGroup = NTEE,
                 NTEE = NTEE.CC,
                 University = UNIV,
-                Hospital = HOSP)
+                Hospital = HOSP) %>%
+  dplyr::mutate(LocationType = tolower(LocationType))
 # get rid of EIN's that show up twice for some reason
 badEIN <-
   temp%>%
