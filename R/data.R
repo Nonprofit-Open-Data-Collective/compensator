@@ -74,9 +74,13 @@
 #' Equivalently, this is the number of states you need to go through to drive from state A to state B,
 #' with the added boarders of Alaska/Washington, Hawaii/California, and Puerto Rico/Florida.
 #'
-#' @format ## `state.distance.mat`
+#' @format ## `state.dist.mat`
 #' - the (i, j) entry is the path length from state i to state j. 
 #' - the diagonal is 0
 #' 
 #' 
-"state.distance.mat"
+"state.dist.mat"
+
+
+#' NTEE Codes Crosswalk
+"ntee.crosswalk"
