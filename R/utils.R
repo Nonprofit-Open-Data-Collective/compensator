@@ -6,6 +6,7 @@
 #'
 #' @param x Numeric value
 #' @return x printed in a character string in U.S. dollar format. 
+#' @export
 #'
 #' @examples
 #' dollarize(10)
