@@ -26,7 +26,9 @@
 #' @param state vector of 2 letter state abbreviations to be included
 #' @param total.expenses vector of c(min,max) of range of total expenses to be included
 #' 
-#' }
+#' @return A table of nonprofits that match the filtering criteria
+#' @export
+#' 
 dat_filtering <- function(broad.category = 1:12, 
                           major.group = base::LETTERS, 
                           decile = 2:9, 
@@ -34,11 +36,11 @@ dat_filtering <- function(broad.category = 1:12,
                           university = FALSE,
                           hospital = FALSE, 
                           location = "both", 
-                          state = state.abb52, 
+                          state = c(datasets::state.abb, "DC", "PR"), 
                           total.expenses = c(0, Inf)){
   
   #load data 
-  dat.filtered <- EIN_filtering
+  dat.filtered <- EIN.filtering
   
   
   # Filter by regular or specialty

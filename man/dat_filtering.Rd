@@ -9,14 +9,14 @@
 }
 \usage{
 dat_filtering(
-  broad.category = NA,
-  major.group = NA,
-  decile = NA,
-  common.code = NA,
-  university = NA,
-  hospital = NA,
-  location = NA,
-  state = NA,
+  broad.category = 1:12,
+  major.group = base::LETTERS,
+  decile = 2:9,
+  common.code = "regular",
+  university = FALSE,
+  hospital = FALSE,
+  location = "both",
+  state = c(datasets::state.abb, "DC", "PR"),
   total.expenses = c(0, Inf)
 )
 }
@@ -27,20 +27,34 @@ dat_filtering(
 
 \item{decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group}
 
-\item{common.code}{"speciality" or "regular" , do you want to include common code orgainzations?}
+\item{common.code}{"specialty" or "regular" or "both".
+"specialty" to only include specialty (common code) organization.
+"regular" to only include regular organizations.
+"both" to include both.}
 
-\item{university}{TRUE of FALSE, do you want to include universities}
+\item{university}{TRUE of FALSE. Are universities to be included?}
 
-\item{hospital}{TRUE of FALSE, do you want to include hospitals}
+\item{hospital}{TRUE of FALSE, Are hospitals to be included?}
 
-\item{location}{"metro" or "rural" or "both"}
+\item{location}{"metro" or "rural" or "both" or "all".
+"metro" only includes organizations with metropolitan locations type.
+"rural" only includes organizations with rural locations type.
+"both" includes both metropolitan and rural organizations but excludes organizations with NA values in the location type.
+"all" includes organizations with metropolitan, rural, and NA location types.}
 
 \item{state}{vector of 2 letter state abbreviations to be included}
+
+\item{total.expenses}{vector of c(min,max) of range of total expenses to be included}
+}
+\value{
+A table of nonprofits that match the filtering criteria
 }
 \description{
-STILL NEED TO EDIT
 STILL NEED TO ADD EXAMPLE
 }
 \details{
-Filtering \code{nonprofits} with given search criteria
+STILL NEED TO EDIT DESCRIPtion
+Filtering \code{EIN_filtering} with given search criteria.
+EIN's that make it through this filtering, will be used to filter \code{nonprofits} for final comparison sets.
+Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations.
 }
