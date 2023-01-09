@@ -15,8 +15,9 @@ calc_distace_r <- function(org, dat.filtered, weights){
   
   
   ## Set up data table for calculations --------------------------------
-  dat.filtered <- dat.filtered%>%
-    dplyr::mutate(log.expense = log(TotalExpense+1, base = 10))
+  dat.filtered <- 
+    dat.filtered %>%
+    dplyr::mutate( log.expense = log( TotalExpense+1, base=10 ))
 
   
   #needed values
@@ -69,14 +70,14 @@ calc_distace_r <- function(org, dat.filtered, weights){
   ## Add distances to dat.filtered table 
   dat.filtered <- 
     dat.filtered %>%
-    dplyr::select(-c(log.expense))%>%
-    dplyr::mutate(TotalDist = rowSums(D) / A) %>%
-    dplyr::mutate(LogExpenseDist = D[, 1]) %>%
-    dplyr::mutate(GeoDist = D[, 2]) %>%
-    dplyr::mutate(RMissionDist = D[, 3]) %>%
-    dplyr::arrange(TotalDist) %>%
-    dplyr::mutate(Rank = row_number()) %>%
-    dplyr::relocate(Rank)
+    dplyr::select( -c(log.expense)  ) %>%
+    dplyr::mutate(  TotalDist = rowSums(D) / A  ) %>%
+    dplyr::mutate(  LogExpenseDist = D[, 1]  ) %>%
+    dplyr::mutate(  GeoDist = D[, 2]  ) %>%
+    dplyr::mutate(  RMissionDist = D[, 3]  ) %>%
+    dplyr::arrange(  TotalDist  ) %>%
+    dplyr::mutate(  Rank = dplyr::row_number()  ) %>%
+    dplyr::relocate(  Rank  )
   
   #here is where we will threshold eventually 
 
