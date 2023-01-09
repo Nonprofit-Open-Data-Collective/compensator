@@ -10,7 +10,7 @@ ntee_list <-
 
 ntee_list <- ntee_list[[1]]
 
-
+# write.csv( ntee_list, "ntee.csv", row.names=F )
 
 #extract major groups (letters)
 ntee_major_group <- ntee_list[ which(nchar(ntee_list$`NTEE Code`) < 3), ]
