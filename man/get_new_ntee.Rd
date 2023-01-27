@@ -14,7 +14,8 @@ get_new_ntee(old.code = "B20")
 Table with new ntee codes
 }
 \description{
-Input old ntee codes, get new ntee codes
-right now this only works for orgs with the 1 letter + 2 digit format,
-eventually, want this to work with orgs that have 1 letter + 4 digits
+Input original NTEE code and return disaggregated NTEE code.
+}
+\details{
+Used to calculated distances between mission codes.
 }

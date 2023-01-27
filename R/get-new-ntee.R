@@ -1,8 +1,8 @@
 #' get_new_ntee
 #'
-#' Input old ntee codes, get new ntee codes 
-#' right now this only works for orgs with the 1 letter + 2 digit format, 
-#' eventually, want this to work with orgs that have 1 letter + 4 digits
+#' Input original NTEE code and return disaggregated NTEE code. 
+#' 
+#' Used to calculated distances between mission codes. 
 #'
 #' @format ## `get_new_ntee`
 #' 
@@ -16,7 +16,7 @@ get_new_ntee <- function(old.code = "B20"){
   GOOD <- old.code %in% ntee.crosswalk$NTEE
   
   if(!GOOD){
-    return("ERROR: Please entre a valid NTEE code.")
+    return("ERROR: Please enter a valid NTEE code.")
   }
   
   new.code <-
