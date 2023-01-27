@@ -1,5 +1,7 @@
 #' nonprofits
 #'
+#' @description 
+#' 
 #' STILL NEED TO EDIT 
 #'
 #' All non profits available for comparison.
@@ -83,4 +85,8 @@
 
 
 #' NTEE Codes Crosswalk
+#' 
+#' Crosswalk between original NTEE codes and the disaggregated version for calculating distances between two mission codes. 
+#' 
+#' See  https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies for details. 
 "ntee.crosswalk"

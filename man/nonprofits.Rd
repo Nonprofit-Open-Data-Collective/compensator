@@ -29,8 +29,7 @@ nonprofits
 }
 \description{
 STILL NEED TO EDIT
-}
-\details{
+
 All non profits available for comparison.
 Each non profit who filed with the IRS is in here once, with their most recent filing
 Use \code{EIN} to match with \code{EIN_filtering} data set.

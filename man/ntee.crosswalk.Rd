@@ -5,12 +5,15 @@
 \alias{ntee.crosswalk}
 \title{NTEE Codes Crosswalk}
 \format{
-An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 655 rows and 12 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1062 rows and 10 columns.
 }
 \usage{
 ntee.crosswalk
 }
 \description{
-NTEE Codes Crosswalk
+Crosswalk between original NTEE codes and the disaggregated version for calculating distances between two mission codes.
+}
+\details{
+See  https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies for details.
 }
 \keyword{datasets}
