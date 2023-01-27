@@ -29,6 +29,18 @@
 #' @return A table of nonprofits that match the filtering criteria
 #' @export
 #' 
+#' @examples 
+#' # all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
+#' dat_filtering(broad.category = 2, 
+#' major.group = "B", 
+#' decile = 2:9, 
+#' common.code = "regular", 
+#' university = FALSE,
+#' hospital = FALSE, 
+#' location = "both", 
+#' state = c("KS", "NE", "IA", "MO") ,
+#' total.expenses = c(0, Inf))
+#' 
 dat_filtering <- function(broad.category = 1:12, 
                           major.group = base::LETTERS, 
                           decile = 2:9, 

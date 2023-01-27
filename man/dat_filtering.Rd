@@ -58,3 +58,16 @@ Filtering \code{EIN_filtering} with given search criteria.
 EIN's that make it through this filtering, will be used to filter \code{nonprofits} for final comparison sets.
 Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations.
 }
+\examples{
+# all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
+dat_filtering(broad.category = 2, 
+major.group = "B", 
+decile = 2:9, 
+common.code = "regular", 
+university = FALSE,
+hospital = FALSE, 
+location = "both", 
+state = c("KS", "NE", "IA", "MO") ,
+total.expenses = c(0, Inf))
+
+}
