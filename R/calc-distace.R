@@ -52,7 +52,7 @@ calc_distace_r <- function(org, dat.filtered, weights){
     if(is.na(compare.org$TotalExpense[i])){
       D[i, "logTotalExpense"] <- 1
     }else{
-      D[i, "logTotalExpense"] <- abs(compare.org$log.expense[i] - log(org$TotalExpense, 10)) / log.expense.range
+      D[i, "logTotalExpense"] <- log(abs(compare.org$TotalExpense[i] - org$TotalExpense), base = 10)  # / log.expense.range
     }
     
     ## Geo Distance 
