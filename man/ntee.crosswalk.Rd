@@ -5,7 +5,7 @@
 \alias{ntee.crosswalk}
 \title{NTEE Codes Crosswalk}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1062 rows and 10 columns.
+An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1086 rows and 10 columns.
 }
 \usage{
 ntee.crosswalk

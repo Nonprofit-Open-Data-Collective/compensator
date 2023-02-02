@@ -21,8 +21,7 @@ get_new_ntee <- function(old.code = "B20"){
   
   new.code <-
     ntee.crosswalk %>%
-    dplyr::filter(NTEE == old.code) %>%
-    dplyr::select(-Description, -Definition)
+    dplyr::filter(NTEE == old.code)
   
   return(new.code)
 }
