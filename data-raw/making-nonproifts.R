@@ -1,7 +1,7 @@
 ## This script crease both nonprofits.rda and EIN_filtering.rda
 
 ## Read in data --------------------------------------------------------
-dat.clean<- read_csv("data-raw/all-dat-cleaned.csv")
+dat.clean<- readr::read_csv("data-raw/all-dat-cleaned.csv")
 
 
 ### Formatting data for package --------------------------------------------------------
@@ -37,7 +37,7 @@ temp <-
   #dissect NTEE to get mission levels
   dplyr::mutate(two.digit = substr(NTEE, 2, 3))%>%
   #Regular or specality org
-  dplyr::mutate(type.org = ifelse(two.digit < 20, "S", "R")) %>%
+  dplyr::mutate(type.org = ifelse(two.digit < 20, "speciality", "regular")) %>%
   #get actual two digit if specality or
   dplyr::mutate(two.digit.s = dplyr::case_when(type.org == "S" & nchar(NTEE) == 4 ~ paste(substr(NTEE, 4, 4), 0),
                                              type.org == "S" & nchar(NTEE) == 5 ~ paste(substr(NTEE, 4, 5)),

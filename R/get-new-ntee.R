@@ -6,6 +6,8 @@
 #'
 #' @format ## `get_new_ntee`
 #' 
+#' @param old.code Original NTEE code 
+#' 
 #' @return Table with new ntee codes
 #' @export
 get_new_ntee <- function(old.code = "B20"){

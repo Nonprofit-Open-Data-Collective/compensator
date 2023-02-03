@@ -10,6 +10,9 @@
 \usage{
 get_new_ntee(old.code = "B20")
 }
+\arguments{
+\item{old.code}{Original NTEE code}
+}
 \value{
 Table with new ntee codes
 }

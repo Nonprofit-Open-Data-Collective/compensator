@@ -12,12 +12,12 @@ dat_filtering(
   broad.category = 1:12,
   major.group = base::LETTERS,
   decile = 2:9,
-  common.code = "regular",
-  university = FALSE,
-  hospital = FALSE,
-  location = "both",
+  type.org = "regular",
+  univ = FALSE,
+  hosp = FALSE,
+  location.type = "both",
   state = c(datasets::state.abb, "DC", "PR"),
-  total.expenses = c(0, Inf)
+  total.expense = c(0, Inf)
 )
 }
 \arguments{
@@ -27,24 +27,24 @@ dat_filtering(
 
 \item{decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group}
 
-\item{common.code}{"specialty" or "regular" or "both".
+\item{type.org}{"specialty" or "regular" or "both".
 "specialty" to only include specialty (common code) organization.
 "regular" to only include regular organizations.
 "both" to include both.}
 
-\item{university}{TRUE of FALSE. Are universities to be included?}
+\item{univ}{TRUE of FALSE. Are universities to be included?}
 
-\item{hospital}{TRUE of FALSE, Are hospitals to be included?}
+\item{hosp}{TRUE of FALSE, Are hospitals to be included?}
 
-\item{location}{"metro" or "rural" or "both" or "all".
+\item{location.type}{"metro" or "rural" or "both" or "all".
 "metro" only includes organizations with metropolitan locations type.
 "rural" only includes organizations with rural locations type.
 "both" includes both metropolitan and rural organizations but excludes organizations with NA values in the location type.
-"all" includes organizations with metropolitan, rural, and NA location types.}
+"all" includes organizations with metropolitan, rural, and missing location types.}
 
 \item{state}{vector of 2 letter state abbreviations to be included}
 
-\item{total.expenses}{vector of c(min,max) of range of total expenses to be included}
+\item{total.expense}{vector of c(min,max) of range of total expenses to be included}
 }
 \value{
 A table of nonprofits that match the filtering criteria
@@ -59,15 +59,15 @@ EIN's that make it through this filtering, will be used to filter \code{nonprofi
 Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations.
 }
 \examples{
-# all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
+# all non-univ educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
 dat_filtering(broad.category = 2, 
 major.group = "B", 
 decile = 2:9, 
-common.code = "regular", 
-university = FALSE,
-hospital = FALSE, 
-location = "both", 
+type.org = "regular", 
+univ = FALSE,
+hosp = FALSE, 
+location.type = "both", 
 state = c("KS", "NE", "IA", "MO") ,
-total.expenses = c(0, Inf))
+total.expense = c(0, Inf))
 
 }
