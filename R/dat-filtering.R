@@ -11,7 +11,7 @@
 #' 
 #' @param broad.category vector of broad categories you wish to include in returned data set
 #' @param major.group vector of major categories you wish to include in returned data set
-#' @param decile vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group 
+#' @param tens vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group.  
 #' @param type.org "specialty" or "regular" or "both". 
 #'        "specialty" to only include specialty (common code) organization. 
 #'        "regular" to only include regular organizations.
@@ -31,24 +31,25 @@
 #' 
 #' @examples 
 #' # all non-univ educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
-#' dat_filtering(broad.category = 2, 
-#' major.group = "B", 
-#' decile = 2:9, 
-#' type.org = "regular", 
-#' univ = FALSE,
-#' hosp = FALSE, 
-#' location.type = "both", 
-#' state = c("KS", "NE", "IA", "MO") ,
-#' total.expense = c(0, Inf))
+#' dat_filtering(
+#'   broad.category = 2, 
+#'   major.group = "B", 
+#'   tens = 2:9, 
+#'   type.org = "regular", 
+#'   univ = FALSE,
+#'   hosp = FALSE, 
+#'   location.type = "both", 
+#'   state = c("KS", "NE", "IA", "MO") ,
+#'   total.expense = c(0, Inf))
 #' 
 dat_filtering <- function(broad.category = 1:12, 
                           major.group = base::LETTERS, 
-                          decile = 2:9, 
+                          tens = 2:9, 
                           type.org = "regular", 
                           univ = FALSE,
                           hosp = FALSE, 
                           location.type = "both", 
-                          state = c(datasets::state.abb, "DC", "PR"), 
+                          state = state.abb52, 
                           total.expense = c(0, Inf)){
   
   #load data 
@@ -57,62 +58,55 @@ dat_filtering <- function(broad.category = 1:12,
   
   # Filter by regular or specialty
   if(!any(is.na(type.org))){
-    if(type.org == "speciality"){
-      dat.filtered <- dat.filtered[dat.filtered$type.org == "S", ]
-    }else if(type.org == "regular"){
-      dat.filtered <- dat.filtered[dat.filtered$type.org == "R", ]
-    }
+    dat.filtered <- dat.filtered[ dat.filtered$type.org == type.org , ]
   }
   
   # Filter by univ 
   if(!any(is.na(univ)) & is.logical(univ)){
-    dat.filtered <- dat.filtered[dat.filtered$University == univ , ]
+    dat.filtered <- dat.filtered[dat.filtered$univ == univ , ]
   }
   
   # Filter by Hospital 
   if(!any(is.na(hosp)) & is.logical(hosp)){
-    dat.filtered <- dat.filtered[dat.filtered$Hospital == hosp , ]
+    dat.filtered <- dat.filtered[dat.filtered$hosp == hosp , ]
   }
   
   # Filter By state
   if(!any(is.na(state)) ){
-    dat.filtered <- dat.filtered[dat.filtered$State %in% state, ]
+    dat.filtered <- dat.filtered[dat.filtered$state %in% state, ]
   }
   
   # Filter By location
   if(!any(is.na(location.type)) ){
-    if(location.type == "metro"){
-      dat.filtered <- dat.filtered[dat.filtered$LocationType == "Metropolitan", ]
-    }else if(location.type == "rural"){
-      dat.filtered <- dat.filtered[dat.filtered$LocationType == "Rural", ]
+    if(location.type %in% c("metro", "rural")){
+      dat.filtered <- dat.filtered[dat.filtered$location.type == location.type, ]
     }else if(location.type == "both"){
-      dat.filtered <- dat.filtered[!is.na(dat.filtered$LocationType), ]
+      dat.filtered <- dat.filtered[!is.na(dat.filtered$location.type), ]
     }
-    
-    
   }
   
   # Filter By Broad Category
   if(!any(is.na(broad.category))){
-    dat.filtered <- dat.filtered[dat.filtered$BroadCategory %in% broad.category, ]
+    dat.filtered <- dat.filtered[dat.filtered$broad.category %in% broad.category, ]
   }
   
   # Filter By Major Group
   if(!any(is.na(major.group))){
-    dat.filtered <- dat.filtered[dat.filtered$MajorGroup %in% major.group, ]
+    dat.filtered <- dat.filtered[dat.filtered$major.group %in% major.group, ]
   }
   
   # Filter By decile
-  if(!any(is.na(decile))){
-    dat.filtered <- dat.filtered[dat.filtered$tens %in% decile, ]
+  if(!any(is.na(tens))){
+    tens <- as.character(tens)
+    dat.filtered <- dat.filtered[dat.filtered$tens %in% tens, ]
   }
   
   # Filter By Total Expenses 
   if(!any(is.na(total.expense))){
-    min = total.expense[1]
-    max = total.expense[2]
-    dat.filtered <- dat.filtered[dat.filtered$TotalExpense >= min , ]
-    dat.filtered <- dat.filtered[dat.filtered$TotalExpense <= max , ]
+    mi = min(total.expense)
+    ma = max(total.expense)
+    dat.filtered <- dat.filtered[dat.filtered$total.expense >= mi , ]
+    dat.filtered <- dat.filtered[dat.filtered$total.expense <= ma , ]
   }
   
   return(dat.filtered)
