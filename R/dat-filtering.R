@@ -55,18 +55,17 @@ dat_filtering <- function(broad.category = 1:12,
   #load data 
   dat.filtered <- EIN.filtering
   
+ # Filter by regular or specialty
+ if(!any(is.na(type.org)) & type.org %in% c("regular", "specialty")){
+   dat.filtered <- dat.filtered[ dat.filtered$type.org == type.org , ]
+ }
   
-  # Filter by regular or specialty
-  if(!any(is.na(type.org))){
-    dat.filtered <- dat.filtered[ dat.filtered$type.org == type.org , ]
-  }
-  
-  # Filter by univ 
+  # Filter by univ
   if(!any(is.na(univ)) & is.logical(univ)){
     dat.filtered <- dat.filtered[dat.filtered$univ == univ , ]
   }
   
-  # Filter by Hospital 
+  # Filter by Hospital
   if(!any(is.na(hosp)) & is.logical(hosp)){
     dat.filtered <- dat.filtered[dat.filtered$hosp == hosp , ]
   }
@@ -98,17 +97,17 @@ dat_filtering <- function(broad.category = 1:12,
   # Filter By decile
   if(!any(is.na(tens))){
     tens <- as.character(tens)
-    dat.filtered <- dat.filtered[dat.filtered$tens %in% tens, ]
+    dat.filtered <- dat.filtered[as.character(dat.filtered$tens) %in% tens, ]
   }
   
-  # Filter By Total Expenses 
+  # Filter By Total Expenses
   if(!any(is.na(total.expense))){
     mi = min(total.expense)
     ma = max(total.expense)
     dat.filtered <- dat.filtered[dat.filtered$total.expense >= mi , ]
     dat.filtered <- dat.filtered[dat.filtered$total.expense <= ma , ]
   }
-  
+
   return(dat.filtered)
 
 }

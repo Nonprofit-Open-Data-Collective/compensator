@@ -15,7 +15,7 @@ get_new_ntee <- function(old.code = "B20"){
   #find row in ntee crosswalk file 
   #output new rows along with broad category and major group
   
-  GOOD <- old.code %in% ntee.crosswalk$NTEE
+  GOOD <- old.code %in% ntee.crosswalk$ntee
   
   if(!GOOD){
     return("ERROR: Please enter a valid NTEE code.")
@@ -23,7 +23,7 @@ get_new_ntee <- function(old.code = "B20"){
   
   new.code <-
     ntee.crosswalk %>%
-    dplyr::filter(NTEE == old.code)
+    dplyr::filter(ntee == old.code)
   
   return(new.code)
 }

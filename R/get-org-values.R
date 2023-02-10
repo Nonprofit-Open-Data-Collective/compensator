@@ -39,7 +39,7 @@ get_org_values <- function(state = "CA",
     stop("Enter a number 0 or larger for the `total.expense` parameter. ")
   }
   #NTEE Code 
-  if(!(ntee %in% ntee.crosswalk$NTEE)){
+  if(!(ntee %in% ntee.crosswalk$ntee)){
     stop("Please enter a vaild NTEE code for the `ntee` parameter.")
   }
   

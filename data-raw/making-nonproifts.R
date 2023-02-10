@@ -82,7 +82,7 @@ nonprofits <-
                 state, zip5, location.type)
 
 save(nonprofits, file = "data/nonprofits.rda")
-#usethis::use_data(nonprofits, overwrite = T)
+usethis::use_data(nonprofits, overwrite = T)
 
 ### Data for the back end -------------------------------------------------
 EIN.filtering <-
@@ -94,4 +94,4 @@ EIN.filtering <-
                 state, location.type)
 
 save(EIN.filtering, file = "data/EIN-filtering.rda")
-#usethis::use_data(EIN.filtering, overwrite = T, internal = T)
+usethis::use_data(EIN.filtering, overwrite = T, internal = T)
