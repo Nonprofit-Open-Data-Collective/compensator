@@ -8,14 +8,14 @@ org <- get_org_values(state = "AL",
 
 # step 2, get comparison orgs and calculate distances
 search.criteria <-
-  list(broad.category = 1:12, 
+  list(broad.category = 1:2, 
        major.group = base::LETTERS, 
-       decile = 2:9, 
+       tens = 2:9, 
        type.org = "regular", 
        univ = FALSE,
        hosp = FALSE, 
        location.type = "both", 
-       state = c(datasets::state.abb, "DC", "PR"), 
+       state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
        total.expense = c(0, Inf) )
        
-samp <- select_sample(org, search.criteria)
+samp <- compensator::select_sample(org = org, search.criteria = search.criteria)
