@@ -7,15 +7,15 @@
 select_sample(
   org = get_org_values(state = "AL", location.type = "rural", total.expense = 1e+05, ntee
     = "B20"),
-  search.criteria = list(broad.category = 1:12, major.group = base::LETTERS, decile =
-    2:9, type.org = "regular", univ = FALSE, hosp = FALSE, location.type = "both", state
-    = c(datasets::state.abb, "DC", "PR"), total.expense = c(0, Inf))
+  search.criteria = list(broad.category = 1:12, major.group = base::LETTERS, tens = 2:9,
+    type.org = "regular", univ = FALSE, hosp = FALSE, location.type = "both", state =
+    c(datasets::state.abb, "DC", "PR"), total.expense = c(0, Inf))
 )
 }
 \arguments{
 \item{org}{List output from \code{get_org_values()}}
 
-\item{search.criteria}{List with the following elements: broad.category, major.group, decile, type.org, univ, hosp, location.type, state, total.expense}
+\item{search.criteria}{List with the following elements: broad.category, major.group, tens, type.org, univ, hosp, location.type, state, total.expense}
 }
 \description{
 user inputs org characteristics and search criteria and we return top N closest organizations

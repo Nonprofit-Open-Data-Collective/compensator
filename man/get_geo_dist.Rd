@@ -10,6 +10,13 @@
 \usage{
 get_geo_dist(org1, org2, geo.weights)
 }
+\arguments{
+\item{org1}{output of \code{get_org_values()} for first org}
+
+\item{org2}{output of \code{get_org_values()} for second org}
+
+\item{geo.weights}{geo.weights from output of \code{get_weights()}}
+}
 \value{
 Geographic distance of two orgs
 }

@@ -11,12 +11,12 @@
 dat_filtering(
   broad.category = 1:12,
   major.group = base::LETTERS,
-  decile = 2:9,
+  tens = 2:9,
   type.org = "regular",
   univ = FALSE,
   hosp = FALSE,
   location.type = "both",
-  state = c(datasets::state.abb, "DC", "PR"),
+  state = state.abb52,
   total.expense = c(0, Inf)
 )
 }
@@ -25,7 +25,7 @@ dat_filtering(
 
 \item{major.group}{vector of major categories you wish to include in returned data set}
 
-\item{decile}{vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group}
+\item{tens}{vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group.}
 
 \item{type.org}{"specialty" or "regular" or "both".
 "specialty" to only include specialty (common code) organization.
@@ -60,14 +60,15 @@ Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-code
 }
 \examples{
 # all non-univ educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
-dat_filtering(broad.category = 2, 
-major.group = "B", 
-decile = 2:9, 
-type.org = "regular", 
-univ = FALSE,
-hosp = FALSE, 
-location.type = "both", 
-state = c("KS", "NE", "IA", "MO") ,
-total.expense = c(0, Inf))
+dat_filtering(
+  broad.category = 2, 
+  major.group = "B", 
+  tens = 2:9, 
+  type.org = "regular", 
+  univ = FALSE,
+  hosp = FALSE, 
+  location.type = "both", 
+  state = c("KS", "NE", "IA", "MO") ,
+  total.expense = c(0, Inf))
 
 }

@@ -10,8 +10,15 @@
 \usage{
 get_r_mission_dist(org1, org2, r.mission.weights)
 }
+\arguments{
+\item{org1}{output of \code{get_org_values()} for first org}
+
+\item{org2}{output of \code{get_org_values()} for second org}
+
+\item{r.mission.weights}{mission.weights from output of \code{get_weights()}}
+}
 \value{
-Geographic distance of two orgs
+mission distance of two orgs
 }
 \description{
 Calculate mission distances for regular organizations
