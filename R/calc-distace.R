@@ -36,9 +36,10 @@ calc_distace <- function(org, comparison.orgs, weights){
   geo.weights <- weights$geo
   mission.weights <- weights$mission
 
-  # ensure it's normalize 
-  geo.weights$weights <- geo.weights$weights / sum(geo.weights$weights )
-  mission.weights$weights <- mission.weights$weights / sum(mission.weights$weights )
+  # ensure it's standardizing - we currently are not standardizing the weights, 
+  # but I left this in here incase we want to go back to standardizing in the future
+  # geo.weights$weights <- geo.weights$weights / sum(geo.weights$weights )
+  # mission.weights$weights <- mission.weights$weights / sum(mission.weights$weights )
 
   
   ## Get distances -----------------------------------------------
@@ -72,19 +73,23 @@ calc_distace <- function(org, comparison.orgs, weights){
   max.expense.dist <- max(D[, "log.total.expense"])
   
   ## Add distances to comparison.orgs table 
-  comparison.orgs <- 
-    comparison.orgs %>%
-    dplyr::mutate(  log.expense.dist = D[, 1]  ) %>%
-    #replace NA is log.expense.dist with max.expense.dist
-    dplyr::mutate( log.expense.dist = ifelse(is.na(log.expense.dist), max.expense.dist, log.expense.dist)) %>%
-    dplyr::mutate(  geo.dist = D[, 2]  ) %>%
-    dplyr::mutate(  mission.dist = D[, 3]  ) %>%
+  #add distances
+  colnames(D) <- c("log.expense.dist", "geo.dist", "mission.dist")
+  comparison.orgs <- cbind(comparison.orgs, D)
+  
+  #wrangle return table to look nice
+  ret <- comparison.orgs %>% 
+    #replace NA in log.expense.dist with max.expense.dist
+    dplyr::mutate(log.expense.dist = ifelse(is.na(log.expense.dist), max.expense.dist, log.expense.dist)) %>% 
+    #get total distance
+    dplyr::rowwise() %>%
     dplyr::mutate( total.dist = mean(c(log.expense.dist, geo.dist, mission.dist ))) %>%
+    #get rank for threshold
+    dplyr::ungroup() %>%
     dplyr::arrange(  total.dist  ) %>%
-    dplyr::mutate(  rank = dplyr::row_number()  ) %>%
-    dplyr::relocate(  rank  )
+    dplyr::mutate(  rank = dplyr::row_number()  ) 
   
   
-  return(comparison.orgs)
+  return(ret)
   
 }
