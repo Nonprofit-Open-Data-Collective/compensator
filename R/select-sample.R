@@ -59,9 +59,13 @@ select_sample <- function(org = get_org_values(state = "AL",
   weights <- get_weights(org)
   
   ## Step 3: Calculate distances 
-  comparison.orgs <- calc_distace(org, comparison.orgs, weights)
+  comparison.orgs.with.dist <- calc_distace(org, comparison.orgs, weights)
   
-  ## Step 4 Thresholding - not implemented
+  ## Step 4 Thresholding - for now just take the 1,000 closest organizations
+  # This will eventually need to be updated to have a more dynamic threshold 
+  
+  comparison.orgs.threshold <- comparison.orgs.with.dist[comparison.orgs.with.dist$rank <= 1000, ]
+  
   
   ## Step 5 Match EIN's of comparison.orgs to those in nonprofits to return useful information to the user
   #remove columns from nonprofits that are also in comparison.orgs to aviod repeat information in the merge
@@ -69,9 +73,9 @@ select_sample <- function(org = get_org_values(state = "AL",
   # Need to make a decision about what information we show them at this stage.
   ret <-  dplyr::inner_join(
     nonprofits %>% dplyr::select(-c(univ, hosp, total.expense, state, location.type, ntee)), 
-    comparison.orgs, 
-    by = "EIN") %>%
-    dplyr::select(-c(broad.category, major.group, two.digit, two.digit.s, tens, ones, us.state))
+    comparison.orgs.threshold, 
+    by = "EIN")  %>%
+    dplyr::arrange(rank)
   
   return(ret)
 }
