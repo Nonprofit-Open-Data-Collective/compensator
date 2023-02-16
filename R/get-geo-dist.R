@@ -15,10 +15,15 @@ get_geo_dist <- function(org1, org2, geo.weights){
   #org1 <- org
   #org2 <- dat.filtered[1, ]
   
+  #currently have fail-safes for org2, need to add it for org1 as well
+  
   ## Geographic distance 
   
-  # Level 1 - States 
-  g1 <- geo.weights$weights[1] * (org1$state != org2$state)
+  # Level 1 - Is it a us state or territory 
+  is.1.us.state <- org1$state == "PR"
+  is.2.us.state <- ifelse(is.na(org2$state), 1, org2$state == "PR") 
+  
+  g1 <- geo.weights$weights[1] * (is.1.us.state!= is.2.us.state)
   
   # Level 2 - Location types 
   g2 <- geo.weights$weight[2] * 
@@ -37,7 +42,7 @@ get_geo_dist <- function(org1, org2, geo.weights){
            state.dist.mat[org1.col.num, org2.col.num])
   
   # Final geo distance
-  geo.dist <- g1 + g2 + g3
+  geo.dist <- log(g1 + g2 + g3 + 1, base=10)
   
   return(geo.dist)
 }

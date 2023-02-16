@@ -14,7 +14,7 @@ get_r_mission_dist <- function(org1, org2, r.mission.weights){
   
   
   if(org2$type.org == "speciality"){
-    return(1)
+    return(sum(s.mission.weights$weights)) #return maximum value
   }else{
   ## Regular Mission distance 
   # Level 1: Broad Category
@@ -26,18 +26,18 @@ get_r_mission_dist <- function(org1, org2, r.mission.weights){
     (org1$major.group != org2$major.group)
   
   # Level 3: match on both (letter + tens)
-  m3 <- r.mission.weights$weight[2] *
+  m3 <- r.mission.weights$weight[3] *
     ((org1$major.group != org2$major.group) | #cant compare tens if letter doesnt match
     (org1$tens != org2$tens))
   
   # Level 4: match on all (letter + tens + ones)
-  m4 <- r.mission.weights$weight[2] *
+  m4 <- r.mission.weights$weight[4] *
     ((org1$major.group != org2$major.group) | #cant compare ones if tens and letter doesnt match
        (org1$tens != org2$tens) | 
        (org1$ones != org2$ones))
   
   # Final mission distance 
-  r.mission.dist <- m1 + m2 + m3 + m4
+  r.mission.dist <- log(m1 + m2 + m3 + m4 + 1, base = 10)
   
   return(r.mission.dist)
   }

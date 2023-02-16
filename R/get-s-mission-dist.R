@@ -14,7 +14,7 @@ get_s_mission_dist <- function(org1, org2, s.mission.weights){
   
   
   if(org2$type.org == "regular"){
-    return(1)
+    return(sum(s.mission.weights$weights)) #return maximum value
   }else{
     ## Regular Mission distance 
     # Level 1: Two Digit (0, 2-9)
@@ -26,25 +26,25 @@ get_s_mission_dist <- function(org1, org2, s.mission.weights){
       (org1$broad.category != org2$broad.category)
     
     # Level 3: Major Group (Letters)
-    m3 <- s.mission.weights$weight[2] *
+    m3 <- s.mission.weights$weight[3] *
       ((org1$broad.category != org2$broad.category) | #cant compare broad category if major group doesnt match
          (org1$major.group != org2$major.group))
     
     # Level 4: tens
-    m4 <- s.mission.weights$weight[2] *
+    m4 <- s.mission.weights$weight[4] *
       ((org1$broad.category != org2$broad.category) | #cant compare broad category if major group doesnt match
          (org1$major.group != org2$major.group)  | #cant compare tens if major group isnt the same
          (org1$tens != org2$tens) )
     
     # Level 5 two.digit.s
-    m5 <- s.mission.weights$weight[2] *
+    m5 <- s.mission.weights$weight[5] *
       ((org1$broad.category != org2$broad.category) | #cant compare broad category if major group doesnt match
          (org1$major.group != org2$major.group)  | #cant compare tens if major group isnt the same
          (org1$tens != org2$tens) | #cant compare ones place if tens place is the same
          (org1$two.digit.s != org2$two.digit.s))
     
     # Final mission distance 
-    s.mission.dist <- m1 + m2 + m3 + m4 + m5
+    s.mission.dist <- log(m1 + m2 + m3 + m4 + m5, base = 10)
     
     return(s.mission.dist)
   }
