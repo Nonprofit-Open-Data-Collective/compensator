@@ -17,7 +17,7 @@ get_salary_range <- function(samp, point.value){
                   total.assests, gross.receipts, total.employee, total.expense,
                   broad.category, state, location.type) %>%
     #change categorical variables to factors
-    mutate(across(c(broad.category, state, location.type, gender), as.factor))
+    dplyr::mutate(across(c(broad.category, state, location.type, gender), as.factor))
     
   ## Making the formula -----------------------------------------------------
   ##  - cant add line breaks in formulas (this is turned into a formula later)

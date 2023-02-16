@@ -43,4 +43,4 @@ search.criteria <-
        state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
        total.expense = c(0, Inf) )
 
-get_appraisal(org, search.criteria) 
+app <- get_appraisal(org, search.criteria) 

@@ -16,5 +16,10 @@ get_appraisal <- function(org.characteristics,
   #get appraisal
   appraisal <- predict_salary(samp)
   
-  return(appraisal)
+  ret <- list(suggested.salary = appraisal$point.value,
+              suggested.range = appraisal$salary.range,
+              reference.set = samp)
+  
+  
+  return(ret)
 }
