@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-new-ntee.R
 \name{get_new_ntee}
 \alias{get_new_ntee}
-\title{get_new_ntee}
+\title{Disaggregate NTEE Code}
 \format{
 \subsection{\code{get_new_ntee}}{
 }
@@ -11,14 +11,21 @@
 get_new_ntee(old.code = "B20")
 }
 \arguments{
-\item{old.code}{Original NTEE code}
+\item{old.code}{character string of original NTEE code}
 }
 \value{
-Table with new ntee codes
+A list with new disaggregated codes.
 }
 \description{
 Input original NTEE code and return disaggregated NTEE code.
-}
-\details{
+
+A list of all available NTEE codes can be found in the \code{ntee.crosswalk}
+data set and at https://nccs.urban.org/publication/irs-activity-codes.
+
 Used to calculated distances between mission codes.
+}
+\examples{
+get_new_ntee("H96")
+get_new_ntee("R02")
+get_new_ntee("R0226")
 }

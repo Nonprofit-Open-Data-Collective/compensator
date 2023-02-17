@@ -1,12 +1,59 @@
 #' Select Sample 
 #' 
 #' @description
-#' user inputs org characteristics and search criteria and we return top N closest organizations 
+#' STILL NEED TO EDIT
+#' `select_sample` is used to select all other nonprofits that match a specified criteria, 
+#' as well as calculate their respective distances from a reference organization. 
+#' 
+#' See ... Vignette for detailed explanation on how distance between nonprofits is calculated.
 #' 
 #' @param org List output from `get_org_values()`
-#' @param search.criteria List with the following elements: broad.category, major.group, tens, type.org, univ, hosp, location.type, state, total.expense
+#' @param search.criteria List with the following elements: `broad.category`, `major.group`, `tens`, `type.org`, `univ`, `hosp`, `location.type`, `state`, `total.expense`. See example for formatting
+#' 
+#' @return A data frame with all nonprofits that match the search criteria. 
+#' Each nonprofit has the following variables:
+#' 
+#' * `EIN`: IRS Employer Identification Number 
+#' * `form.year`: IRS filing year from which this nonprofits information was obtained
+#' * `name`: Name of the nonprofit
+#' * `total.employee`: Total number of employees at the nonprofit
+#' * `gross.receipts`: Gross receipts reported for the year
+#' * `total.assests`: Total assets reported for the year
+#' * `total.expense`: Total expenses reported for the year
+#' * `ceo.compensation`: Total CEO compensation reported for the year
+#' * `gender`: Imputed gender of the CEO
+#' * `zip5`: 5 digit zip code of where the nonprofit is located
+#' * `state`: Two letter abbreviation of the state where the nonprofit is located
+#' * `location.type`: Either "metro" or "rural" for type of location the nonprofit is in
+#' * `ntee`: Original ntee code 
+#' * `broad.category`, `major.group`, `type.org`, `two.digit`, `two.digit.s`, `tens`, `ones`, `us.state`, `univ`, `hosp`: Parts of the dissagregated NTEE code. See ... for details.
+#' * `log.expense.dist`: Total Expense distance between the nonprofit and the reference organization
+#' * `mission.dist`: Mission distance between the nonprofit and the reference organization
+#' * `geo.dist`: Geographic distance between the nonprofit and the reference organization
+#' * `total.dist`: Total distance between the nonprofit and the reference organization
+#' * `rank`: Ranking of all nonprofits that match the reference set from closest to farthest from the reference organization.
 #' 
 #' @export
+#' @examples
+#' 
+#' input.org <- 
+#'   get_org_values(state = "FL",#
+#'                  location.type = "rural",
+#'                  total.expense = 1.2e6,
+#'                  ntee = "B20")
+#' 
+#' search.criteria <-
+#'  list(broad.category = 1:2, 
+#'       major.group = base::LETTERS, 
+#'       tens = 2:9, 
+#'       type.org = "regular", 
+#'       univ = FALSE,
+#'       hosp = FALSE, 
+#'       location.type = "both", 
+#'       state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
+#'       total.expense = c(1e5, 9.5e6) )
+#'       
+#' samp <- select_sample(input.org, search.criteria)
 select_sample <- function(org = get_org_values(state = "AL",
                                                location.type = "rural",
                                                total.expense = 100000,

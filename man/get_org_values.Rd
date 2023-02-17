@@ -19,19 +19,19 @@ get_org_values(
 
 \item{location.type}{either "rural" or "metro" for the type of city your organization is located in.}
 
-\item{total.expense}{a number of the annual total expenses of your organization in U.S. dollars.}
+\item{total.expense}{a number of the total annual expenses of your organization in U.S. dollars.}
 
-\item{ntee}{a character string of the NTEE code your organization belongs to. See https://nccs.urban.org/publication/irs-activity-codes for a list of all possible codes.}
+\item{ntee}{a character string of the NTEE code your organization belongs to. A list of all available NTEE codes can be found in the \code{ntee.crosswalk} data set and at https://nccs.urban.org/publication/irs-activity-codes.}
 }
 \value{
-a list of characteristics about your organization
+A list of characteristics about your organization
 }
 \description{
-input basic information about an organization and
+Input basic information about an organization and
 return a list of more detailed information.
 }
 \examples{
-get_org_values(state = "NY", location.type = "rural", total.expense = 50000, ntee = "K93")
+get_org_values(state = "NY", location.type = "rural", total.expense = 5000000, ntee = "K93")
 get_org_values(state = "DC", location.type = "metro", total.expense = 210000, ntee = "A0161")
 
 }

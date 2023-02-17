@@ -17,6 +17,55 @@ select_sample(
 
 \item{search.criteria}{List with the following elements: broad.category, major.group, tens, type.org, univ, hosp, location.type, state, total.expense}
 }
+\value{
+A data frame with all nonprofits that match the search criteria.
+Each nonprofit with the following variables:
+\itemize{
+\item \code{EIN}: IRS Employer Identification Number
+\item \code{form.year}: IRS filing year from which this nonprofits information was obtained
+\item \code{name}: Name of the nonprofit
+\item \code{total.employee}: Total number of employees at the nonprofit
+\item \code{gross.receipts}: Gross receipts reported for the year
+\item \code{total.assests}: Total assets reported for the year
+\item \code{total.expense}: Total expenses reported for the year
+\item \code{ceo.compensation}: Total CEO compensation reported for the year
+\item \code{gender}: Imputed gender of the CEO
+\item \code{zip5}: 5 digit zip code of where the nonprofit is located
+\item \code{state}: Two letter abbreviation of the state where the nonprofit is located
+\item \code{location.type}: Either "metro" or "rural" for type of location the nonprofit is in
+\item \code{ntee}: Original ntee code
+\item \code{broad.category}, \code{major.group}, \code{type.org}, \code{two.digit}, \code{two.digit.s}, \code{tens}, \code{ones}, \code{us.state}, \code{univ}, \code{hosp}: Parts of the dissagregated NTEE code. See ... for details.
+\item \code{log.expense.dist}: Total Expense distance between the nonprofit and the reference organization
+\item \code{mission.dist}: Mission distance between the nonprofit and the reference organization
+\item \code{geo.dist}: Geographic distance between the nonprofit and the reference organization
+\item \code{total.dist}: Total distance between the nonprofit and the reference organization
+\item \code{rank}: Ranking of all nonprofits that match the reference set from closest to farthest from the reference organization.
+}
+}
 \description{
-user inputs org characteristics and search criteria and we return top N closest organizations
+\code{select_sample} is used to select all other nonprofits that match a specified criteria,
+as well as calculate their respective distances from a reference organization.
+
+See ... Vignette for detailed explanation on how distance between nonprofits is calculated.
+}
+\examples{
+
+input.org <- 
+  get_org_values(state = "FL",#
+                 location.type = "rural",
+                 total.expense = 1.2e6,
+                 ntee = "B20")
+
+search.criteria <-
+ list(broad.category = 1:2, 
+      major.group = base::LETTERS, 
+      tens = 2:9, 
+      type.org = "regular", 
+      univ = FALSE,
+      hosp = FALSE, 
+      location.type = "both", 
+      state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
+      total.expense = c(1e5, 9.5e6) )
+      
+samp <- select_sample(input.org, search.criteria)
 }

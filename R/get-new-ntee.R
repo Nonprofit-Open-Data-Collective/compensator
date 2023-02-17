@@ -1,15 +1,24 @@
-#' get_new_ntee
+#'  Disaggregate NTEE Code 
 #'
+#' @description 
 #' Input original NTEE code and return disaggregated NTEE code. 
+#' 
+#' A list of all available NTEE codes can be found in the `ntee.crosswalk` 
+#' data set and at https://nccs.urban.org/publication/irs-activity-codes. 
 #' 
 #' Used to calculated distances between mission codes. 
 #'
 #' @format ## `get_new_ntee`
 #' 
-#' @param old.code Original NTEE code 
+#' @param old.code character string of original NTEE code 
 #' 
-#' @return Table with new ntee codes
+#' @return A list with new disaggregated codes.
 #' @export
+#' 
+#' @examples 
+#' get_new_ntee("H96")
+#' get_new_ntee("R02")
+#' get_new_ntee("R0226")
 get_new_ntee <- function(old.code = "B20"){
   
   #find row in ntee crosswalk file 
@@ -18,12 +27,14 @@ get_new_ntee <- function(old.code = "B20"){
   GOOD <- old.code %in% ntee.crosswalk$ntee
   
   if(!GOOD){
-    return("ERROR: Please enter a valid NTEE code.")
+    stop("Input parameter is not a vaild NTEE code.")
   }
   
   new.code <-
     ntee.crosswalk %>%
     dplyr::filter(ntee == old.code)
+  
+  new.code <- as.list(new.code)
   
   return(new.code)
 }

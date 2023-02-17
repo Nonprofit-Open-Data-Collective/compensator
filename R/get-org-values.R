@@ -1,20 +1,20 @@
 #' Get Organization Values 
 #' 
-#' input basic information about an organization and 
+#' Input basic information about an organization and 
 #' return a list of more detailed information. 
 #' 
 #' @format `get_org_values()`
 #' 
 #' @param state Two letter abbreviation of which state your organization is located in. See `state.abb52` for options.
 #' @param location.type either "rural" or "metro" for the type of city your organization is located in. 
-#' @param total.expense a number of the annual total expenses of your organization in U.S. dollars. 
-#' @param ntee a character string of the NTEE code your organization belongs to. See https://nccs.urban.org/publication/irs-activity-codes for a list of all possible codes.
+#' @param total.expense a number of the total annual expenses of your organization in U.S. dollars. 
+#' @param ntee a character string of the NTEE code your organization belongs to. A list of all available NTEE codes can be found in the `ntee.crosswalk` data set and at https://nccs.urban.org/publication/irs-activity-codes. 
 #' 
-#' @return a list of characteristics about your organization 
+#' @return A list of characteristics about your organization 
 #' @export 
 #' 
 #' @examples 
-#' get_org_values(state = "NY", location.type = "rural", total.expense = 50000, ntee = "K93")
+#' get_org_values(state = "NY", location.type = "rural", total.expense = 5000000, ntee = "K93")
 #' get_org_values(state = "DC", location.type = "metro", total.expense = 210000, ntee = "A0161")
 
 #'
@@ -44,8 +44,8 @@ get_org_values <- function(state = "CA",
   }
   
   ## Generate correct values to return 
-  #Total Expense, State, Location Type, Original NTEE code, univ, hosp, specialty or regular, disaggregated ntee code
-  new.code <- as.list(get_new_ntee(ntee))
+  #Total Expense, State, Location Type, disaggregated ntee code
+  new.code <- get_new_ntee(ntee)
   
   ret <- list(total.expense = total.expense, 
               state = state,
