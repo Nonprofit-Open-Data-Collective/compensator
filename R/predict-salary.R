@@ -22,13 +22,17 @@ predict_salary <- function(samp ){
   weighted.avg <- sum(samp$weight * samp$ceo.compensation)
   
   ## Get Range
-  salary.range <- get_salary_range(samp, weighted.avg)
+  range.predict <- get_salary_range(samp, weighted.avg)
+  salary.range <- range.predict$suggested.range
   names(salary.range) <- c()
   
   ret <- list(
     point.value = weighted.avg,
-    salary.range = salary.range
+    salary.range = salary.range,
+    sample = range.predict$samp
   )
+  
+  return(ret)
   
   
 }

@@ -49,12 +49,19 @@ get_salary_range <- function(samp, point.value){
   
   #get residuals as a percentage of their original value
   resids <- mod$residuals
-  per <- resids / dat.model$ceo.compensation / 100
-  quants <- quantile(per, c(0.05, 0.95)) #get rid of the bonus years
+  per <- resids / mod$fitted.values  
+  p <-  point.value * (1+per)
+  
+  suggested.range <- quantile(p, c(0.05, 0.95)) #get rid of the bonus years
   
   
-  suggested.range <- point.value + point.value * quants
+  # Store values for return 
+  samp$fitted.values <- p
+  samp$residual.percent <- per
   
-  return(suggested.range)
+  ret <- list(suggested.range = suggested.range,
+              samp = samp)
+  
+  return(ret)
 }
 
