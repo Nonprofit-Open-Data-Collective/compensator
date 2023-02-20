@@ -81,9 +81,11 @@ calc_distace <- function(org, comparison.orgs, weights){
   ret <- comparison.orgs %>% 
     #replace NA in log.expense.dist with max.expense.dist
     dplyr::mutate(log.expense.dist = ifelse(is.na(log.expense.dist), max.expense.dist, log.expense.dist)) %>% 
+    # scale
+    dplyr::mutate(across(c(log.expense.dist, geo.dist, mission.dist),  ~ 1/3*100*scale(., center = FALSE)[,1]))  %>%
     #get total distance
     dplyr::rowwise() %>%
-    dplyr::mutate( total.dist = mean(c(log.expense.dist, geo.dist, mission.dist ))) %>%
+    dplyr::mutate( total.dist = sum(c(log.expense.dist, geo.dist, mission.dist ))) %>%
     #get rank for threshold
     dplyr::ungroup() %>%
     dplyr::arrange(  total.dist  ) %>%
