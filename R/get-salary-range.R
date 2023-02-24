@@ -6,6 +6,15 @@
 #' @param samp output from `select_sample()`
 #' @param point.value weighted average salary range from samp
 #' 
+#' @return A list with 
+#' 1. `suggested.range`: vector of minimum and maximum suggested salary range
+#' 2. `samp`: the input data frame `samp` with two new columns. `residual.percent` is the 
+#' residual of that observation as a percent of the expected salary. `fitted.values` weighted 
+#' average of all CEO compensation multiplied by (1+`residual.percent`)
+#' 
+#'  See ... Vignette for detailed explanation on how these values are calculated
+#' 
+#' 
 #' @export
 #' 
 get_salary_range <- function(samp, point.value){

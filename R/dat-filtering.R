@@ -26,7 +26,7 @@
 #' @param state vector of 2 letter state abbreviations to be included
 #' @param total.expense vector of c(min,max) of range of total expenses to be included
 #' 
-#' @return A table of nonprofits that match the filtering criteria
+#' @return All entries in `EIN_filtering` data set that match the filtering criteria
 #' @export
 #' 
 #' @examples 

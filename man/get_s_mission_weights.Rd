@@ -6,6 +6,9 @@
 \usage{
 get_s_mission_weights()
 }
+\value{
+Data frame with 3 levels and 3 weights needed to calculated geographic distances.
+}
 \description{
 At the moment, this is the same for all specality organizations
 This is currently a dummy weight set.

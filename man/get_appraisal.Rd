@@ -9,8 +9,73 @@ get_appraisal(org.characteristics, search.criteria)
 \arguments{
 \item{org.characteristics}{output from \code{get_org_values()}}
 
-\item{search}{criteria a list with ...... NEED TO UPDATE}
+\item{search}{criteria a list with ...... NEED TO UPDATE - see \code{select_sample}}
+}
+\value{
+A list with 3 objects
+\enumerate{
+\item \code{suggested.salary}: a numeric of the suggested CEO compensation for the input organization
+\item \code{suggested.range}: vector of minimum and maximum suggested salary range
+\item \code{reference.set}: a data frame of all nonprofits used to calculated the suggested
+CEO compensation with the following variables:
+}
+\itemize{
+\item \code{EIN}: IRS Employer Identification Number
+\item \code{form.year}: IRS filing year from which this nonprofits information was obtained
+\item \code{name}: Name of the nonprofit
+\item \code{total.employee}: Total number of employees at the nonprofit
+\item \code{gross.receipts}: Gross receipts reported for the year
+\item \code{total.assests}: Total assets reported for the year
+\item \code{total.expense}: Total expenses reported for the year
+\item \code{ceo.compensation}: Total CEO compensation reported for the year
+\item \code{gender}: Imputed gender of the CEO
+\item \code{zip5}: 5 digit zip code of where the nonprofit is located
+\item \code{state}: Two letter abbreviation of the state where the nonprofit is located
+\item \code{location.type}: Either "metro" or "rural" for type of location the nonprofit is in
+\item \code{ntee}: Original ntee code
+\item \code{broad.category}, \code{major.group}, \code{type.org}, \code{two.digit}, \code{two.digit.s}, \code{tens}, \code{ones}, \code{us.state}, \code{univ}, \code{hosp}: Parts of the dissagregated NTEE code. See ... for details.
+\item \code{log.expense.dist}: Total Expense distance between the nonprofit and the reference organization
+\item \code{mission.dist}: Mission distance between the nonprofit and the reference organization
+\item \code{geo.dist}: Geographic distance between the nonprofit and the reference organization
+\item \code{total.dist}: Total distance between the nonprofit and the reference organization
+\item \code{rank}: Ranking of all nonprofits that match the reference set from closest to farthest from the reference organization.
+\item \code{dist.std}: standardized total distance
+\item \code{weight}: weight used to calculated weighted average of \code{suggested.salary}
+\item \code{residual.percent}: the residual of that observation as a percent of the expected salary.
+\item \code{fitted.values}: is \code{suggested.salary}(1+\code{residual.percent})
+}
+
+See ... Vignette for details on how these values are calculated.
 }
 \description{
 Wrapper function for generating entire compensation appraisal
+}
+\examples{
+
+\dontrun{
+# Step 1: Create list of organization characteristics 
+org <- get_org_values(
+         state = "FL",
+         location.type = "metro",
+         total.expense = 1000000,
+         ntee = "B20")
+search.criteria <-
+  list(broad.category = 1:2, 
+       major.group = base::LETTERS, 
+       tens = 2:9, 
+       type.org = "regular",
+       univ = FALSE,
+       hosp = FALSE, 
+       location.type = "both", 
+       state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
+       total.expense = c(0, Inf) )
+       
+#Step 3: Get appraisal
+appraisal2 <- get_appraisal(org, search.criteria) 
+
+appraisal2$suggested.salary
+appraisal2$suggested.range
+reference.set <- appraisal2$reference.set
+View(reference.set)
+}
 }

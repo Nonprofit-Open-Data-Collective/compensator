@@ -5,6 +5,9 @@
 #' This is currently a dummy weight set. 
 #' This will need to be updated when we decide on the final weight set
 #' 
+#' @return 
+#' Data frame with 3 levels and 3 weights needed to calculated geographic distances.
+#' 
 #' @export 
 get_s_mission_weights <- function(){
   

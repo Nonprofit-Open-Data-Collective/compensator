@@ -15,11 +15,11 @@ select_sample(
 \arguments{
 \item{org}{List output from \code{get_org_values()}}
 
-\item{search.criteria}{List with the following elements: broad.category, major.group, tens, type.org, univ, hosp, location.type, state, total.expense}
+\item{search.criteria}{List with the following elements: \code{broad.category}, \code{major.group}, \code{tens}, \code{type.org}, \code{univ}, \code{hosp}, \code{location.type}, \code{state}, \code{total.expense}. See example for formatting}
 }
 \value{
 A data frame with all nonprofits that match the search criteria.
-Each nonprofit with the following variables:
+Each nonprofit has the following variables:
 \itemize{
 \item \code{EIN}: IRS Employer Identification Number
 \item \code{form.year}: IRS filing year from which this nonprofits information was obtained
@@ -43,6 +43,7 @@ Each nonprofit with the following variables:
 }
 }
 \description{
+STILL NEED TO EDIT
 \code{select_sample} is used to select all other nonprofits that match a specified criteria,
 as well as calculate their respective distances from a reference organization.
 

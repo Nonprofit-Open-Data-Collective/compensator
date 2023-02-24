@@ -12,7 +12,10 @@
 #' 
 #' @param old.code character string of original NTEE code 
 #' 
-#' @return A list with new disaggregated codes.
+#' @return A list with new disaggregated code values.
+#' See ... Vignette on how these values are calculated. 
+#' All known NTEE codes and their respective disaggregated codes are stored 
+#' in `ntee-crosswalk` data set. 
 #' @export
 #' 
 #' @examples 

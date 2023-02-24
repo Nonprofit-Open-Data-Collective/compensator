@@ -11,6 +11,17 @@ get_salary_range(samp, point.value)
 
 \item{point.value}{weighted average salary range from samp}
 }
+\value{
+A list with
+\enumerate{
+\item \code{suggested.range}: vector of minimum and maximum suggested salary range
+\item \code{samp}: the input data frame \code{samp} with two new columns. \code{residual.percent} is the
+residual of that observation as a percent of the expected salary. \code{fitted.values} weighted
+average of all CEO compensation multiplied by (1+\code{residual.percent})
+}
+
+See ... Vignette for detailed explanation on how these values are calculated
+}
 \description{
 function to get the salary range
 }

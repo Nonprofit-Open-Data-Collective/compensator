@@ -5,6 +5,15 @@
 #' 
 #' @param samp output from `select_sample()`
 #' 
+#' @return A list with 
+#' 1. `point.value`: the weighted average of CEO compensation using inverse distance as weights, 
+#' 2. `salary.range`: vector of minimum and maximum suggested salary range
+#' 3. `sample`: the input data frame `samp` with two new columns. `residual.percent` is the 
+#' residual of that observation as a percent of the expected salary. `fitted.values` is 
+#' `point.value`*(1+`residual.percent`). 
+#' 
+#'  See ... Vignette for detailed explanation on how these values are calculated
+#' 
 #' @export 
 #' 
 #' 

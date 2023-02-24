@@ -6,6 +6,9 @@
 \usage{
 get_geo_weights()
 }
+\value{
+Data frame with 3 levels and 3 weights needed to calculated geographic distances.
+}
 \description{
 At the moment, this is the same for all organizations
 This is currently a dummy weight set.

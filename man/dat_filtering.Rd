@@ -47,7 +47,7 @@ dat_filtering(
 \item{total.expense}{vector of c(min,max) of range of total expenses to be included}
 }
 \value{
-A table of nonprofits that match the filtering criteria
+All entries in \code{EIN_filtering} data set that match the filtering criteria
 }
 \description{
 STILL NEED TO ADD EXAMPLE

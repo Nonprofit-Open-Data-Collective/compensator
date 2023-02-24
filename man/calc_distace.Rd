@@ -14,7 +14,8 @@ calc_distace(org, comparison.orgs, weights)
 \item{weights}{output from \code{get_weights()}}
 }
 \value{
-comparison.orgs with appended distances
+input of \code{comparison.orgs} with appended distances for each nonproft
+from the input organization
 }
 \description{
 Calculate distances between one organization and all other organizations

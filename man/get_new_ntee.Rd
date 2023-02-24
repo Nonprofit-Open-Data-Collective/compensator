@@ -14,7 +14,10 @@ get_new_ntee(old.code = "B20")
 \item{old.code}{character string of original NTEE code}
 }
 \value{
-A list with new disaggregated codes.
+A list with new disaggregated code values.
+See ... Vignette on how these values are calculated.
+All known NTEE codes and their respective disaggregated codes are stored
+in \code{ntee-crosswalk} data set.
 }
 \description{
 Input original NTEE code and return disaggregated NTEE code.

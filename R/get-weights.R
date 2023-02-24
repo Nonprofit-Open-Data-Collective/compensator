@@ -4,6 +4,9 @@
 #' 
 #' @param org list output from `get_org_values()`
 #' 
+#' @return A list with 2 data frames. `geo` is the geographic distance weights, 
+#' and `mission` is for the mission distance weights.
+#' 
 #' @export
 #' 
 get_weights <- function(org = get_org_values()){

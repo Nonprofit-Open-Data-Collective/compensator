@@ -9,6 +9,10 @@ get_weights(org = get_org_values())
 \arguments{
 \item{org}{list output from \code{get_org_values()}}
 }
+\value{
+A list with 2 data frames. \code{geo} is the geographic distance weights,
+and \code{mission} is for the mission distance weights.
+}
 \description{
 Input user org characteristics, output correct weight set to be used for distance
 }

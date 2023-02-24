@@ -9,6 +9,18 @@ predict_salary(samp)
 \arguments{
 \item{samp}{output from \code{select_sample()}}
 }
+\value{
+A list with
+\enumerate{
+\item \code{point.value}: the weighted average of CEO compensation using inverse distance as weights,
+\item \code{salary.range}: vector of minimum and maximum suggested salary range
+\item \code{sample}: the input data frame \code{samp} with two new columns. \code{residual.percent} is the
+residual of that observation as a percent of the expected salary. \code{fitted.values} is
+\code{point.value}*(1+\code{residual.percent}).
+}
+
+See ... Vignette for detailed explanation on how these values are calculated
+}
 \description{
 function to predict salary
 }
