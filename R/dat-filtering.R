@@ -60,13 +60,13 @@ dat_filtering <- function(broad.category = 1:12,
    dat.filtered <- dat.filtered[ dat.filtered$type.org == type.org , ]
  }
   
-  # Filter by univ
-  if(!any(is.na(univ)) & is.logical(univ)){
+  # Filter by univ if FALSE, if TRUE do nothing
+  if(!any(is.na(univ)) & univ == FALSE){
     dat.filtered <- dat.filtered[dat.filtered$univ == univ , ]
   }
   
-  # Filter by Hospital
-  if(!any(is.na(hosp)) & is.logical(hosp)){
+  # Filter by hosp if FALSE, if TRUE do nothing
+  if(!any(is.na(hosp)) & hosp == FALSE){
     dat.filtered <- dat.filtered[dat.filtered$hosp == hosp , ]
   }
   
