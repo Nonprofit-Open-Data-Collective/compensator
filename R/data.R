@@ -12,17 +12,17 @@
 #' A data frame with 12,847 rows and 21 columns:
 #' \describe{
 #'   \item{EIN}{nonprofit IRS employer identification number}
-#'   \item{FormYr}{IRS Filing year}
-#'   \item{Name}{Name of nonprofit}
-#'   \item{NTEE}{NTEE code of nonprofit. See references for details }
-#'   \item{Univeristy}{TRUE or FALSE, is the nonprofit a university?}
-#'   \item{Hosiptal}{TRUE or FALSE, is the nonprofit a hospital?}
-#'   \item{TotalExpense, TotalEmployee, GrossReceipts, TotalAssests}{respective items reported to the IRS for the filing year}
-#'   \item{CEOCompensation}{Total CEO compensation}
-#'   \item{Gender}{Imputed gender of the CEO, see references details.}
-#'   \item{State}{State the nonprofit is in }
-#'   \item{ZIP5}{5 didget zip code of the nonprofit}
-#'   \item{LocationType}{"Metropolatin" or "Rural", what type of city the nonprofit is located in}
+#'   \item{form.year}{IRS Filing year}
+#'   \item{name}{Name of nonprofit}
+#'   \item{ntee}{NTEE code of nonprofit. See references for details }
+#'   \item{univ}{TRUE or FALSE, is the nonprofit a university?}
+#'   \item{hosp}{TRUE or FALSE, is the nonprofit a hospital?}
+#'   \item{total.expense, TotalEmployee, GrossReceipts, TotalAssests}{respective items reported to the IRS for the filing year}
+#'   \item{ceo.compensation}{Total CEO compensation}
+#'   \item{gender}{Imputed gender of the CEO, see references details.}
+#'   \item{state}{State the nonprofit is in }
+#'   \item{zip5}{5 didget zip code of the nonprofit}
+#'   \item{location.type}{"metro" or "rural", what type of city the nonprofit is located in}
 #' }
 #' 
 "nonprofits"
@@ -37,9 +37,9 @@
 #' A data frame with 12,847 rows and 21 columns:
 #' \describe{
 #'   \item{EIN}{Employer Identification Number}
-#'   \item{NTEE}{Orignal NTEE Code}
-#'   \item{BroadCategroy}{1-12 Broad Category}
-#'   \item{MajorGroup}{A-Z Major Group}
+#'   \item{ntee}{Orignal NTEE Code}
+#'   \item{broad.category}{1-12 Broad Category}
+#'   \item{major.group}{A-Z Major Group}
 #'   \item{type.org}{"R" for regular organization (two digit value of 20-99) of "S" for specality organization (two digit value of 01-19)}
 #'   \item{two.digit}{Orignal decile and centile values of NTEE code}
 #'   \item{two.digit.s}{For regular organizations, this is just the two.digit value. 
@@ -48,11 +48,11 @@
 #'   \item{tens}{Tens place of the two.digit.s value.}
 #'   \item{ones}{Ones place of the two.digit.s value}
 #'   \item{us.state}{TRUE if organization is in a U.S. state. FALSE if orgainization if a U.S. territory.}
-#'   \item{University}{TRUE if organization is a university. FALSE otherwise. }
-#'   \item{Hostipal}{TRUE if organization is a hospital. FALSE otherwise. }
-#'   \item{TotalExpenses}{Total anual expenses of organization reported to the IRS.}
-#'   \item{State}{2 letter state abbreviation of locaiton of organization.}
-#'   \item{LocationType}{"Metropolitan" or "Rural" for location type of organization. }
+#'   \item{univ}{TRUE if organization is a university. FALSE otherwise. }
+#'   \item{hosp}{TRUE if organization is a hospital. FALSE otherwise. }
+#'   \item{total.expense"}{Total anual expenses of organization reported to the IRS.}
+#'   \item{state}{2 letter state abbreviation of locaiton of organization.}
+#'   \item{location.type}{"metro" or "rural" for location type of organization. }
 #' }
 "EIN.filtering"
 
@@ -87,6 +87,7 @@
 #' NTEE Codes Crosswalk
 #' 
 #' Crosswalk between original NTEE codes and the disaggregated version for calculating distances between two mission codes. 
+#' See ... Vignette for details on how these values are calculated
 #' 
-#' See  https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies for details. 
+#' Data from   https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies. 
 "ntee.crosswalk"

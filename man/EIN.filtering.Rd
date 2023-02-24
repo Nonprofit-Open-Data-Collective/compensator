@@ -10,9 +10,9 @@
 A data frame with 12,847 rows and 21 columns:
 \describe{
 \item{EIN}{Employer Identification Number}
-\item{NTEE}{Orignal NTEE Code}
-\item{BroadCategroy}{1-12 Broad Category}
-\item{MajorGroup}{A-Z Major Group}
+\item{ntee}{Orignal NTEE Code}
+\item{broad.category}{1-12 Broad Category}
+\item{major.group}{A-Z Major Group}
 \item{type.org}{"R" for regular organization (two digit value of 20-99) of "S" for specality organization (two digit value of 01-19)}
 \item{two.digit}{Orignal decile and centile values of NTEE code}
 \item{two.digit.s}{For regular organizations, this is just the two.digit value.
@@ -21,11 +21,11 @@ if there is not a further categorization this is just the two digit value. }
 \item{tens}{Tens place of the two.digit.s value.}
 \item{ones}{Ones place of the two.digit.s value}
 \item{us.state}{TRUE if organization is in a U.S. state. FALSE if orgainization if a U.S. territory.}
-\item{University}{TRUE if organization is a university. FALSE otherwise. }
-\item{Hostipal}{TRUE if organization is a hospital. FALSE otherwise. }
-\item{TotalExpenses}{Total anual expenses of organization reported to the IRS.}
-\item{State}{2 letter state abbreviation of locaiton of organization.}
-\item{LocationType}{"Metropolitan" or "Rural" for location type of organization. }
+\item{univ}{TRUE if organization is a university. FALSE otherwise. }
+\item{hosp}{TRUE if organization is a hospital. FALSE otherwise. }
+\item{total.expense"}{Total anual expenses of organization reported to the IRS.}
+\item{state}{2 letter state abbreviation of locaiton of organization.}
+\item{location.type}{"metro" or "rural" for location type of organization. }
 }
 }
 }
