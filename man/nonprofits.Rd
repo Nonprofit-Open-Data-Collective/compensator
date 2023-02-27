@@ -12,6 +12,7 @@ A data frame with 12,847 rows and 21 columns:
 \item{EIN}{nonprofit IRS employer identification number}
 \item{form.year}{IRS Filing year}
 \item{name}{Name of nonprofit}
+\itel{url}{URL of ProPublica.org with more detailed information about the nonprofit.}
 \item{ntee}{NTEE code of nonprofit. See references for details }
 \item{univ}{TRUE or FALSE, is the nonprofit a university?}
 \item{hosp}{TRUE or FALSE, is the nonprofit a hospital?}

@@ -66,7 +66,8 @@ temp <-
   dplyr::mutate(tens = substr(two.digit.s, 1, 1)) %>%
   dplyr::mutate(ones = substr(two.digit.s, 2, 2)) %>%
   #us state or not
-  dplyr::mutate(us.state = state != "PR" )
+  dplyr::mutate(us.state = state != "PR" ) %>%
+  dplyr::mutate(url = paste0("https://projects.propublica.org/nonprofits/organizations/", EIN))
 
 
 
@@ -76,7 +77,7 @@ temp <-
 ## Make user data  --------------------------------------------------------
 nonprofits <-
   temp %>%
-  dplyr::select(EIN, form.year, name,  ntee, univ, hosp,
+  dplyr::select(EIN, form.year, name,  url, ntee, univ, hosp,
                 total.expense, total.employee, gross.receipts, total.assests,
                 ceo.compensation, gender,
                 state, zip5, location.type)
