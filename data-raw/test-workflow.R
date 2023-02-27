@@ -6,7 +6,7 @@ library(compensator)
 org <- get_org_values(state = "FL",
                       location.type = "metro",
                       total.expense = 1000000,
-                      ntee = "B20")
+                      ntee = "B01")
 
 # step 2, get comparison orgs and calculate distances
 search.criteria <-

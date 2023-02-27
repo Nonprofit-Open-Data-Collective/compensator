@@ -61,7 +61,7 @@ get_salary_range <- function(samp, point.value){
   per <- resids / mod$fitted.values  
   p <-  point.value * (1+per)
   
-  suggested.range <- quantile(p, c(0.05, 0.95)) #get rid of the bonus years
+  suggested.range <- quantile(p, c(0.05, 0.95), na.rm = TRUE) #get rid of the bonus years
   
   
   # Store values for return 
