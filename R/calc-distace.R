@@ -1,4 +1,4 @@
-#' calc_distance_r
+#' calc_distance
 #'
 #' @description 
 #' Calculate distances between one organization and all other organizations
