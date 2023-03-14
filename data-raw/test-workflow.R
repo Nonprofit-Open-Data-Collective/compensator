@@ -3,12 +3,24 @@ library(compensator)
 
 ### Set up initial parameters  ---------------------------------
 # step 1, get org info 
-org <- get_org_values(state = "FL",
+org <- get_org_values(state = "CA",
                       location.type = "metro",
                       total.expense = 1000000,
                       ntee = "B01")
 
 # step 2, get comparison orgs and calculate distances
+search.criteria <-
+  list(broad.category = base::ifelse(org$type.org == "regular", org$broad.category, NA), 
+       major.group = base::LETTERS,
+       tens = 0:9,
+       type.org = org$type.org,
+       univ = org$univ,
+       hosp = org$hosp,
+       location.type = org$location.type,
+       state = state.abb52,
+       total.expense = c(0.1*org$total.expense, 10*org$total.expense) )
+
+
 search.criteria <-
   list(broad.category = 1:2, 
        major.group = base::LETTERS, 

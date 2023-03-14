@@ -11,27 +11,62 @@ devtools::install_github( 'nonprofit-open-data-collective/compensator' )
 ```r
 library(compensator)
 
-## Get all regular nonprofits (no specality orgs)
-### see help file for defaults
-dat <- dat_filtering()
+devtools::build()
+library(compensator)
 
-### Calculate distances 
-# create a random org
-org <- data.frame( State = "AL", 
-                   LocationType = "rural",
-                   NTEE = "B20",
-                   UNIV = FALSE,
-                   HOSP = FALSE,
-                   TotalExpense = 1000000
-                  )
+### Set up initial parameters  ---------------------------------
+# Step 1, get org info 
+org <- get_org_values(state = "CA",
+                      location.type = "metro",
+                      total.expense = 1000000,
+                      ntee = "B01")
 
-# Assign random weights
-weights = list( geo = data.frame( level = c(1,2,3),
-                                  weight = c(1,1,1) ),
-                r.mission = data.frame( level = c(1,2,3,4),
-                                        weight = c(1,1,1,1) ) )
+# Step 2, get comparison orgs and calculate distances
+search.criteria <-
+  list(broad.category = base::ifelse(org$type.org == "regular", 
+       org$broad.category, NA), 
+       major.group = base::LETTERS,
+       tens = 0:9,
+       type.org = org$type.org,
+       univ = org$univ,
+       hosp = org$hosp,
+       location.type = org$location.type,
+       state = state.abb52,
+       total.expense = c(0.1*org$total.expense, 10*org$total.expense) )
 
-#get results
-results <- calc_distace_r( org, dat, weights )
-               
+
+search.criteria <-
+  list(broad.category = 1:2, 
+       major.group = base::LETTERS, 
+       tens = 2:9, 
+       type.org = "regular", 
+       univ = FALSE,
+       hosp = FALSE, 
+       location.type = "both", 
+       state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
+       total.expense = c(0, Inf) )
+       
+
+### Method A: Using wrapper function -----------------------------------
+### Step 3 : Get Apprasial
+appraisal2 <- get_appraisal(org, search.criteria) 
+
+appraisal2$suggested.salary
+appraisal2$suggested.range
+reference.set <- appraisal2$reference.set
+View(reference.set)
+
+
+### Method B - Selecting Comparison Set ------------------------
+### Step 2.5 : Save comparison set and select organizations you want to use
+
+#get sample with distance
+samp <- select_sample(org = org, search.criteria = search.criteria)
+
+
+### Step 3 : Get Apprasial
+# get appraisal
+appraisal <- predict_salary(samp)
+appraisal
+
 ```
