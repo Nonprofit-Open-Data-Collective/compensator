@@ -9,7 +9,7 @@
 #' @param comparison.orgs output from `dat_filtering()`
 #' @param weights output from `get_weights()`
 #' 
-#' @return input of `comparison.orgs` with appended distances for each nonproft 
+#' @return input of `comparison.orgs` with appended distances for each nonprofit 
 #' from the input organization
 #' @export
 calc_distace <- function(org, comparison.orgs, weights){
