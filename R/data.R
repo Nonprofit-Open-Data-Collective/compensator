@@ -9,53 +9,53 @@
 #' Use `EIN` to match with `EIN_filtering` data set.
 #' 
 #' @format ## `nonprofits`
-#' A data frame with 12,847 rows and 21 columns:
+#' A data frame with 12,847 rows and 18 columns. 
+#' Each row is a unique nonprofit, and the columns are its respective attributes:
 #' \describe{
 #'   \item{EIN}{nonprofit IRS employer identification number}
 #'   \item{form.year}{IRS Filing year}
 #'   \item{name}{Name of nonprofit}
 #'   \itel{url}{URL of ProPublica.org with more detailed information about the nonprofit.}
-#'   \item{ntee}{NTEE code of nonprofit. See references for details }
+#'   \item{ntee}{Original NTEE code of nonprofit. See references for details }
+#'   \item{new.code}{New disaggregated NTEE code. See vignette for details.}
 #'   \item{univ}{TRUE or FALSE, is the nonprofit a university?}
 #'   \item{hosp}{TRUE or FALSE, is the nonprofit a hospital?}
 #'   \item{total.expense, TotalEmployee, GrossReceipts, TotalAssests}{respective items reported to the IRS for the filing year}
 #'   \item{ceo.compensation}{Total CEO compensation}
-#'   \item{gender}{Imputed gender of the CEO, see references details.}
-#'   \item{state}{State the nonprofit is in }
-#'   \item{zip5}{5 didget zip code of the nonprofit}
+#'   \item{gender}{Imputed gender of the CEO, see references for details.}
+#'   \item{state}{State the nonprofit is located in }
+#'   \item{zip5}{5 didget zip code the nonprofit is located in}
 #'   \item{location.type}{"metro" or "rural", what type of city the nonprofit is located in}
 #' }
 #' 
 "nonprofits"
 
-#' EIN.filtering
+#' nonprofits.detailed
 #'
-#' data used for filtering in`dat-filtering`.
+#' More detailed information about the nonprofit, mostly regarding the mission classification.
 #' Use EIN to match with `nonprofits` data set. 
+#' This data set is mostly used for calculating distance. 
 #' 
 #' 
-#' @format ## `EIN_filtering`
-#' A data frame with 12,847 rows and 21 columns:
+#' @format ## `nonprofits.detailed`
+#' A data frame with 12,847 rows and 14 columns:
 #' \describe{
 #'   \item{EIN}{Employer Identification Number}
 #'   \item{ntee}{Orignal NTEE Code}
-#'   \item{broad.category}{1-12 Broad Category}
-#'   \item{major.group}{A-Z Major Group}
-#'   \item{type.org}{"R" for regular organization (two digit value of 20-99) of "S" for specality organization (two digit value of 01-19)}
-#'   \item{two.digit}{Orignal decile and centile values of NTEE code}
-#'   \item{two.digit.s}{For regular organizations, this is just the two.digit value. 
-#'   For specialty organizations, if there is a further categorization available this is the 3rd and 4th digit of the NTEE code,
-#'   if there is not a further categorization this is just the two digit value. }
-#'   \item{tens}{Tens place of the two.digit.s value.}
-#'   \item{ones}{Ones place of the two.digit.s value}
-#'   \item{us.state}{TRUE if organization is in a U.S. state. FALSE if orgainization if a U.S. territory.}
+#'   \item{new.code}{New NTEE Code. See vignette for how this value is constructed.}
+#'   \item{type.org}{Two letter value specifying the type of organization. First part of `new.code`. See vignette for detials.}
+#'   \item{broad.category}{Three letter value specifying broad category of the organization. Second part of the `new.code`. See vignette for details.}
+#'   \item{major.group}{A-Z Major Group (3rd to last character of `new.code`).}
+#'   \item{division}{Division from `new.code` (2nd to last character of `new.code`)}
+#'   \item{subdivision}{Subdivision from `new.code` (last character of `new.code`)}
 #'   \item{univ}{TRUE if organization is a university. FALSE otherwise. }
 #'   \item{hosp}{TRUE if organization is a hospital. FALSE otherwise. }
-#'   \item{total.expense"}{Total anual expenses of organization reported to the IRS.}
+#'   \item{total.expense}{Total anual expenses of organization reported to the IRS.}
 #'   \item{state}{2 letter state abbreviation of locaiton of organization.}
-#'   \item{location.type}{"metro" or "rural" for location type of organization. }
+#'   \item{location.type}{"metro", "suburban", "town" or "rural" for location type of organization. }
+#'   \item{RUCA}{Average RUCA code for the `ZIP5`. From USDA.}
 #' }
-"EIN.filtering"
+"nonprofits.detailed"
 
 #' state.abb52
 #' 
@@ -74,12 +74,13 @@
 #' 2. Add edges between Alaska and Washington, Hawaii and California, Puerto Rico and Florida.
 #' 3. Distance between two states is the path length between them. 
 #' 
-#' Equivalently, this is the number of states you need to go through to drive from state A to state B,
+#' Equivalently, this is the number of state boarders you need to cross to drive from state A to state B,
 #' with the added boarders of Alaska/Washington, Hawaii/California, and Puerto Rico/Florida.
 #'
 #' @format ## `state.dist.mat`
 #' - the (i, j) entry is the path length from state i to state j. 
 #' - the diagonal is 0
+#' - matrix is symmetric
 #' 
 #' 
 "state.dist.mat"
@@ -91,4 +92,17 @@
 #' See ... Vignette for details on how these values are calculated
 #' 
 #' Data from   https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies. 
+#' 
+#' @format ## `nonprofits.detailed`
+#' \describe{
+#'   \item{ntee}{Orignal NTEE Code}
+#'   \item{new.code}{New NTEE Code. See vignette for how this value is constructed.}
+#'   \item{type.org}{Two letter value specifying the type of organization. First part of `new.code`. See vignette for detials.}
+#'   \item{broad.category}{Three letter value specifying broad category of the organization. Second part of the `new.code`. See vignette for details.}
+#'   \item{major.group}{A-Z Major Group (3rd to last character of `new.code`).}
+#'   \item{further.category}{4th and 5th charcaters of `old.code` if available, blank otherwise.}
+#'   \item{division.subdivision}{Division and Subdivision. See vignette for how this value is determined.}
+#'   \item{univ}{TRUE if organization is a university. FALSE otherwise. }
+#'   \item{hosp}{TRUE if organization is a hospital. FALSE otherwise. }
+#' }
 "ntee.crosswalk"

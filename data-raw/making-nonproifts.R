@@ -1,5 +1,5 @@
 ## This script creates both nonprofits.rda and EIN_filtering.rda
-
+library(dplyr)
 ## Read in data --------------------------------------------------------
 dat.clean<- readr::read_csv("data-raw/all-dat-cleaned.csv")
 
@@ -32,7 +32,13 @@ temp <-
     fips = FIPS) %>%
   #standardize location type 
   dplyr::mutate(location.type = tolower(location.type)) %>%
-  dplyr::mutate(location.type = ifelse(location.type == "metropolitan", "metro", location.type))
+  #adding more levels to location type 
+  dplyr::mutate(location.type = dplyr::case_when(
+    RUCA < 2 ~ "metro", 
+    RUCA >=2 & RUCA < 4 ~ "suburban",
+    RUCA >=4 & RUCA < 7 ~ "town",
+    RUCA >= 7 ~ "rural"
+  ))
 
 
 # get rid of EIN's that show up twice for some reason
@@ -51,24 +57,46 @@ temp <-
 ## Get levels for matching  --------------------------------------------------------
 temp <-
   temp %>%
-  #hosp and univ change levels
-  dplyr::mutate(broad.category = ifelse(hosp, 12, broad.category),
-         broad.category = ifelse(univ, 11, broad.category)) %>%
-  #dissect ntee to get mission levels
+  #Major Group
+  dplyr::mutate(major.group = substr(ntee, 1, 1)) %>%
+  #Broad Category 
+  dplyr::mutate(broad.category = case_when(major.group == "A" ~ "ART", 
+                                           major.group == "B" & !univ ~ "EDU", 
+                                           major.group %in% c("C", "D") ~ "ENV",
+                                           major.group %in% c("E", "F", "G", "H") & !hosp ~ "HEL",
+                                           major.group %in% c("I", "J", "K", "L", "M", "N", "O", "P") ~ "HMS",
+                                           major.group == "Q" ~ "IFA", 
+                                           major.group %in% c("R", "S", "T", "U", "V", "W") ~ "PSB",
+                                           major.group == "X" ~ "REL", 
+                                           major.group == "Y" ~ "MMB", 
+                                           major.group == "Z" ~ "UNU",
+                                           major.group == "B" & univ ~ "UNI", 
+                                           major.group == "E" & hosp ~ "HOS"))%>%
+  #dissect ntee to get organization type
   dplyr::mutate(two.digit = substr(ntee, 2, 3))%>%
-  #Regular or specality org
-  dplyr::mutate(type.org = ifelse(two.digit < 20, "speciality", "regular")) %>%
-  #get actual two digit if specality or
-  dplyr::mutate(two.digit.s = dplyr::case_when(type.org == "speciality" & nchar(ntee) == 4 ~ paste(substr(ntee, 4, 4), 0),
-                                             type.org == "speciality" & nchar(ntee) == 5 ~ paste(substr(ntee, 4, 5)),
-                                             TRUE ~ two.digit)) %>%
-  #get decile and centile values
-  dplyr::mutate(tens = substr(two.digit.s, 1, 1)) %>%
-  dplyr::mutate(ones = substr(two.digit.s, 2, 2)) %>%
-  #us state or not
-  dplyr::mutate(us.state = state != "PR" ) %>%
-  dplyr::mutate(url = paste0("https://projects.propublica.org/nonprofits/organizations/", EIN))
-
+  dplyr::mutate(type.org = 
+                  case_when(
+                    two.digit == "01" ~ "AA", 
+                    two.digit == "02" ~ "MT",
+                    two.digit == "03" ~ "PA",
+                    two.digit == "05" ~ "RP",
+                    two.digit == "11" ~ "MS", 
+                    two.digit == "12" ~ "MM",
+                    two.digit == "19" ~ "NS", 
+                    TRUE ~ "RG")) %>%
+  # dissect ntee to get division
+  dplyr::mutate(further.category = substr(ntee, 4, 5)) %>%
+  dplyr::mutate(division.subdivision = 
+                  case_when(
+                    type.org == "RG" ~ two.digit,
+                    type.org != "RG" & nchar(further.category) == 0 ~ "00",
+                    type.org != "RG" & nchar(further.category) == 2 ~ further.category)) %>%
+  dplyr::mutate(division = substr(division.subdivision,1,1))%>%
+  dplyr::mutate(subdivision = substr(division.subdivision,2,2)) %>%
+  #New ntee code
+  dplyr::mutate(new.code = paste0(type.org, "-", broad.category, "-", major.group, division.subdivision)) %>%
+  #propublica link
+  dplyr::mutate(url = paste0("https://projects.propublica.org/nonprofits/organizations/", EIN)) 
 
 
 
@@ -77,7 +105,8 @@ temp <-
 ## Make user data  --------------------------------------------------------
 nonprofits <-
   temp %>%
-  dplyr::select(EIN, form.year, name,  url, ntee, univ, hosp,
+  dplyr::select(EIN, form.year, form.type, name,  url, 
+                ntee, new.code, univ, hosp,
                 total.expense, total.employee, gross.receipts, total.assests,
                 ceo.compensation, gender,
                 state, zip5, location.type)
@@ -86,13 +115,11 @@ save(nonprofits, file = "data/nonprofits.rda")
 usethis::use_data(nonprofits, overwrite = T)
 
 ### Data for the back end -------------------------------------------------
-EIN.filtering <-
+nonprofits.detailed <-
   temp %>%
-  dplyr::select(EIN, ntee, broad.category, major.group, type.org,
-                two.digit, two.digit.s, tens, ones, us.state,
-                univ, hosp,
-                total.expense,
-                state, location.type)
+  dplyr::select(EIN, ntee, new.code, 
+                type.org, broad.category, major.group, division, subdivision, 
+                univ, hosp, total.expense, state, location.type, RUCA)
 
-save(EIN.filtering, file = "data/EIN-filtering.rda")
-usethis::use_data(EIN.filtering, overwrite = T, internal = T)
+save(nonprofits.detailed, file = "data/EIN-filtering.rda")
+usethis::use_data(nonprofits.detailed, overwrite = T, internal = T)
