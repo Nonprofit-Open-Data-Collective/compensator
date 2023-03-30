@@ -16,7 +16,7 @@ for(i in 1:52){
 
 g <- graph_from_adjacency_matrix(AdjMat, mode = "undirected" )
 
-state_dist <- as.data.frame(distances(g)) / max(distances(g)) # divide by 12 to standardize between 0 and 1
+state_dist <- as.data.frame(distances(g)) 
 colnames(state_dist) <- rownames(state_dist) <- state_list$abb
 
 ### Save Matrix -----------------------------------

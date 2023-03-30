@@ -2,18 +2,20 @@
 #' 
 #' @description 
 #' At the moment, this is the same for all organizations 
-#' This is currently a dummy weight set. 
-#' This will need to be updated when we decide on the final weight set
+#' 
+#' See vignette for how these values are determined. 
+#' 
+#' Level one represents 
 #' 
 #' @return 
-#' Data frame with 3 levels and 3 weights needed to calculated geographic distances.
+#' Data frame with 2 levels and 2 weights needed to calculated geographic distances.
 #' 
 #' @export 
 get_geo_weights <- function(){
   
   #get geo weights 
-  geo.weights <- data.frame(levels = c("l1", "l2", "l3"),
-                            weights = c(5, 3, 0.5))
+  geo.weights <- data.frame(levels = c("l1", "l2"),
+                            weights = c(1, 1))
   return(geo.weights)
   
 }
