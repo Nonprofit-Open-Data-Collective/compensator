@@ -6,7 +6,7 @@
 #' @format `get_org_values()`
 #' 
 #' @param state Two letter abbreviation of which state your organization is located in. See `state.abb52` for options.
-#' @param location.type either "rural" or "metro" for the type of city your organization is located in. 
+#' @param location.type either "rural", "town", "subruban" or "metro" for the type of city your organization is located in. 
 #' @param total.expense a number of the total annual expenses of your organization in U.S. dollars. 
 #' @param ntee a character string of the NTEE code your organization belongs to. A list of all available NTEE codes can be found in the `ntee.crosswalk` data set and at https://nccs.urban.org/publication/irs-activity-codes. 
 #' 
@@ -31,15 +31,15 @@ get_org_values <- function(state = "CA",
   }
   #location type 
   location.type <- tolower(location.type)
-  if(!(location.type %in% c("rural", "metro") )){
-    stop("Enter either 'rural' or 'metro' for `location.type` parameter.")
+  if(!(location.type %in% c("rural", "suburban", "town", "metro") )){
+    stop("Enter either 'rural', 'town', 'suburban', or 'metro' for `location.type` parameter.")
   }
   # total.expense
   if(!is.numeric(total.expense) | (total.expense < 0)){
     stop("Enter a number 0 or larger for the `total.expense` parameter. ")
   }
   #NTEE Code 
-  if(!(ntee %in% ntee.crosswalk$ntee)){
+  if(!(substr(ntee,1, 1) %in% LETTERS) ){
     stop("Please enter a vaild NTEE code for the `ntee` parameter.")
   }
   
