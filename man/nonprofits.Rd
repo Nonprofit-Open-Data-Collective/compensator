@@ -7,20 +7,22 @@
 \format{
 \subsection{\code{nonprofits}}{
 
-A data frame with 12,847 rows and 21 columns:
+A data frame with 12,847 rows and 18 columns.
+Each row is a unique nonprofit, and the columns are its respective attributes:
 \describe{
 \item{EIN}{nonprofit IRS employer identification number}
 \item{form.year}{IRS Filing year}
 \item{name}{Name of nonprofit}
 \itel{url}{URL of ProPublica.org with more detailed information about the nonprofit.}
-\item{ntee}{NTEE code of nonprofit. See references for details }
+\item{ntee}{Original NTEE code of nonprofit. See references for details }
+\item{new.code}{New disaggregated NTEE code. See vignette for details.}
 \item{univ}{TRUE or FALSE, is the nonprofit a university?}
 \item{hosp}{TRUE or FALSE, is the nonprofit a hospital?}
 \item{total.expense, TotalEmployee, GrossReceipts, TotalAssests}{respective items reported to the IRS for the filing year}
 \item{ceo.compensation}{Total CEO compensation}
-\item{gender}{Imputed gender of the CEO, see references details.}
-\item{state}{State the nonprofit is in }
-\item{zip5}{5 didget zip code of the nonprofit}
+\item{gender}{Imputed gender of the CEO, see references for details.}
+\item{state}{State the nonprofit is located in }
+\item{zip5}{5 didget zip code the nonprofit is located in}
 \item{location.type}{"metro" or "rural", what type of city the nonprofit is located in}
 }
 }

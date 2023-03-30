@@ -23,3 +23,21 @@ Geographic distance of two orgs
 \description{
 Calculate distances for regular organizations
 }
+\examples{
+org1 <- get_org_values(
+  state = "IL", 
+  location.type = "metro",
+  total.expense = 500000,
+  ntee = "A20")
+  
+org2 <- get_org_values(
+  state = "OH", 
+  location.type = "suburban",
+  total.expense = 300000,
+  ntee = "A20")
+  
+  geo.weights <- get_geo_weights()
+  
+  get_geo_dist(org1, org2, geo.weights)
+  
+}

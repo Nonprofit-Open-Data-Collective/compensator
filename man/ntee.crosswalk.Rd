@@ -5,7 +5,20 @@
 \alias{ntee.crosswalk}
 \title{NTEE Codes Crosswalk}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 1086 rows and 10 columns.
+\subsection{\code{nonprofits.detailed}}{
+
+\describe{
+\item{ntee}{Orignal NTEE Code}
+\item{new.code}{New NTEE Code. See vignette for how this value is constructed.}
+\item{type.org}{Two letter value specifying the type of organization. First part of \code{new.code}. See vignette for detials.}
+\item{broad.category}{Three letter value specifying broad category of the organization. Second part of the \code{new.code}. See vignette for details.}
+\item{major.group}{A-Z Major Group (3rd to last character of \code{new.code}).}
+\item{further.category}{4th and 5th charcaters of \code{old.code} if available, blank otherwise.}
+\item{division.subdivision}{Division and Subdivision. See vignette for how this value is determined.}
+\item{univ}{TRUE if organization is a university. FALSE otherwise. }
+\item{hosp}{TRUE if organization is a hospital. FALSE otherwise. }
+}
+}
 }
 \usage{
 ntee.crosswalk

@@ -17,7 +17,7 @@ get_org_values(
 \arguments{
 \item{state}{Two letter abbreviation of which state your organization is located in. See \code{state.abb52} for options.}
 
-\item{location.type}{either "rural" or "metro" for the type of city your organization is located in.}
+\item{location.type}{either "rural", "town", "subruban" or "metro" for the type of city your organization is located in.}
 
 \item{total.expense}{a number of the total annual expenses of your organization in U.S. dollars.}
 

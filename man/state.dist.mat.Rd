@@ -9,6 +9,7 @@
 \itemize{
 \item the (i, j) entry is the path length from state i to state j.
 \item the diagonal is 0
+\item matrix is symmetric
 }
 }
 }
@@ -25,7 +26,7 @@ Distance is calculated by creating a network of U.S. states as follows:
 }
 }
 \details{
-Equivalently, this is the number of states you need to go through to drive from state A to state B,
+Equivalently, this is the number of state boarders you need to cross to drive from state A to state B,
 with the added boarders of Alaska/Washington, Hawaii/California, and Puerto Rico/Florida.
 }
 \keyword{datasets}

@@ -9,65 +9,64 @@
 }
 \usage{
 dat_filtering(
-  broad.category = 1:12,
+  type.org = "RG",
+  broad.category = c("ART", "EDU", "ENV", "HEL", "HMS", "IFA", "PSB", "REL", "MMB",
+    "UNU", "UNI", "HOS"),
   major.group = base::LETTERS,
-  tens = 2:9,
-  type.org = "regular",
+  division = NA,
+  subdivision = NA,
   univ = FALSE,
   hosp = FALSE,
-  location.type = "both",
+  location.type = c("urban", "suburban", "town", "rural"),
   state = state.abb52,
   total.expense = c(0, Inf)
 )
 }
 \arguments{
-\item{broad.category}{vector of broad categories you wish to include in returned data set}
+\item{type.org}{vector of the types of organization you want to include. Options are  RG, AA, MT, PA, RP, MS, MM, and/or NS.}
 
-\item{major.group}{vector of major categories you wish to include in returned data set}
+\item{broad.category}{vector of broad categories you wish to include in returned data set Options are ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, and/or HOS}
 
-\item{tens}{vector of numbers from 2 to 10 of decile codes you want to include, exists within major.group.}
+\item{major.group}{vector of major groups you wish to include in returned data set. Options are A-Z.}
 
-\item{type.org}{"specialty" or "regular" or "both".
-"specialty" to only include specialty (common code) organization.
-"regular" to only include regular organizations.
-"both" to include both.}
+\item{division}{vector of divisions you wish to include. Divisions exist entirely inside major groups. We suggest you do not use this parameter if you have more than one item in \code{major.group}. Options are 0, 2, 3, ..., 9 (1 is not an option.}
+
+\item{subdivision}{vector of subdivision you wish to include. Subdivisions exist entirely inside divisions. We suggest you do not use this parameter if you have more than one item in \code{division}. Options are 0 - 9.}
 
 \item{univ}{TRUE of FALSE. Are universities to be included?}
 
 \item{hosp}{TRUE of FALSE, Are hospitals to be included?}
 
-\item{location.type}{"metro" or "rural" or "both" or "all".
-"metro" only includes organizations with metropolitan locations type.
-"rural" only includes organizations with rural locations type.
-"both" includes both metropolitan and rural organizations but excludes organizations with NA values in the location type.
-"all" includes organizations with metropolitan, rural, and missing location types.}
+\item{location.type}{vector of "metro", "suburban", "town", and/or "rural" for which city types to include}
 
 \item{state}{vector of 2 letter state abbreviations to be included}
 
-\item{total.expense}{vector of c(min,max) of range of total expenses to be included}
+\item{total.expense}{vector of c(min,max) of range of total expenses to be included
+
+Any parameter you want to include all values for, you can either list all possible values, or assign that parameter to NA.
+Default parameters are set to include all regular organizations and exclude all specality organizations.}
 }
 \value{
-All entries in \code{EIN_filtering} data set that match the filtering criteria
+All entries in \code{nonprofits.detailed} data set that match the filtering criteria
 }
 \description{
 STILL NEED TO ADD EXAMPLE
 }
 \details{
 STILL NEED TO EDIT DESCRIPtion
-Filtering \code{EIN_filtering} with given search criteria.
+Filtering \code{nonprofits.detailed} with given search criteria.
 EIN's that make it through this filtering, will be used to filter \code{nonprofits} for final comparison sets.
 Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations.
 }
 \examples{
-# all non-univ educational nonprofits in Kansas, Nebraska, Iowa, and Missouri  
+# all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri.
 dat_filtering(
-  broad.category = 2, 
+  broad.category = "EDU", 
   major.group = "B", 
-  tens = 2:9, 
-  type.org = "regular", 
+  type.org = "RG", 
   univ = FALSE,
   hosp = FALSE, 
-  location.type = "both", 
+  location.type = c("urban", "suburban", "town", "rural"), 
   state = c("KS", "NE", "IA", "MO") ,
   total.expense = c(0, Inf))
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc-distace.R
 \name{calc_distace}
 \alias{calc_distace}
-\title{calc_distance_r}
+\title{calc_distance}
 \usage{
 calc_distace(org, comparison.orgs, weights)
 }
@@ -14,7 +14,7 @@ calc_distace(org, comparison.orgs, weights)
 \item{weights}{output from \code{get_weights()}}
 }
 \value{
-input of \code{comparison.orgs} with appended distances for each nonproft
+input of \code{comparison.orgs} with appended distances for each nonprofit
 from the input organization
 }
 \description{
