@@ -29,9 +29,9 @@
 #' @examples 
 #' # all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri.
 #' dat_filtering(
+#'   type.org = "RG",
 #'   broad.category = "EDU", 
 #'   major.group = "B", 
-#'   type.org = "RG", 
 #'   univ = FALSE,
 #'   hosp = FALSE, 
 #'   location.type = c("urban", "suburban", "town", "rural"), 
@@ -93,7 +93,7 @@ dat_filtering <- function(
     stop("`hosp` parameter must be TRUE or FALSE.")
   }
   #location type
-  if(!any(is.na(location.type)) &!(location.type %in% c("urban", "suburban", "town", "rural"))){
+  if(!any(is.na(location.type)) & !any(location.type %in% c("urban", "suburban", "town", "rural"))){
     index = which(!(location.type %in% LETTERS))
     stop(paste(paste(location.type[index],collapse=', '), 
                "in the `location.type` parameter are not valid location types."))

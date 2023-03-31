@@ -9,8 +9,8 @@
 #' @param comparison.orgs output from `dat_filtering()`
 #' @param weights output from `get_weights()`
 #' 
-#' @return input of `comparison.orgs` with appended distances for each nonprofit 
-#' from the input organization
+#' @return input of `comparison.orgs` with new columns with the distance from each organization to the input `org`.
+#' 
 #' @export
 calc_distace <- function(org, comparison.orgs, weights){
   
@@ -29,7 +29,7 @@ calc_distace <- function(org, comparison.orgs, weights){
 
   #initialize storage
   D <- as.data.frame(matrix(0, nrow = n, ncol = A) )
-  colnames(D) <- c("log.total.expense", "geography", "mission")
+  colnames(D) <- c("total.expense", "geography", "mission")
   
 
   
@@ -49,44 +49,40 @@ calc_distace <- function(org, comparison.orgs, weights){
     
     compare.org <- comparison.orgs[i, ]
     
-    ## log.expense Distance
+    ## expense Distance
     if(is.na(compare.org$total.expense)){
-      D[i, "log.total.expense"] <- NA #will replace with max once all calculations have been done
+      D[i, "total.expense"] <- NA #will replace with max once all calculations have been done
     }else{
-      D[i, "log.total.expense"] <- log(abs(compare.org$total.expense - org$total.expense), base = 10)  
+      D[i, "total.expense"] <- log(abs(compare.org$total.expense - org$total.expense), base = 10)  
     }
     
     ## Geo Distance 
     D[i, "geography"] <- get_geo_dist(org, compare.org, geo.weights)
     
     ## Mission Distance 
-    if(org$type.org == "regular"){
-      D[i, "mission"] <- get_r_mission_dist(org, compare.org, mission.weights)
-    }else if(org$type.org == "speciality"){
-      D[i, "mission"] <- get_s_mission_dist(org, compare.org, mission.weights)
-    }
+    D[i, "mission"] <- get_mission_dist(org, compare.org, mission.weights)
     
   }
   
   
   
-  #get max of log.total.expense.dist
-  max.expense.dist <- max(D[, "log.total.expense"])
+  #get max of total.expense.dist
+  max.expense.dist <- max(D[, "total.expense"], na.rm = TRUE)
   
   ## Add distances to comparison.orgs table 
   #add distances
-  colnames(D) <- c("log.expense.dist", "geo.dist", "mission.dist")
+  colnames(D) <- c("expense.dist", "geo.dist", "mission.dist")
   comparison.orgs <- cbind(comparison.orgs, D)
   
   #wrangle return table to look nice
   ret <- comparison.orgs %>% 
-    #replace NA in log.expense.dist with max.expense.dist
-    dplyr::mutate(log.expense.dist = ifelse(is.na(log.expense.dist), max.expense.dist, log.expense.dist)) %>% 
+    #replace NA in expense.dist with max.expense.dist
+    dplyr::mutate(expense.dist = ifelse(is.na(expense.dist), max.expense.dist, expense.dist)) %>% 
     # scale
-    dplyr::mutate(across(c(log.expense.dist, geo.dist, mission.dist),  ~ 1/3*100*scale(., center = FALSE)[,1]))  %>%
+    dplyr::mutate(across(c(expense.dist, geo.dist, mission.dist),  ~ 1/3*100*scale(., center = FALSE)[,1]))  %>%
     #get total distance
     dplyr::rowwise() %>%
-    dplyr::mutate( total.dist = sum(c(log.expense.dist, geo.dist, mission.dist ))) %>%
+    dplyr::mutate( total.dist = sum(c(expense.dist, geo.dist, mission.dist ))) %>%
     #get rank for threshold
     dplyr::ungroup() %>%
     dplyr::arrange(  total.dist  ) %>%

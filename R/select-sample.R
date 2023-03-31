@@ -8,7 +8,18 @@
 #' See ... Vignette for detailed explanation on how distance between nonprofits is calculated.
 #' 
 #' @param org List output from `get_org_values()`
-#' @param search.criteria List with the following elements: `broad.category`, `major.group`, `tens`, `type.org`, `univ`, `hosp`, `location.type`, `state`, `total.expense`. See example for formatting
+#' @param search.criteria List with the following elements: 
+#' @param search.criteria a list with the following items: 
+#' * type.org vector of the types of organization you want to include. Options are  RG, AA, MT, PA, RP, MS, MM, and/or NS. 
+#' * broad.category vector of broad categories you wish to include in returned data set Options are ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, and/or HOS 
+#' * major.group vector of major groups you wish to include in returned data set. Options are A-Z.
+#' * division vector of divisions you wish to include. Divisions exist entirely inside major groups. We suggest you do not use this parameter if you have more than one item in `major.group`. Options are 0, 2, 3, ..., 9 (1 is not an option. 
+#' * subdivision vector of subdivision you wish to include. Subdivisions exist entirely inside divisions. We suggest you do not use this parameter if you have more than one item in `division`. Options are 0 - 9. 
+#' * univ TRUE of FALSE. Are universities to be included?
+#' * hosp TRUE of FALSE, Are hospitals to be included?
+#' * location.type vector of "metro", "suburban", "town", and/or "rural" for which city types to include
+#' * state vector of 2 letter state abbreviations to be included
+#' * total.expense vector of c(min,max) of range of total expenses to be included
 #' 
 #' @return A data frame with all nonprofits that match the search criteria. 
 #' Each nonprofit has the following variables:
@@ -25,9 +36,10 @@
 #' * `zip5`: 5 digit zip code of where the nonprofit is located
 #' * `state`: Two letter abbreviation of the state where the nonprofit is located
 #' * `location.type`: Either "metro" or "rural" for type of location the nonprofit is in
-#' * `ntee`: Original ntee code 
-#' * `broad.category`, `major.group`, `type.org`, `two.digit`, `two.digit.s`, `tens`, `ones`, `us.state`, `univ`, `hosp`: Parts of the dissagregated NTEE code. See ... for details.
-#' * `log.expense.dist`: Total Expense distance between the nonprofit and the reference organization
+#' * `ntee`: Original NTEE code 
+#' * `new.code`: New NTEE code
+#' * `org.type, `broad.category`, `major.group`, `division`, `subdivision`, `univ`, `hosp`: Parts of the dissagregated NTEE code. See ... for details.
+#' * `expense.dist`: Total Expense distance between the nonprofit and the reference organization
 #' * `mission.dist`: Mission distance between the nonprofit and the reference organization
 #' * `geo.dist`: Geographic distance between the nonprofit and the reference organization
 #' * `total.dist`: Total distance between the nonprofit and the reference organization
@@ -43,67 +55,57 @@
 #'                  ntee = "B20")
 #' 
 #' search.criteria <-
-#'  list(broad.category = 1:2, 
-#'       major.group = base::LETTERS, 
-#'       tens = 2:9, 
-#'       type.org = "regular", 
-#'       univ = FALSE,
-#'       hosp = FALSE, 
-#'       location.type = "both", 
-#'       state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
-#'       total.expense = c(1e5, 9.5e6) )
+#'   list(
+#'     type.org = "RG",
+#'     broad.category = "EDU",
+#'     major.group = "B",
+#'     division = 2:9,
+#'     subdivision = NA,
+#'     univ = FALSE,
+#'     hosp = FALSE,
+#'     location.type = NA,
+#'     state = c("FL", "GA", "SC", "MS", "AL", "PR"),
+#'     total.expense = c(1.2e5, 1.2e7)
+#'   )
 #'       
 #' samp <- select_sample(input.org, search.criteria)
 select_sample <- function(org = get_org_values(state = "AL",
                                                location.type = "rural",
                                                total.expense = 100000,
-                                               ntee = "B20"), 
-                          search.criteria = list(broad.category = 1:12, 
-                                                 major.group = base::LETTERS, 
-                                                 tens = 2:9, 
-                                                 type.org = "regular", 
-                                                 univ = FALSE,
-                                                 hosp = FALSE, 
-                                                 location.type = "both", 
-                                                 state = c(datasets::state.abb, "DC", "PR"), 
-                                                 total.expense = c(0, Inf) )){
+                                               ntee = "P20"), 
+                          search.criteria = list(
+                                              type.org = "RG",
+                                              broad.category = NA,
+                                              major.group = LETTERS,
+                                              division = NA,
+                                              subdivision = NA,
+                                              univ = FALSE,
+                                              hosp = FALSE,
+                                              location.type = c("rural", "town"),
+                                              state = state.abb52,
+                                              total.expense = c(1000000, 10000000)
+                                            )){
   
-  ## Tests checks to stop 
-  # org input 
-  org.good <- all(
-    sort(names(org)) == sort(c("total.expense", "state", "location.type", "ntee",
-                             "broad.category", "major.group", "two.digit", "type.org",
-                             "two.digit.s", "tens", "ones","hosp", "univ")))
-  
-  if(!org.good){
-    stop("The org parameter is not formatted correctly. Please check the documentation of `select_sample`.")
-  }
-  
-  # search.criteria
-  search.good <- all(
-    sort(names(search.criteria)) == sort(c("broad.category", "major.group", "tens", 
-                                      "type.org", "univ", "hosp", "location.type",
-                                      "state", "total.expense")))
-  if(!search.good){
-    stop("The search.critera parameter is not formatted correctly. Please check the documentation of `select_sample`.")
-  }
+ 
   
   #Should probably check if elements of org and search.criteria are correct. 
   
   ## Step 1: Find all orgs that match search criteria 
   comparison.orgs <- 
-    dat_filtering(broad.category = search.criteria$broad.category, 
-                  major.group = search.criteria$major.group, 
-                  tens = search.criteria$tens, 
-                  type.org = search.criteria$type.org, 
-                  univ = search.criteria$univ,
-                  hosp = search.criteria$hosp, 
-                  location.type = search.criteria$location.type, 
-                  state = search.criteria$state, 
-                  total.expense = search.criteria$total.expense)
+    dat_filtering(
+      type.org = search.criteria$type.org,
+      broad.category = search.criteria$broad.category,
+      major.group = search.criteria$major.group, 
+      division = search.criteria$division,
+      subdivision = search.criteria$subdivision,
+      univ = search.criteria$univ,
+      hosp = search.criteria$hosp, 
+      location.type = search.criteria$location.type, 
+      state = search.criteria$state, 
+      total.expense = search.criteria$total.expense)
   
   ## Step 2: Get Appropriate weights set
-  weights <- get_weights(org)
+  weights <- get_weights()
   
   ## Step 3: Calculate distances 
   comparison.orgs.with.dist <- calc_distace(org, comparison.orgs, weights)
@@ -119,7 +121,7 @@ select_sample <- function(org = get_org_values(state = "AL",
 
   # Need to make a decision about what information we show them at this stage.
   ret <-  dplyr::inner_join(
-    nonprofits %>% dplyr::select(-c(univ, hosp, total.expense, state, location.type, ntee)), 
+    nonprofits %>% dplyr::select(-c(univ, hosp, total.expense, state, location.type, ntee, new.code)), 
     comparison.orgs.threshold, 
     by = "EIN")  %>%
     dplyr::arrange(rank)
