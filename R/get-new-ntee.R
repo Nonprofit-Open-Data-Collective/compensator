@@ -42,7 +42,9 @@ get_new_ntee <- function(old.code = "B20"){
   #If we already have the code, then just pull the already calculated info
   new.code <-
     ntee.crosswalk %>%
-    dplyr::filter(old.code == input.code)
+    dplyr::filter(old.code == input.code) %>% 
+    dplyr::mutate(division = substr(division.subdivision, 1,1)) %>%
+    dplyr::mutate(subdivision = substr(division.subdivision, 2,2))
   
   #If we do not have the code, then use the formula to generate the new code
   if(nrow(new.code) != 1){
