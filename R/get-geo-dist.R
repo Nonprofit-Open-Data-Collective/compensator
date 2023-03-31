@@ -24,9 +24,9 @@
 #'   total.expense = 300000,
 #'   ntee = "A20")
 #'   
-#'   geo.weights <- get_geo_weights()
+#' geo.weights <- get_geo_weights()
 #'   
-#'   get_geo_dist(org1, org2, geo.weights)
+#' get_geo_dist(org1, org2, geo.weights)
 #'   
 get_geo_dist <- function(org1, org2, geo.weights){
   
