@@ -6,16 +6,28 @@
 \usage{
 select_sample(
   org = get_org_values(state = "AL", location.type = "rural", total.expense = 1e+05, ntee
-    = "B20"),
-  search.criteria = list(broad.category = 1:12, major.group = base::LETTERS, tens = 2:9,
-    type.org = "regular", univ = FALSE, hosp = FALSE, location.type = "both", state =
-    c(datasets::state.abb, "DC", "PR"), total.expense = c(0, Inf))
+    = "P20"),
+  search.criteria = list(type.org = "RG", broad.category = NA, major.group = LETTERS,
+    division = NA, subdivision = NA, univ = FALSE, hosp = FALSE, location.type =
+    c("rural", "town"), state = state.abb52, total.expense = c(1e+06, 1e+07))
 )
 }
 \arguments{
 \item{org}{List output from \code{get_org_values()}}
 
-\item{search.criteria}{List with the following elements: \code{broad.category}, \code{major.group}, \code{tens}, \code{type.org}, \code{univ}, \code{hosp}, \code{location.type}, \code{state}, \code{total.expense}. See example for formatting}
+\item{search.criteria}{a list with the following items:
+\itemize{
+\item type.org vector of the types of organization you want to include. Options are  RG, AA, MT, PA, RP, MS, MM, and/or NS.
+\item broad.category vector of broad categories you wish to include in returned data set Options are ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, and/or HOS
+\item major.group vector of major groups you wish to include in returned data set. Options are A-Z.
+\item division vector of divisions you wish to include. Divisions exist entirely inside major groups. We suggest you do not use this parameter if you have more than one item in \code{major.group}. Options are 0, 2, 3, ..., 9 (1 is not an option.
+\item subdivision vector of subdivision you wish to include. Subdivisions exist entirely inside divisions. We suggest you do not use this parameter if you have more than one item in \code{division}. Options are 0 - 9.
+\item univ TRUE of FALSE. Are universities to be included?
+\item hosp TRUE of FALSE, Are hospitals to be included?
+\item location.type vector of "metro", "suburban", "town", and/or "rural" for which city types to include
+\item state vector of 2 letter state abbreviations to be included
+\item total.expense vector of c(min,max) of range of total expenses to be included
+}}
 }
 \value{
 A data frame with all nonprofits that match the search criteria.
@@ -33,9 +45,10 @@ Each nonprofit has the following variables:
 \item \code{zip5}: 5 digit zip code of where the nonprofit is located
 \item \code{state}: Two letter abbreviation of the state where the nonprofit is located
 \item \code{location.type}: Either "metro" or "rural" for type of location the nonprofit is in
-\item \code{ntee}: Original ntee code
-\item \code{broad.category}, \code{major.group}, \code{type.org}, \code{two.digit}, \code{two.digit.s}, \code{tens}, \code{ones}, \code{us.state}, \code{univ}, \code{hosp}: Parts of the dissagregated NTEE code. See ... for details.
-\item \code{log.expense.dist}: Total Expense distance between the nonprofit and the reference organization
+\item \code{ntee}: Original NTEE code
+\item \code{new.code}: New NTEE code
+\item \verb{org.type, }broad.category\verb{, }major.group\verb{, }division\verb{, }subdivision\verb{, }univ\verb{, }hosp`: Parts of the dissagregated NTEE code. See ... for details.
+\item \code{expense.dist}: Total Expense distance between the nonprofit and the reference organization
 \item \code{mission.dist}: Mission distance between the nonprofit and the reference organization
 \item \code{geo.dist}: Geographic distance between the nonprofit and the reference organization
 \item \code{total.dist}: Total distance between the nonprofit and the reference organization
@@ -58,15 +71,18 @@ input.org <-
                  ntee = "B20")
 
 search.criteria <-
- list(broad.category = 1:2, 
-      major.group = base::LETTERS, 
-      tens = 2:9, 
-      type.org = "regular", 
-      univ = FALSE,
-      hosp = FALSE, 
-      location.type = "both", 
-      state = c("DC", "KS", "CA", "DE", "MD", "FL"), 
-      total.expense = c(1e5, 9.5e6) )
+  list(
+    type.org = "RG",
+    broad.category = "EDU",
+    major.group = "B",
+    division = 2:9,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = NA,
+    state = c("FL", "GA", "SC", "MS", "AL", "PR"),
+    total.expense = c(1.2e5, 1.2e7)
+  )
       
 samp <- select_sample(input.org, search.criteria)
 }

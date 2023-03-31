@@ -61,9 +61,9 @@ Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-code
 \examples{
 # all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri.
 dat_filtering(
+  type.org = "RG",
   broad.category = "EDU", 
   major.group = "B", 
-  type.org = "RG", 
   univ = FALSE,
   hosp = FALSE, 
   location.type = c("urban", "suburban", "town", "rural"), 

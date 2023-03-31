@@ -13,7 +13,7 @@ Each row is a unique nonprofit, and the columns are its respective attributes:
 \item{EIN}{nonprofit IRS employer identification number}
 \item{form.year}{IRS Filing year}
 \item{name}{Name of nonprofit}
-\itel{url}{URL of ProPublica.org with more detailed information about the nonprofit.}
+\item{url}{URL of ProPublica.org with more detailed information about the nonprofit.}
 \item{ntee}{Original NTEE code of nonprofit. See references for details }
 \item{new.code}{New disaggregated NTEE code. See vignette for details.}
 \item{univ}{TRUE or FALSE, is the nonprofit a university?}

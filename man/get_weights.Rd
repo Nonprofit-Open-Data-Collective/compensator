@@ -4,10 +4,7 @@
 \alias{get_weights}
 \title{Obtain appropriate weight set}
 \usage{
-get_weights(org = get_org_values())
-}
-\arguments{
-\item{org}{list output from \code{get_org_values()}}
+get_weights()
 }
 \value{
 A list with 2 data frames. \code{geo} is the geographic distance weights,
