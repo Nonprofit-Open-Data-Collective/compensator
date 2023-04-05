@@ -32,6 +32,6 @@ nonprofits.detailed
 \description{
 More detailed information about the nonprofit, mostly regarding the mission classification.
 Use EIN to match with \code{nonprofits} data set.
-This data set is mostly used for calculating distance.
+This data set is primarily used for calculating distance.
 }
 \keyword{datasets}

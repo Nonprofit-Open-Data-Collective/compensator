@@ -1,11 +1,11 @@
 #' dat_filtering
-#'
-#' STILL NEED TO ADD EXAMPLE
-#'
-#' STILL NEED TO EDIT DESCRIPtion
+#' 
+#' @description 
 #' Filtering `nonprofits.detailed` with given search criteria.
 #' EIN's that make it through this filtering, will be used to filter `nonprofits` for final comparison sets. 
-#' Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations. 
+#' 
+#' `dat_filtering` is mainly used as an internal function in `select_sample`, 
+#' but can be used on its own. 
 #' 
 #' @format ## `dat_filtering`
 #' 

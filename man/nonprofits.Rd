@@ -18,12 +18,12 @@ Each row is a unique nonprofit, and the columns are its respective attributes:
 \item{new.code}{New disaggregated NTEE code. See vignette for details.}
 \item{univ}{TRUE or FALSE, is the nonprofit a university?}
 \item{hosp}{TRUE or FALSE, is the nonprofit a hospital?}
-\item{total.expense, TotalEmployee, GrossReceipts, TotalAssests}{respective items reported to the IRS for the filing year}
+\item{total.expense, total.employee, gross.reciepts, total.assests}{respective items reported to the IRS for the filing year}
 \item{ceo.compensation}{Total CEO compensation}
 \item{gender}{Imputed gender of the CEO, see references for details.}
 \item{state}{State the nonprofit is located in }
 \item{zip5}{5 didget zip code the nonprofit is located in}
-\item{location.type}{"metro" or "rural", what type of city the nonprofit is located in}
+\item{location.type}{"metro", "subruban", "town", or "rural", what type of city the nonprofit is located in}
 }
 }
 }
@@ -31,10 +31,14 @@ Each row is a unique nonprofit, and the columns are its respective attributes:
 nonprofits
 }
 \description{
-STILL NEED TO EDIT
+All nonprofits that electronically filled with the IRS from 2009-2019.
+Each nonprofit is listed in this data set exactly once at their most recent
+file time. See vignette for detailed description on how this data set was
+created.
 
-All non profits available for comparison.
-Each non profit who filed with the IRS is in here once, with their most recent filing
-Use \code{EIN} to match with \code{EIN_filtering} data set.
+This is all non profits available for use when generating an appraisal.
+
+Use \code{EIN} to match with \code{nonprofits.detailed} data set for more detailed
+information about each nonprofit.
 }
 \keyword{datasets}

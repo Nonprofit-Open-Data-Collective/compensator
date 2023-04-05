@@ -17,6 +17,52 @@ calc_distace(org, comparison.orgs, weights)
 input of \code{comparison.orgs} with new columns with the distance from each organization to the input \code{org}.
 }
 \description{
-Calculate distances between one organization and all other organizations
+Calculate distances between one organization, \code{org} and all other organizations in
+\code{comparison.org}. See vignette for detailed information on calculating distances.
+
+Mainly used as internal function in \code{select_sample}, but can be used on its own
 Threshold still needs to be added
+}
+\examples{
+
+#Specify Organization Characteristics
+org <- get_org_values(state = "CA",
+location.type = "metro",
+total.expense = 1000000,
+ntee = "B32")
+
+# Specify Search Criteria 
+search.criteria <-
+  list(
+    type.org = base::ifelse(org$type.org == "RG", "RG", c("AA", "MT", "PA", "RP", "MS", "MM", "NS")),
+    broad.category = base::ifelse(org$type.org == "RG", org$broad.category, NA),
+    major.group = base::ifelse(org$type.org == "RG", org$major.group, NA),
+    division = NA,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = NA,
+    state = state.abb52,
+    total.expense = c(0.1*org$total.expense, 10*org$total.expense)
+  )
+
+# Obtain the comparison set 
+comparison.orgs <- 
+  dat_filtering(
+    type.org = search.criteria$type.org,
+    broad.category = search.criteria$broad.category,
+    major.group = search.criteria$major.group, 
+    division = search.criteria$division,
+    subdivision = search.criteria$subdivision,
+    univ = search.criteria$univ,
+    hosp = search.criteria$hosp, 
+    location.type = search.criteria$location.type, 
+    state = search.criteria$state, 
+    total.expense = search.criteria$total.expense)
+
+# Obtain the weights 
+weights <- get_weights()
+
+# Calculate distances 
+comparison.orgs.with.dist <- calc_distace(org, comparison.orgs, weights)
 }

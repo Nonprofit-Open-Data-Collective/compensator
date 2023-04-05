@@ -50,13 +50,11 @@ Default parameters are set to include all regular organizations and exclude all 
 All entries in \code{nonprofits.detailed} data set that match the filtering criteria
 }
 \description{
-STILL NEED TO ADD EXAMPLE
-}
-\details{
-STILL NEED TO EDIT DESCRIPtion
 Filtering \code{nonprofits.detailed} with given search criteria.
 EIN's that make it through this filtering, will be used to filter \code{nonprofits} for final comparison sets.
-Check https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes for NTEE code explanations.
+
+\code{dat_filtering} is mainly used as an internal function in \code{select_sample},
+but can be used on its own.
 }
 \examples{
 # all non-university educational nonprofits in Kansas, Nebraska, Iowa, and Missouri.
