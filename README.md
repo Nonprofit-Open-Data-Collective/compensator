@@ -11,8 +11,6 @@ devtools::install_github( 'nonprofit-open-data-collective/compensator' )
 ```r
 library(compensator)
 
-devtools::build()
-library(compensator)
 
 ### Set up initial parameters  ---------------------------------
 # Step 1, get org info 
