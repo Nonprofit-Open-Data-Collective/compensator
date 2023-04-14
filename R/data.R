@@ -61,6 +61,21 @@
 #' }
 "nonprofits.detailed"
 
+#' ntee.orig
+#' 
+#' Original NTEE codes and major groups listed at 
+#' https://nccs.urban.org/publication/irs-activity-codes. 
+#' 
+#' @format ## `ntee.orig`
+#' A data frame with 681 rows and 3 columns:
+#' \describe{
+#'   \item{ntee}{If `ntee` is one letter, the row describes a major group. If `ntee` is one letter + two digits, then the row describes an NTEE code.}
+#'   \item{description}{Short description of `ntee`.}
+#'   \item{definition}{Longer definition of `ntee`. }
+#' }
+"ntee.orig"
+
+
 #' state.abb52
 #' 
 #' Two letter abbreviations of all states plus Washington D.C. and Puerto Rico. 
