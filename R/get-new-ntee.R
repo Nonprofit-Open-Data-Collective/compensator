@@ -91,7 +91,8 @@ get_new_ntee <- function(old.code = "B20"){
       dplyr::mutate(subdivision = base::substr(division.subdivision,2,2)) %>%
       #New ntee code
       dplyr::mutate(new.code = paste0(type.org, "-", broad.category, "-", major.group, division.subdivision)) %>% 
-      dplyr::select(-division.subdivision)
+      dplyr::select(-division.subdivision)%>%
+      dplyr::rename(old.code = ntee)
       
   }
   
