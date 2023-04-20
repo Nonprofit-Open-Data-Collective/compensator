@@ -1,12 +1,15 @@
 Package: compensator
-Title: What the Package Does (One Line, Title Case)
+Title: Appraisals for Nonprofit CEO Compensation
 Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+Authors@R: c(
+    person("Olivia", "Beck", , "obeck@urban.org", role = c("aut", "cre")),
+    person("Jessy", "Lecy", , "jlecy@urban.org", role = c("aut")),
+    person("Urban Inistitue National Center for Charitable Statistics", role = c("fnd")))
+Description: A method to generated nonprofit CEO compensation apprasials by comparing IRS reported CEO compensations of nonprofits with similar charcteristics. 
+License: GPL (>= 3)
+URL: https://github.com/Nonprofit-Open-Data-Collective/compensator,
+    https://nonprofit-open-data-collective.github.io/compensator/
+BugReports: https://github.com/Nonprofit-Open-Data-Collective/compensator/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
