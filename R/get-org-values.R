@@ -5,10 +5,10 @@
 #' 
 #' @format `get_org_values()`
 #' 
-#' @param state Two letter abbreviation of which state your organization is located in. See `state.abb52` for options.
+#' @param state two letter abbreviation of which state your organization is located in. See `state.abb52` for options.
 #' @param location.type either "rural", "town", "subruban" or "metro" for the type of city your organization is located in. 
 #' @param total.expense a number of the total annual expenses of your organization in U.S. dollars. 
-#' @param ntee a character string of the NTEE code your organization belongs to. A list of all available NTEE codes can be found in the `ntee.crosswalk` data set and at https://nccs.urban.org/publication/irs-activity-codes. 
+#' @param ntee a character string of the NTEE code your organization belongs to. A list of all available NTEE codes can be found in the `ntee.orig` data set and at https://nccs.urban.org/publication/irs-activity-codes. 
 #' 
 #' @return A list of characteristics about your organization 
 #' @export 
