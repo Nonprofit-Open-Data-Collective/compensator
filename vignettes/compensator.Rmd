@@ -1,0 +1,174 @@
+---
+title: "Getting Started"
+author: "Olivia Beck"
+date: 
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(compensator)
+```
+
+**compensator** is a package to generate CEO compensation appraisals for nonprofits. 
+
+
+Add brief paragraph about why we built this package. 
+
+Every appraisal will have three steps. 
+1. User provides basic information about the nonprofit they want to obtain an appraisal for. 
+2. User provides characteristics of organizations they want to compare the input nonprofit to. 
+3. Returns an appraisal for CEO compensation for it input nonprofit. 
+
+
+## A Few Simple Examples
+
+### Example 1
+
+Say Nonprofit X wants an appraisal for their CEO compensation. Nonprofit X is a shelter for women who have experienced domestic violence and for their children located in Kansas City, MO. Their annual expenses are approximately $5,650,0000. 
+
+**Step 1:** The user defines basic information about their organization using the `get_org_values()` function. See the documentation of `get_org_values()` for detailed information about the arguments. 
+
+
+```{r}
+orgX <- get_org_values(state = "MO",
+                      location.type = "metro",
+                      total.expense = 5650000,
+                      ntee = "P43")
+```
+
+
+**Step 2:** The user defines characteristics about the organizations they want to compare Nonprofit A to in a list with items: 
+
+* `type.org`: vector of the types of organization you want to include. Options are  RG, AA, MT, PA, RP, MS, MM, and/or NS. 
+* `broad.category`: vector of broad categories you wish to include in returned data set Options are ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, and/or HOS 
+* `major.group vector`: of major groups you wish to include in returned data set. Options are A-Z.
+* `division`: vector of divisions you wish to include. Divisions exist entirely inside major groups. We suggest you do not use this parameter if you have more than one item in `major.group`. Options are 0, 2, 3, ..., 9 (1 is not an option. 
+* `subdivision`: vector of subdivision you wish to include. Subdivisions exist entirely inside divisions. We suggest you do not use this parameter if you have more than one item in `division`. Options are 0 - 9. 
+* `univ`: TRUE of FALSE. Are universities to be included?
+* `hosp`: TRUE of FALSE, Are hospitals to be included?
+* `location.type`: vector of "metro", "suburban", "town", and/or "rural" for which city types to include
+* `state`: vector of 2 letter state abbreviations to be included
+* `total.expense`: vector of c(min,max) of range of total expenses to be included
+
+See ___ vignette for detailed information about these options. 
+
+For our example, say the user is only interested in comparing themselves to other nonprofits involve in health care, mental health & crisis intervention, voluntary health associations & medical disciplines, crime & legal-related, and general human services. They also only want to consider other nonprofits with total expenses between \$1,000,000 and \$10,000,000 located in Missouri, Kansas, Oklahoma, Arkansas, Iowa, and Illinois. 
+
+
+```{r}
+search.criteriaX <-
+  list(
+    type.org = "RG",
+    broad.category = c("HEL", "HMS"),
+    major.group =  c("E", "F", "G", "I", "P"),
+    division = NA,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = NA,
+    state = c("MO", "KS", "OK", "AR", "IA", "IL"),
+    total.expense = c(1000000 , 10000000)
+  )
+```
+
+**Step 3:** The user inputs their `org` and `search.criteria` lists into the `get_apprasial()` function. The result is a list with three items: 
+
+* `suggested.range` is the final appraisal. This is the range of salaries that we believe are reasonable for the CEO of Nonprofit X accounting for the CEO pay of all other nonprofits that match the `search.criteria`. 
+* `suggested.salary` is the weighted average of CEO compensations for all organizations that matched the search criteria, inversely proportional to the similarity between the given organization and Nonprofit X. 
+* `reference.set` is the set of all nonprofits that match `search.critera` and their respective attributes. 
+
+See documentation for `get_apprasial()` for more information about these values. 
+
+See ___ Vignette for detailed information about generating `suggested.range` and `suggested.salary`.  
+
+```{r}
+appraisalX <- get_appraisal(orgX, search.criteriaX) 
+appraisalX$suggested.range
+```
+
+We conclude that a reasonable salary range for a CEO of Nonprofit X is `r dollarize(appraisalX$suggested.range[1])` to `r dollarize(appraisalX$suggested.range[2])`.
+
+
+### Example 2
+
+
+**Step 1:** Say Nonprofit Y is a wildlife-preservation nonprofit located in Elko County, Nevada with annual expenses of approximately $1,575,000. 
+
+```{r}
+orgY <- get_org_values(state = "NV",
+                      location.type = "rural",
+                      total.expense = 1575000,
+                      ntee = "D30")
+
+```
+
+**Step 2:*** They would like to compare themselves to all other animal related nonprofits located not located in metropolitan areas with annual expenses less that $10,000,000. 
+
+```{r}
+search.criteriaY <-
+  list(
+    type.org = "RG",
+    broad.category = c("ENV"),
+    major.group =  c("D"),
+    division = NA,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = c("rural", "town", "suburban"),
+    state = NA,
+    total.expense = c(0 , 10000000)
+  )
+```
+
+**Step 3:** They generate their appraisal: 
+
+
+```{r}
+appraisalY <- get_appraisal(orgY, search.criteriaY) 
+appraisalY$suggested.range
+```
+
+We conclude that a reasonable salary range for a CEO of Nonprofit Y is `r dollarize(appraisalY$suggested.range[1])` to `r dollarize(appraisalY$suggested.range[2])`.
+
+
+### Example 3 
+
+**Step 1:* Say Nonprofit Z is a nonprofit dedicated to fundraising for other nonprofits dedicated to the treatment and prevention of cancer. They are located in Washington D.C. with annual expense of $13,000,000. 
+
+```{r}
+orgZ <- get_org_values(state = "DC",
+                      location.type = "metro",
+                      total.expense = 13000000,
+                      ntee = "G1230")
+
+```
+
+**Step 2:* They would like to compare themselves to other fundraising nonprofits regardless of what type organizations they provide support to. 
+
+```{r}
+search.criteriaZ <-
+  list(
+    type.org = c("MS", "MM", "NS"),
+    broad.category = NA,
+    major.group =  NA,
+    division = NA,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = NA,
+    state = NA,
+    total.expense = c(0 , Inf)
+  )
+```
+
+
+**Step 3:* They generate their appraisal: 
+
+
+```{r , warning=F}
+appraisalZ <- get_appraisal(orgZ, search.criteriaZ) 
+appraisalZ$suggested.range
+```
+
+We conclude that a reasonable salary range for a CEO of Nonprofit Z is `r dollarize(appraisalZ$suggested.range[1])` to `r dollarize(appraisalZ$suggested.range[2])`.
