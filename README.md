@@ -2,6 +2,9 @@
 
 An R package for estimating compensation of nonprofit executives. 
 
+
+## Installation 
+
 ```r
 devtools::install_github( 'nonprofit-open-data-collective/compensator' )
 ```
