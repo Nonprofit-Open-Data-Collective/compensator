@@ -47,7 +47,7 @@ get_geo_dist <- function(org1, org2, geo.weights){
     org2$location.type == "town" ~ c(1,0,0),
     org2$location.type == "rural" ~ c(0,0,0))
 
-  g1 <- geo.weights$weights[1] * sum(l1 == l2)
+  g1 <- geo.weights$weights[1] * sum(l1 != l2)
  
   
   # Level 2 - State distance matrix 
