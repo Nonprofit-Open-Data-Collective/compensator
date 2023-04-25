@@ -1,0 +1,12 @@
+pandoc: 2.14.2
+pkgdown: 2.0.6
+pkgdown_sha: ~
+articles:
+  compensator: compensator.html
+  ntee-codes: ntee-codes.html
+  test-vig: test-vig.html
+last_built: 2023-04-25T18:49Z
+urls:
+  reference: https://nonprofit-open-data-collective.github.io/compensator/reference
+  article: https://nonprofit-open-data-collective.github.io/compensator/articles
+
