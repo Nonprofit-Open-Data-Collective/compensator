@@ -1,12 +1,15 @@
-url: ~
+url: 'https://nonprofit-open-data-collective.github.io/compensator/'
+
 template:
   bootstrap: 5
-  bootswatch: cosmo
+  bootswatch: simplex
+  bslib:
+    pkgdown-nav-height: 100px
 
 
 navbar:
   structure:
-    left:  [intro,articles,  reference]
+    left:  [intro, articles, reference]
     right: [github]
 
 development:
