@@ -1,7 +1,7 @@
 ---
 title: "Getting Started"
 author: "Olivia Beck"
-date: 
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---
 
@@ -25,7 +25,7 @@ Every appraisal will have three steps.
 
 ### Example 1
 
-Say Nonprofit X wants an appraisal for their CEO compensation. Nonprofit X is a shelter for women who have experienced domestic violence and for their children located in Kansas City, MO. Their annual expenses are approximately $5,650,0000. 
+Say Nonprofit X wants an appraisal for their CEO compensation. Nonprofit X is a shelter for women who have experienced domestic violence located in Kansas City, MO. Their annual expenses are approximately $5,650,0000. 
 
 **Step 1:** The user defines basic information about their organization using the `get_org_values()` function. See the documentation of `get_org_values()` for detailed information about the arguments. 
 

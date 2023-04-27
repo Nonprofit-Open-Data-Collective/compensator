@@ -1,0 +1,65 @@
+---
+title: "Apprasial Process"
+author: "Olivia Beck"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The appraisal process consists of three steps: 
+
+| **Step 1:** User inputs attributes about reference nonprofit. 
+
+| **Step 2:** User selects their comparison set
+|     - Option 1: Simple search using step 1 inputs to narrow search criteria 
+|     - Option 2: Detailed search & Manual Selection 
+
+| **Step 3:** Obtain range of suggested compensation for reference nonprofit 
+
+|     **Step 3.1:** Calculate the distance between the reference nonprofit and all organizations in the comparison set. 
+
+|         Optional Step 3.1.1: Optional Step of selecting a subset of the comparison set based on the distances.
+
+|     **Step 3.2:** Calculate the weighted average of all organizations in the comparison set with weights inversely proportional to the distances calculated in Step 3.1. 
+
+|     **Step 3.3:** Calculated and report suggested salary range.  
+
+
+## Step 1: Attributes of Reference Nonprofit 
+
+The user needs to input the following attributes of their nonprofit: the U.S. state or territory the nonprofit is located in, if the non profit is located in a metropolitan or rural area, the total annual expense of the nonprofit in the most recent IRS filing year, and the NTEE code that best describes the mission of the nonprofit. We define the following values:  
+
+* $State_{user}$ = the U.S. state or territory the nonprofit is located in.
+* $LocationType_{user}$  = “metro” if the user’s information is located in a metropolitan area, "suburban" if the user’s information is located in a suburban area, "town" if the user’s information is located in a small town, and “rural.” if the user’s information is located in a rural area.
+* $TotalExpense_{user}$  =  the total annual expense of the user’s nonprofit in the most recent IRS filing year
+* $NTEE_{user}$ =  the NTEE code that best describes the mission of the user’s nonprofit
+* Let $OrgType_{user}$ ,  $BroadCategroy_{user}$ ,  $MajorGroup_{user}$,  $Divisoin_{user}$ , and $Subdivision_{user}$ be the respective attributes of the user's reference organization using the disaggregated NTEE code described in the NTEE Codes vignette.
+
+
+## Step 2: Choosing the Comparison Set
+
+
+The comparison set of nonprofits is the set of all nonprofits that will be used to obtain an appraisal for the user’s organization. Of all available nonprofits, we only include those in the comparison set that can “reasonably” be compared to the user’s organization. How “reasonable” is defined will vary for each user as it depends on the job market of their potential CEO candidate.  We allow the user to default to general constraints to create their comparison set, or  define their own set of constraints for a more customizable search. 
+
+We first define the following sets: 
+
+* $SearchOrganizationType \subseteq \{RG, AA, MT, PS, RP, MS, MM, NS\}$ be the set of all organization types that potential comparison organizations can have in order to be in the comparison set.
+* $SearchBroadCategory  \subseteq \{ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, HOS\}$  be the set of all broad categories that potential comparison organizations can have in order to be in the comparison set. 
+* $SearchMajorGroup \subseteq \{A, B, C, ..., Z\}$ be the set of all major groups that potential comparison organizations can have in order to be in the comparison set. 
+* $SearchDivision  \subseteq \{ 0, 2, 3, ... , 9\}$ be the set of all divisions that potential comparison organizations can have in order to be in the comparison set. Note, due to the nested structures, divisions are only interpretable inside a major group. Thus, we suggest that you do not constrain the division if $SearchMajorGroup$ has two or more elements. 
+* $SearchSubDivision  \subseteq \{ 0, 1, 2, ... , 9\}$ be the set of all subdivisions that potential comparison organizations can have in order to be in the comparison set. Note, due to the nested structures, subdivisions are only interpretable inside a division. Thus, we suggest that you do not constrain the division if $SearchDivision$ has two or more elements. 
+* $SearchState \subseteq \{AL, AK, AZ, ..., WY\}$ be the set of all U.S. states and territories that potential comparison organizations can be located in order to be in the comparison set. 
+* $SearchLocationType \subseteq \{Rural,Town, Suburban, Metro\}$ be the set of all location types that potential comparison organizations can be located in order to be in the comparison set. 
+* $SearchTotalExpense = [MinExpense, MaxExpense]$  be the range of total annual expenses that potential comparison organizations can have in order to be in the comparison set. 
+
+Let $ComparisonSet$ be the set of all nonprofits where every attribute is in the search criteria.  
+
+There are two options for selecting the search criteria to define the comparison set. 
+
+#### Option 1 : Simple Search
+
+
+
