@@ -1,5 +1,5 @@
 ---
-title: "Apprasial Process"
+title: "Appraisal Process"
 author: "Olivia Beck"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
@@ -7,59 +7,444 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(compensator)
+library(dplyr)
+library(kableExtra)
 ```
 
-The appraisal process consists of three steps: 
+The appraisal process consists of three steps:
 
-| **Step 1:** User inputs attributes about reference nonprofit. 
+| **Step 1:** User inputs attributes about reference nonprofit.
 
 | **Step 2:** User selects their comparison set
-|     - Option 1: Simple search using step 1 inputs to narrow search criteria 
-|     - Option 2: Detailed search & Manual Selection 
+|     - Option 1: Simple search using step 1 inputs to narrow search criteria
+|     - Option 2: Detailed search & Manual Selection
 
-| **Step 3:** Obtain range of suggested compensation for reference nonprofit 
+| **Step 3:** Obtain range of suggested compensation for reference nonprofit
 
-|     **Step 3.1:** Calculate the distance between the reference nonprofit and all organizations in the comparison set. 
+|     **Step 3.1:** Calculate the distance between the reference nonprofit and all organizations in the comparison set.
 
 |         Optional Step 3.1.1: Optional Step of selecting a subset of the comparison set based on the distances.
 
-|     **Step 3.2:** Calculate the weighted average of all organizations in the comparison set with weights inversely proportional to the distances calculated in Step 3.1. 
+|     **Step 3.2:** Calculate the weighted average of all organizations in the comparison set with weights inversely proportional to the distances calculated in Step 3.1.
 
-|     **Step 3.3:** Calculated and report suggested salary range.  
+|     **Step 3.3:** Calculated and report suggested salary range.
 
+## Step 1: Attributes of Reference Nonprofit
 
-## Step 1: Attributes of Reference Nonprofit 
+The user needs to input the following attributes of their nonprofit: the U.S. state or territory the nonprofit is located in, if the non profit is located in a metropolitan or rural area, the total annual expense of the nonprofit in the most recent IRS filing year, and the NTEE code that best describes the mission of the nonprofit. We define the following values:
 
-The user needs to input the following attributes of their nonprofit: the U.S. state or territory the nonprofit is located in, if the non profit is located in a metropolitan or rural area, the total annual expense of the nonprofit in the most recent IRS filing year, and the NTEE code that best describes the mission of the nonprofit. We define the following values:  
-
-* $State_{user}$ = the U.S. state or territory the nonprofit is located in.
-* $LocationType_{user}$  = “metro” if the user’s information is located in a metropolitan area, "suburban" if the user’s information is located in a suburban area, "town" if the user’s information is located in a small town, and “rural.” if the user’s information is located in a rural area.
-* $TotalExpense_{user}$  =  the total annual expense of the user’s nonprofit in the most recent IRS filing year
-* $NTEE_{user}$ =  the NTEE code that best describes the mission of the user’s nonprofit
-* Let $OrgType_{user}$ ,  $BroadCategroy_{user}$ ,  $MajorGroup_{user}$,  $Divisoin_{user}$ , and $Subdivision_{user}$ be the respective attributes of the user's reference organization using the disaggregated NTEE code described in the NTEE Codes vignette.
-
+-   $State_{user}$ = the U.S. state or territory the nonprofit is located in.
+-   $LocationType_{user}$ = "metro" if the user's information is located in a metropolitan area, "suburban" if the user's information is located in a suburban area, "town" if the user's information is located in a small town, and "rural." if the user's information is located in a rural area.
+-   $TotalExpense_{user}$ = the total annual expense of the user's nonprofit in the most recent IRS filing year
+-   $NTEE_{user}$ = the NTEE code that best describes the mission of the user's nonprofit
+-   Let $OrgType_{user}$ , $BroadCategroy_{user}$ , $MajorGroup_{user}$, $Divisoin_{user}$ , and $Subdivision_{user}$ be the respective attributes of the user's reference organization using the disaggregated NTEE code described in the NTEE Codes vignette.
 
 ## Step 2: Choosing the Comparison Set
 
+The comparison set of nonprofits is the set of all nonprofits that will be used to obtain an appraisal for the user's organization. Of all available nonprofits, we only include those in the comparison set that can "reasonably" be compared to the user's organization. How "reasonable" is defined will vary for each user as it depends on the job market of their potential CEO candidate. We allow the user to default to general constraints to create their comparison set, or define their own set of constraints for a more customizable search.
 
-The comparison set of nonprofits is the set of all nonprofits that will be used to obtain an appraisal for the user’s organization. Of all available nonprofits, we only include those in the comparison set that can “reasonably” be compared to the user’s organization. How “reasonable” is defined will vary for each user as it depends on the job market of their potential CEO candidate.  We allow the user to default to general constraints to create their comparison set, or  define their own set of constraints for a more customizable search. 
+We first define the following sets:
 
-We first define the following sets: 
+-   $SearchOrganizationType \subseteq \{RG, AA, MT, PS, RP, MS, MM, NS\}$ be the set of all organization types that potential comparison organizations can have in order to be in the comparison set.
+-   $SearchBroadCategory \subseteq \{ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, HOS\}$ be the set of all broad categories that potential comparison organizations can have in order to be in the comparison set.
+-   $SearchMajorGroup \subseteq \{A, B, C, ..., Z\}$ be the set of all major groups that potential comparison organizations can have in order to be in the comparison set.
+-   $SearchDivision \subseteq \{ 0, 2, 3, ... , 9\}$ be the set of all divisions that potential comparison organizations can have in order to be in the comparison set. Note, due to the nested structures, divisions are only interpretable inside a major group. Thus, we suggest that you do not constrain the division if $SearchMajorGroup$ has two or more elements.
+-   $SearchSubDivision \subseteq \{ 0, 1, 2, ... , 9\}$ be the set of all subdivisions that potential comparison organizations can have in order to be in the comparison set. Note, due to the nested structures, subdivisions are only interpretable inside a division. Thus, we suggest that you do not constrain the division if $SearchDivision$ has two or more elements.
+-   $SearchState \subseteq \{AL, AK, AZ, ..., WY\}$ be the set of all U.S. states and territories that potential comparison organizations can be located in order to be in the comparison set.
+-   $SearchLocationType \subseteq \{Rural,Town, Suburban, Metro\}$ be the set of all location types that potential comparison organizations can be located in order to be in the comparison set.
+-   $SearchTotalExpense = [MinExpense, MaxExpense]$ be the range of total annual expenses that potential comparison organizations can have in order to be in the comparison set.
 
-* $SearchOrganizationType \subseteq \{RG, AA, MT, PS, RP, MS, MM, NS\}$ be the set of all organization types that potential comparison organizations can have in order to be in the comparison set.
-* $SearchBroadCategory  \subseteq \{ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, HOS\}$  be the set of all broad categories that potential comparison organizations can have in order to be in the comparison set. 
-* $SearchMajorGroup \subseteq \{A, B, C, ..., Z\}$ be the set of all major groups that potential comparison organizations can have in order to be in the comparison set. 
-* $SearchDivision  \subseteq \{ 0, 2, 3, ... , 9\}$ be the set of all divisions that potential comparison organizations can have in order to be in the comparison set. Note, due to the nested structures, divisions are only interpretable inside a major group. Thus, we suggest that you do not constrain the division if $SearchMajorGroup$ has two or more elements. 
-* $SearchSubDivision  \subseteq \{ 0, 1, 2, ... , 9\}$ be the set of all subdivisions that potential comparison organizations can have in order to be in the comparison set. Note, due to the nested structures, subdivisions are only interpretable inside a division. Thus, we suggest that you do not constrain the division if $SearchDivision$ has two or more elements. 
-* $SearchState \subseteq \{AL, AK, AZ, ..., WY\}$ be the set of all U.S. states and territories that potential comparison organizations can be located in order to be in the comparison set. 
-* $SearchLocationType \subseteq \{Rural,Town, Suburban, Metro\}$ be the set of all location types that potential comparison organizations can be located in order to be in the comparison set. 
-* $SearchTotalExpense = [MinExpense, MaxExpense]$  be the range of total annual expenses that potential comparison organizations can have in order to be in the comparison set. 
+Let $ComparisonSet$ be the set of all nonprofits where every attribute is in the search criteria.
 
-Let $ComparisonSet$ be the set of all nonprofits where every attribute is in the search criteria.  
-
-There are two options for selecting the search criteria to define the comparison set. 
+There are two options for selecting the search criteria to define the comparison set.
 
 #### Option 1 : Simple Search
 
+For a simple search for we use the the following formulas based on their inputs in Step 1 to define search criteria:
+
+-   If $OrgType_{user} = RG$ , then $SearchOrganizationType = \{RG\}$, else $SearchOrganizationType = \{ AA, MT, PS, RP, MS, MM, NS\}$.
+-   If $OrgType_{user} =RG$, then $SearchBroadCategory = \{BroadCategory_{user}\}$ , else $SearchBroadCategory = \{ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, HOS\}$
+-   If $OrgType_{user} =RG$, then $SearchMajorGroup$ is every major group inside $BroadCategory_{user}$ using the list on the NTEE Codes Vignette, else, $SearchMajorGroup = \{A, ..., Z\}$.
+-   $SearchDivision = \{ 0, 2, 3, ... , 9\}$
+-   $SearchSubDivision = \{ 0, 1, 2, 3, ... , 9\}$
+-   $SearchState = \{AL, AK, AZ, ..., WY\}$
+-   $SearchLocationType = \{LocationTypeuser\}$
+-   $SearchTotalExpense = [0.1*TotalExpense_{user} , 10 * TotalExpense_{user} ]$
+
+#### Option 2: Detailed Search
+
+For an advanced search we allow the user to define all of their search criteria sets as they see fit.
+
+We do have a few suggestions to follow ....
+
+## Step 3: Obtaining a Suggested Compensation Range
+
+### Step 3.1: Distance Calculations
+
+Upon the completion of Step 2, there will be $N$ organization in $ComparisonSet$. We label them Organization 1, Organization 2, ... , Organization $N$, indexed by $n$. For $n$ in 1 to $N$, let $TotalDist_n$ be the distance between Organization $n$ in $ComparisonSet$ and the user's reference nonprofit according to the calculations outlined in the Distance Calculations Vignette.
+
+#### Optional Step 3.1.1
+
+STILL NEED TO EDIT 
+
+Thresholding Deselecting organizations you do not want to include
+
+### Step 3.2: Point Value Compensation Estimate
+
+We calculate a point value expected compensation by finding the weighted average of CEO salaries for all organizations in the comparison, using weights inversely proportional to the distance calculated in Step 3.1. The point value compensation estimate is calculated according to Algorithm 1.
+
+Intuitively, the CEO compensation of organizations in the comparison set that have many similar attributes to the reference nonprofit should be prioritized when creating an appraisal. Additionally, we would like to utilize the CEO compensation information of organizations that are less similar to the reference nonprofit, but would like to down-weight this compensation information due to this dissimilarity to the reference nonprofit. Since $TotalDistance_n$ is small when Organization $n$ and the reference nonprofit have similar attributes, and is large when Organization $n$ and the reference nonprofit do not have similar attributes, we create weights inversely proportional to the total distance.
+
+<hr style="border:2px solid gray">
+
+**Algorithm 1**: Calculate Point Value CEO Compensation Estimate
+
+------------------------------------------------------------------------
+
+For every Organization $n$ in $ComparisonSet$, let $TotalDist_n$ be the total distance be the total distance between Organization $n$ and the reference nonprofit. Additionally, let $CeoCompensation_n$ be the CEO total compensation for Organization $n$.
+
+Let $MinDist = \min \{TotalDist_n: n \in \{1, 2, ... ,N\} \}$ and $MaxDist = \max \{TotalDist_n: n \in \{1, 2, ... ,N\} \}$.
+
+1.  Scale the distances between 0 and 1. For $n$ in 1 to $N$, define $d_n = \frac{TotalDistance_n - MinDist}{MaxDist - MinDist}$
+
+2.  Calculate the weights as $w_n = \frac{1- d_n }{\sum_n(1 - d_n)}$.
+
+3.  The point value CEO compensation estimate is the weighted average of all $CeoCompensation_n$:
+
+$PointEstimate = \sum_n w_n CeoCompensation_n$.
+
+<hr style="border:2px solid gray">
+
+### Step 3.3 Suggested Compensation Range
+
+NEED TO EDIT THIS
+
+Adjust for controls (predictors) Conversion to % and back (p_n to v_n) Omitting outliers (the inner 90% of the data)
+
+<hr style="border:2px solid gray">
+
+**Algorithm 2**: Calculate Suggested Range
+
+------------------------------------------------------------------------
+
+Let $PointEstimate$ be the result of Algorithm 1.
+
+1.  Using all organizations in $ComparisonSet$, estimate a linear regression model with $CeoCompensation$ as the response, and $\log_{10}(TotalExpense)$, $\log_{10}(TotalAssests)$, $\log_{10}(GrossReciepts)$, $\log_{10}(TotalEmployee)$, $FormYear$, $BroadCategory$, $State$, $LoactionType$, and $Gender$ as predictors.
+
+2.  Let $\hat{CEO}_n$ be the predicted CEO Compensation from this regression model for each Organization $n$, and $e_n = CeoCompensation_n -\hat{CEO}_n$ be the corresponding residual.
+
+3.  Calculate the residual as a proportion of the observed value: $p_n = \frac{e_n}{CeoCompensation_n}$.
+
+4.  Let $v_n = PointValue * (1 + p_n)$ be transformation of $p_n$ centered at $PointEstimate$.
+
+5.  Let $q_{0.05}$ and $q_{0.95}$ be the $5^{th}$ and $95^{th}$ quantile of the $v_n$'s, respectively.
+
+Then [$q_{0.05}$ , $q_{0.95}$ ] is the suggested CEO compensation range.
+
+<hr style="border:2px solid gray">
+
+## Example of Apprasial Process
+
+Here we will walk through an example of the appraisal step-by-step using the package functions. At the end of this section, we also provide an example of how the wrapper function `get_appraisal()` is used. 
+
+### Step-by-Step Example
+
+Say Nonprofit X is a wildlife preservation nonprofit located in Elko County, Nevada with annual expenses of \~\$1,575,000. Their board is trying to hire a new CEO and they want an appraisal for a reasonable total compensation for their CEO candidates.
+
+#### Step 1
+
+Using the NTEE Dendogram on the NTEE Codes Vignette, we know that Nonprofit X has an NTEE code of D30. We then use the `ntee.crosswalk` data set to obtain their disaggregated NTEE code values. Thus, their input values are,
+
+-   $State_{user} = NV$
+-   $LocationType_{user} = rural$\
+-   $TotalExpense_{user} = 1,575,000$
+-   $NTEE_{user} = D30$
+    -   $OrgType_{user} = RG$
+    -   $BroadCategroy_{user} = ENV$
+    -   $MajorGroup_{user} = D$
+    -   $Divisoin_{user} = 3$
+    -   $Subdivision_{user} = 0$
+    
+    
+After defining our user input values, we use the `get_org_values()` function to define a list of all the need attributes about Nonprofit X: 
+
+```{r}
+NonprofitX <- get_org_values(
+  state = "NV", 
+  location.type = "rural",
+  total.expense = 1575000,
+  ntee = "D30")
+```
+
+#### Step 2
+
+The board believes the job market of their CEO candidates is other environment and animal related nonprofits located in non-metropolitan areas in Nevada, Utah, Idaho, and California. They use the advanced search criteria option to obtain their $ComparisonSet$ criteria as:
+
+-   $SearchOrganizationType = \{RG\}$
+-   $SearchBroadCategory = \{ENV\}$
+-   $SearchMajorGroup = \{C, D\}$
+-   $SearchDivision = \{ 0, 2, 3, ... , 9\}$
+-   $SearchSubDivision = \{ 0, 1, 2, 3, ... , 9\}$
+-   $SearchState = \{NV, UT, ID, CA\}$
+-   $SearchLocationType = \{\text{rural}, \text{town}, \text{suburban}\}$
+-   $SearchTotalExpense = [0 , \infty]$
+
+After defining the above criteria, we define our search criteria and obtain our $ComparisonSet$ using the `select_sample()` function. (Note, for demonstration purposes, the code chuck below is not actually run and we fabricate a small comparison set to walk-through the appraisal process. ) 
+
+```{r, eval = F}
+#define search criteria
+search.criteria <-
+  list(
+    type.org = "RG",
+    broad.category = "ENV",
+    major.group = c("C", "D"),
+    division = NA,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = c("rural", "town", "subruban"),
+    state = c("NV", "UT", "CA", "ID"),
+    total.expense = c(0, Inf)
+  )
+
+#obtain comparison set
+comparison.set <- select_sample(NonprofitX, search.criteria)
+
+```
+
+
+Then the resulting (fabricated) comparison set is the following: 
+
+
+```{r, echo = F}
+#fabricate 5 organizations for example purposes. 
+org1 <- get_org_values(
+  state = "CA", 
+  location.type = "suburban",
+  total.expense = 2400000,
+  ntee = "C34")
+
+org2 <- get_org_values(
+  state = "UT", 
+  location.type = "town",
+  total.expense = 1600000,
+  ntee = "D32")
+
+org3 <- get_org_values(
+  state = "NV", 
+  location.type = "town",
+  total.expense = 1800000,
+  ntee = "D20")
+
+org4 <- get_org_values(
+  state = "NV", 
+  location.type = "suburban",
+  total.expense = 1400000,
+  ntee = "C36")
+  
+org5 <- get_org_values(
+  state = "ID", 
+  location.type = "rural",
+  total.expense = 4300000,
+  ntee = "D50")
+
+#bind orgs to make for loops easier later 
+all.orgs <- list(org1 = org1, 
+                 org2 = org2, 
+                 org3 = org3, 
+                 org4 = org4,
+                 org5 = org5)
+
+# Make it a table 
+comparison.set <-rbind( as.data.frame(org1), 
+             as.data.frame(org2), 
+             as.data.frame(org3), 
+             as.data.frame(org4),
+             as.data.frame(org5))
+
+#add fabricated ceo compensation's
+comparison.set$ceo.compensation <- c(189000, 202000, 96000, 119000, 421000)
+
+#add fabricated names
+comparison.set <- comparison.set %>% 
+  dplyr::mutate(Name = c("Organization A", 
+                         "Organization B",
+                         "Organization C", 
+                         "Organization D",
+                         "Organization E")) 
+#print kable
+comparison.set %>%
+  dplyr::select(Name, state, location.type, old.code, total.expense, ceo.compensation) %>%
+  kable(col.names =c("Name", "State", "Location Type", "NTEE Code", "Annual Expense", "CEO Compensation") )%>%
+  kable_styling()
+  
+```
+
+
+#### Step 3.1 Distance Calculations 
+
+Using the method outlined in the Distance Calculations Vignette, we next calculate the mission, geographic, and size distances to find the total distance between each of the five above organizations and Nonprofit X. We use the `get_mission_dist` and `get_geo_dist` functions. (Note, when you use the `select_sample()` function, the distances are automatically calculated. We calculate them by hand here for demonstration purposes.)
+
+```{r}
+# Get weights
+w <- get_weights()
+
+# Initialize Storage 
+comparison.set$m.dist <- comparison.set$g.dist <- 
+  comparison.set$s.dist <- comparison.set$total.dist <- 0
+
+# Loop through all organizations an calculate the distance 
+for(i in 1:5){
+  
+  #get values of Organization i
+  temp.org <- get_org_values(
+    state = comparison.set$state[i],
+    location.type = comparison.set$location.type[i],
+    total.expense = comparison.set$total.expense[i],
+    ntee = comparison.set$old.code[i]
+  )
+  
+  #Calculate distances
+  comparison.set$m.dist[i] <- get_mission_dist(NonprofitX, temp.org, w$mission)
+  comparison.set$g.dist[i] <- get_geo_dist(NonprofitX, temp.org, w$geo)
+  comparison.set$s.dist[i] <- 
+    log(
+      abs(NonprofitX$total.expense - comparison.set$total.expense[i]), 
+      base = 10)
+}
+
+#find minimum values of each distance category 
+min.miss <- min(comparison.set$m.dist)
+min.geo <-  min(comparison.set$g.dist)
+min.size <-  min(comparison.set$s.dist)
+
+#Center and scale total distance 
+comparison.set$total.dist <- 
+  100/3*( (comparison.set$m.dist - min.miss) + 
+          (comparison.set$g.dist - min.geo ) + 
+          (comparison.set$s.dist - min.size) )
+
+```
+
+```{r, echo = F}
+#print kable
+comparison.set %>%
+  dplyr::select(Name, m.dist, g.dist, s.dist, total.dist) %>%
+  #sort by name, not rank
+  dplyr::arrange(Name) %>%
+  kable(col.names =c("Name", "Mission Distance", "Geographic Distance", "Size Distance", "Total Distance"),
+        digits = 3)%>%
+  kable_styling()
+
+```
+
+
+#### Step 3.2 Point Value Compensation Estimate
+
+We next use Algorithm 1 to calculate the point value compensation estimate. We first need to calculate the corresponding weights, then use the weights to calculate a weighted average of the CEO compensations of the organizations in the comparison set. 
+
+```{r}
+# Get minimum and maximum distances for scaling and centering 
+min.dist <- min(comparison.set$total.dist)
+max.dist <- max(comparison.set$total.dist)
+
+# Scale and center total distance
+comparison.set$d <- (comparison.set$total.dist - min.dist) / (max.dist - min.dist)
+
+# Calculate Weights
+comparison.set$weight <- (1 - comparison.set$d) / sum(1 - comparison.set$d)
+```
+
+Our $d$ and $weight$ values are as follows: 
+
+```{r, echo = F}
+comparison.set %>%
+  dplyr::select(Name, total.dist, d, weight) %>%
+  #sort by name, not rank
+  dplyr::arrange(Name) %>%
+  kable(col.names =c("Name", "Total Distance", "d", "weight"),
+        digits = 3)%>%
+  kable_styling()
+
+```
+
+Finally, we calcuate the weighted average to obtain the point value estimate. 
+
+```{r}
+# Get point value estimate 
+suggested.salary <-sum(comparison.set$weight * comparison.set$ceo.compensation)
+suggested.salary
+```
+
+The suggested point value estimate is `r dollarize(suggested.salary)`.
+
+
+#### Step 3.3 Suggested Compensation Range
+
+We obtain the suggested CEO compensation range according to Algorithm 2. (Here we fabricate $\hat{CEO}_n$ for demonstration purposes as running a regression model with 5 data points and 9 predictors would lead to nonsensical results. Thus $e_n$ is also fabricated, but we ensured $\sum_n e_n =0$ to align with properties of a regression model.) 
+
+```{r}
+#fabricate ceo-hat predicted values
+comparison.set$ceo.hat <- c(170000, 209000, 140000, 132000, 376000)
+
+##get residuals 
+comparison.set$e <- comparison.set$ceo.compensation - comparison.set$ceo.hat
+sum(comparison.set$e) #residuals sum to 0
+
+# get residuals as percent
+comparison.set$p <- comparison.set$e / comparison.set$ceo.compensation
+
+# get percent of suggested salary 
+comparison.set$v <- suggested.salary * (1 + comparison.set$p)
+```
+
+Our $e$, $p$, and $v$ values are as follows: 
+
+```{r, echo = F}
+comparison.set %>%
+  dplyr::select(Name, ceo.compensation, ceo.hat, e, p, v) %>%
+  kable(col.names =c("Name", "CEO Compensation", "Predicted CEO Compensation", "e", "p", "v"),
+        digits = 3) %>%
+  kable_styling()
+
+```
+Finally, we calculate the suggested compensatoin range. 
+
+```{r}
+#Get quantiles 
+suggested.range <- quantile(comparison.set$v, probs = c(0.05, 0.95))
+suggested.range
+```
+
+The suggested range for CEO compensation for Nonprofit X is `r dollarize(suggested.range[1])` to `r dollarize(suggested.range[2])`. 
+
+### Using the wrapper funciton
+
+In a non-fabricated example, you can use the `get_appraisal()` wrapper function to do these calculations automatically. 
+
+```{r, eval = F}
+NonprofitX <- get_org_values(
+  state = "NV", 
+  location.type = "rural",
+  total.expense = 1575000,
+  ntee = "D30")
+  
+search.criteria <-
+  list(
+    type.org = "RG",
+    broad.category = "ENV",
+    major.group = c("C", "D"),
+    division = NA,
+    subdivision = NA,
+    univ = FALSE,
+    hosp = FALSE,
+    location.type = c("rural", "town", "subruban"),
+    state = c("NV", "UT", "CA", "ID"),
+    total.expense = c(0, Inf)
+  )
+
+final.apprasial <- get_appraisal(NonprofitX, search.criteria)
+```
 
 

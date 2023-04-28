@@ -8,18 +8,17 @@
 #' See ... Vignette for detailed explanation on how distance between nonprofits is calculated.
 #' 
 #' @param org List output from `get_org_values()`
-#' @param search.criteria List with the following elements: 
-#' @param search.criteria a list with the following items: 
-#' * type.org vector of the types of organization you want to include. Options are  RG, AA, MT, PA, RP, MS, MM, and/or NS. 
-#' * broad.category vector of broad categories you wish to include in returned data set Options are ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, and/or HOS 
-#' * major.group vector of major groups you wish to include in returned data set. Options are A-Z.
-#' * division vector of divisions you wish to include. Divisions exist entirely inside major groups. We suggest you do not use this parameter if you have more than one item in `major.group`. Options are 0, 2, 3, ..., 9 (1 is not an option. 
-#' * subdivision vector of subdivision you wish to include. Subdivisions exist entirely inside divisions. We suggest you do not use this parameter if you have more than one item in `division`. Options are 0 - 9. 
-#' * univ TRUE of FALSE. Are universities to be included?
-#' * hosp TRUE of FALSE, Are hospitals to be included?
-#' * location.type vector of "metro", "suburban", "town", and/or "rural" for which city types to include
-#' * state vector of 2 letter state abbreviations to be included
-#' * total.expense vector of c(min,max) of range of total expenses to be included
+#' @param search.criteria A list with the following elements: 
+#' * `type.org`: vector of the types of organization you want to include. Options are  RG, AA, MT, PA, RP, MS, MM, and/or NS. 
+#' * `broad.category`: vector of broad categories you wish to include in returned data set Options are ART, EDU, ENV, HEL, HMS, IFA, PSB, REL, MMB, UNU, UNI, and/or HOS 
+#' * `major.group`: vector of major groups you wish to include in returned data set. Options are A-Z.
+#' * `division`: vector of divisions you wish to include. Divisions exist entirely inside major groups. We suggest you do not use this parameter if you have more than one item in `major.group`. Options are 0, 2, 3, ..., 9 (1 is not an option. 
+#' * `subdivision`: vector of subdivision you wish to include. Subdivisions exist entirely inside divisions. We suggest you do not use this parameter if you have more than one item in `division`. Options are 0 - 9. 
+#' * `univ`: TRUE of FALSE. Are universities to be included?
+#' * `hosp`: TRUE of FALSE, Are hospitals to be included?
+#' * `location.type`: vector of "metro", "suburban", "town", and/or "rural" for which city types to include
+#' * `state`: vector of 2 letter state abbreviations to be included
+#' * `total.expense`: vector of `c(min,max)` of range of total expenses to be included
 #' 
 #' @return A data frame with all nonprofits that match the search criteria. 
 #' Each nonprofit has the following variables:

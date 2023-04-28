@@ -16,9 +16,20 @@ library(compensator)
 Add brief paragraph about why we built this package. 
 
 Every appraisal will have three steps. 
+
 1. User provides basic information about the nonprofit they want to obtain an appraisal for. 
+
 2. User provides characteristics of organizations they want to compare the input nonprofit to. 
 3. Returns an appraisal for CEO compensation for it input nonprofit. 
+
+
+## General Information 
+
+- For information about NTEE codes and structure see the [NTEE Code Vignette](ntee-codes.html).
+
+- For details on how the appraisal is calculated see the [Appraisal Process Vignette](appraisal-process.html). This vignette also includes a detailed toy example of the appraisal process. 
+
+- For details on calculating distances between nonprofits see the [Distance Calculations Vignette](dist-calcs.html).
 
 
 ## A Few Simple Examples
@@ -134,7 +145,7 @@ We conclude that a reasonable salary range for a CEO of Nonprofit Y is `r dollar
 
 ### Example 3 
 
-**Step 1:* Say Nonprofit Z is a nonprofit dedicated to fundraising for other nonprofits dedicated to the treatment and prevention of cancer. They are located in Washington D.C. with annual expense of $13,000,000. 
+**Step 1:** Say Nonprofit Z is a nonprofit dedicated to fundraising for other nonprofits dedicated to the treatment and prevention of cancer. They are located in Washington D.C. with annual expense of $13,000,000. 
 
 ```{r}
 orgZ <- get_org_values(state = "DC",
@@ -144,7 +155,7 @@ orgZ <- get_org_values(state = "DC",
 
 ```
 
-**Step 2:* They would like to compare themselves to other fundraising nonprofits regardless of what type organizations they provide support to. 
+**Step 2:** They would like to compare themselves to other fundraising nonprofits regardless of what type organizations they provide support to. 
 
 ```{r}
 search.criteriaZ <-
@@ -163,7 +174,7 @@ search.criteriaZ <-
 ```
 
 
-**Step 3:* They generate their appraisal: 
+**Step 3:** They generate their appraisal: 
 
 
 ```{r , warning=F}

@@ -25,7 +25,8 @@ org <- get_org_values(state = "CA",
 # Step 2, get comparison orgs and calculate distances
 search.criteria <-
   list(
-    type.org = base::ifelse(org$type.org == "RG", "RG", c("AA", "MT", "PA", "RP", "MS", "MM", "NS")),
+    type.org = base::ifelse(org$type.org == "RG", "RG", 
+                c("AA", "MT", "PA", "RP", "MS", "MM", "NS")),
     broad.category = base::ifelse(org$type.org == "RG", org$broad.category, NA),
     major.group = base::ifelse(org$type.org == "RG", org$major.group, NA),
     division = NA,
