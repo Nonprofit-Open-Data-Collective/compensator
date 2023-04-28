@@ -38,3 +38,4 @@ articles:
     contents:
       - test-vig
       - ntee-codes
+      - appraisal-process
