@@ -46,11 +46,11 @@ contains between 1 and 10 subdivisions.
 
 The 26 major groups and their corresponding letters are:
 
-```{r, include = F}
+```{r, echo = F}
 ntee.orig %>%
   dplyr::filter(nchar(ntee) ==1) %>%
   dplyr::select(-definition) %>%
-  dplyr::rename(`NTEE Code` = ntee,
+  dplyr::rename(`NTEE Major Group` = ntee,
                 Description = description) %>%
   kable() %>%
   kable_styling()
@@ -59,15 +59,31 @@ ntee.orig %>%
 
 The NTEE classification system divides the universe of nonprofit
 organizations into 26 major groups (letters A - Z) under 12 broad
-categories (numbers 1-12) as follows: 1. Arts, Culture, and Humanities
-(ART) - A 2. Education (EDU) - B, excluding NTEE codes B40, B41, B42,
-and B43 3. Environment and Animals (ENV) - C, D 4. Health (HEL) - E, F,
-G, H, excluding NTEE codes E20, E21, E22, and E24 5. Human Services
-(HMS)- I, J, K, L, M, N, O, P 6. International, Foreign Affairs (IFA) -
-Q 7. Public, Societal Benefit (PSB) - R, S, T, U, V, W 8. Religion
-Related (REL) - X 9. Mutual/Membership Benefit (MMB) - Y 10. Unknown,
-Unclassified (UNU)- Z 11. Universities (UNI) - NTEE codes B40, B41, B42,
-and B43 12. Hospitals (HOS) - NTEE codes E20, E21, E22, and E24
+categories (numbers 1-12) as follows: 
+  
+1. Arts, Culture, and Humanities (ART) - A 
+
+2. Education (EDU) - B, excluding NTEE codes B40, B41, B42, and B43 
+
+3. Environment and Animals (ENV) - C, D 
+
+4. Health (HEL) - E, F,G, H, excluding NTEE codes E20, E21, E22, and E24 
+
+5. Human Services(HMS)- I, J, K, L, M, N, O, P 
+
+6. International, Foreign Affairs (IFA) - Q 
+
+7. Public, Societal Benefit (PSB) - R, S, T, U, V, W 
+
+8. Religion Related (REL) - X 
+
+9. Mutual/Membership Benefit (MMB) - Y 
+
+10. Unknown, Unclassified (UNU)- Z 
+
+11. Universities (UNI) - NTEE codes B40, B41, B42,and B43 
+
+12. Hospitals (HOS) - NTEE codes E20, E21, E22, and E24
 
 Universities and hospitals have been separated in different broad
 categories from the rest of their respective major groups due to their
@@ -124,7 +140,7 @@ school booster clubs would be classified as B1120 (B11 Monetary
 Support - Single Organization plus B20 Elementary, Secondary Education,
 K-12).
 
-Another example of coding is A professional society called "The Learned
+Another example of coding is a professional society called "The Learned
 Society of Landscape Photographers" would be given an NTEE code of
 A0340; the major group is A for Arts, the common code 03 designates the
 organization as a professional society and the last two digits ("40")
@@ -137,6 +153,15 @@ category distinctions as regular NTEE codes. Because no specialty
 nonprofit itself can be a university or a hospital (although they can
 still provide support to universities or hospitals), no specialty NTEE
 code will have a broad category of 11 or 12.
+
+# NTEE Code structure 
+
+Here we provide a visual dendrogram that captures the overall NTEE Code structure. Hover th mouse over each node to see more information. Click on each node to expand it and see the categories inside of it.
+
+
+```{r, echo = F}
+htmltools::includeHTML("images/ntee-dendrogram.html")
+```
 
 # Disagregated NTEE Codes
 
@@ -201,7 +226,10 @@ the number of the division, and the number of the subdivision.
 
 A cross walk from the original NTEE codes to the disagregated NTEE codes can be found in the `ntee.crosswalk` data set. This data set includes all regular NTEE codes and all specialty NTEE codes that are known to be used. 
 
+
+
 # References
 
 -   [NTEE
-    Codes](https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes)
+    Codes breif explination](https://nccs.urban.org/project/national-taxonomy-exempt-entities-ntee-codes)
+-   [List of all NTEE codes](https://nccs.urban.org/publication/irs-activity-codes)
