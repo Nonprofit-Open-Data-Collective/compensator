@@ -409,7 +409,7 @@ CA\}\)</span></li>
 obtain our <span class="math inline">\(ComparisonSet\)</span> using the
 <code><a href="../reference/select_sample.html">select_sample()</a></code> function. (Note, for demonstration
 purposes, the code chuck below is not actually run and we fabricate a
-small comparison set to walk-though the appraisal process. )</p>
+small comparison set to walk-through the appraisal process. )</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#define search criteria</span></span>
 <span><span class="va">search.criteria</span> <span class="op">&lt;-</span></span>
@@ -726,9 +726,100 @@ the organizations in the comparison set.</p>
 <span><span class="va">comparison.set</span><span class="op">$</span><span class="va">d</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">comparison.set</span><span class="op">$</span><span class="va">total.dist</span> <span class="op">-</span> <span class="va">min.dist</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">max.dist</span> <span class="op">-</span> <span class="va">min.dist</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Calculate Weights</span></span>
-<span><span class="va">comparison.set</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">d</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Get point value estimate </span></span>
+<span><span class="va">comparison.set</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">d</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></span></code></pre></div>
+<p>Our <span class="math inline">\(d\)</span> and <span class="math inline">\(weight\)</span> values are as follows:</p>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:right;">
+Total Distance
+</th>
+<th style="text-align:right;">
+d
+</th>
+<th style="text-align:right;">
+weight
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Organization A
+</td>
+<td style="text-align:right;">
+78.787
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organization B
+</td>
+<td style="text-align:right;">
+5.870
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.531
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organization C
+</td>
+<td style="text-align:right;">
+41.842
+</td>
+<td style="text-align:right;">
+0.493
+</td>
+<td style="text-align:right;">
+0.269
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organization D
+</td>
+<td style="text-align:right;">
+52.175
+</td>
+<td style="text-align:right;">
+0.635
+</td>
+<td style="text-align:right;">
+0.194
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Organization E
+</td>
+<td style="text-align:right;">
+77.949
+</td>
+<td style="text-align:right;">
+0.989
+</td>
+<td style="text-align:right;">
+0.006
+</td>
+</tr>
+</tbody>
+</table>
+<p>Finally, we calcuate the weighted average to obtain the point value
+estimate.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get point value estimate </span></span>
 <span><span class="va">suggested.salary</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">comparison.set</span><span class="op">$</span><span class="va">weight</span> <span class="op">*</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">ceo.compensation</span><span class="op">)</span></span>
 <span><span class="va">suggested.salary</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 158731.6</span></span></code></pre>
@@ -743,7 +834,7 @@ for demonstration purposes as running a regression model with 5 data
 points and 9 predictors would lead to nonsensical results. Thus <span class="math inline">\(e_n\)</span> is also fabricated, but we ensured
 <span class="math inline">\(\sum_n e_n =0\)</span> to align with
 properties of a regression model.)</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#fabricate ceo-hat predicted values</span></span>
 <span><span class="va">comparison.set</span><span class="op">$</span><span class="va">ceo.hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">170000</span>, <span class="fl">209000</span>, <span class="fl">140000</span>, <span class="fl">132000</span>, <span class="fl">376000</span><span class="op">)</span></span>
 <span></span>
@@ -751,7 +842,7 @@ properties of a regression model.)</p>
 <span><span class="va">comparison.set</span><span class="op">$</span><span class="va">e</span> <span class="op">&lt;-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">ceo.compensation</span> <span class="op">-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">ceo.hat</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">comparison.set</span><span class="op">$</span><span class="va">e</span><span class="op">)</span> <span class="co">#residuals sum to 0</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] 0</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get residuals as percent</span></span>
 <span><span class="va">comparison.set</span><span class="op">$</span><span class="va">p</span> <span class="op">&lt;-</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">e</span> <span class="op">/</span> <span class="va">comparison.set</span><span class="op">$</span><span class="va">ceo.compensation</span></span>
 <span></span>
@@ -883,7 +974,7 @@ Organization E
 </tbody>
 </table>
 <p>Finally, we calculate the suggested compensatoin range.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Get quantiles </span></span>
 <span><span class="va">suggested.range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">comparison.set</span><span class="op">$</span><span class="va">v</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.05</span>, <span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">suggested.range</span></span></code></pre></div>
@@ -899,7 +990,7 @@ to $175,496.</p>
 <p>In a non-fabricated example, you can use the
 <code><a href="../reference/get_appraisal.html">get_appraisal()</a></code> wrapper function to do these calculations
 automatically.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">NonprofitX</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_org_values.html">get_org_values</a></span><span class="op">(</span></span>
 <span>  state <span class="op">=</span> <span class="st">"NV"</span>, </span>
 <span>  location.type <span class="op">=</span> <span class="st">"rural"</span>,</span>
