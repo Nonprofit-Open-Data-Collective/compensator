@@ -62,7 +62,7 @@ orgX <- get_org_values(state = "MO",
 * `state`: vector of 2 letter state abbreviations to be included
 * `total.expense`: vector of c(min,max) of range of total expenses to be included
 
-See ___ vignette for detailed information about these options. 
+See [Distance Calculations Vignette](dist-calcs.html) for detailed information about these options. 
 
 For our example, say the user is only interested in comparing themselves to other nonprofits involve in health care, mental health & crisis intervention, voluntary health associations & medical disciplines, crime & legal-related, and general human services. They also only want to consider other nonprofits with total expenses between \$1,000,000 and \$10,000,000 located in Missouri, Kansas, Oklahoma, Arkansas, Iowa, and Illinois. 
 
@@ -91,7 +91,7 @@ search.criteriaX <-
 
 See documentation for `get_apprasial()` for more information about these values. 
 
-See ___ Vignette for detailed information about generating `suggested.range` and `suggested.salary`.  
+See [Appraisal Process Vignette](appraisal-process.html) for detailed information about generating `suggested.range` and `suggested.salary`.  
 
 ```{r}
 appraisalX <- get_appraisal(orgX, search.criteriaX) 
@@ -114,7 +114,7 @@ orgY <- get_org_values(state = "NV",
 
 ```
 
-**Step 2:*** They would like to compare themselves to all other animal related nonprofits located not located in metropolitan areas with annual expenses less that $10,000,000. 
+**Step 2:** They would like to compare themselves to all other animal related nonprofits located not located in metropolitan areas with annual expenses less that $10,000,000. 
 
 ```{r}
 search.criteriaY <-
