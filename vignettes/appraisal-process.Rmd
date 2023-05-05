@@ -7,7 +7,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-install.packages('kableExtra', repos='https://cloud.r-project.org/')
+#needed in order for pkgdown to publish github.io page
+install.packages('kableExtra', repos='https://cloud.r-project.org/') 
+#load libraries
 library(compensator)
 library(dplyr)
 library(kableExtra)
