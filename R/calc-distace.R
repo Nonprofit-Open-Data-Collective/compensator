@@ -14,6 +14,7 @@
 #' 
 #' @return input of `comparison.orgs` with new columns with the distance from each organization to the input `org`.
 #' 
+#' @keywords calc_distance
 #' @export
 #' @examples 
 #' 
@@ -56,8 +57,8 @@
 #' weights <- get_weights()
 #' 
 #' # Calculate distances 
-#' comparison.orgs.with.dist <- calc_distace(org, comparison.orgs, weights)
-calc_distace <- function(org, comparison.orgs, weights){
+#' comparison.orgs.with.dist <- calc_distance(org, comparison.orgs, weights)
+calc_distance <- function(org, comparison.orgs, weights){
   
   ### Checks that need to be added: ----------------------------------
   # org is get_org_values output
@@ -94,17 +95,17 @@ calc_distace <- function(org, comparison.orgs, weights){
     
     compare.org <- comparison.orgs[i, ]
     
-    ## expense Distance
+    ## expense distance
     if(is.na(compare.org$total.expense)){
       D[i, "total.expense"] <- NA #will replace with max once all calculations have been done
     }else{
       D[i, "total.expense"] <- log(abs(compare.org$total.expense - org$total.expense), base = 10)  
     }
     
-    ## Geo Distance 
+    ## Geo distance 
     D[i, "geography"] <- get_geo_dist(org, compare.org, geo.weights)
     
-    ## Mission Distance 
+    ## Mission distance 
     D[i, "mission"] <- get_mission_dist(org, compare.org, mission.weights)
     
   }

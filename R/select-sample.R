@@ -107,7 +107,7 @@ select_sample <- function(org = get_org_values(state = "AL",
   weights <- get_weights()
   
   ## Step 3: Calculate distances 
-  comparison.orgs.with.dist <- calc_distace(org, comparison.orgs, weights)
+  comparison.orgs.with.dist <- calc_distance(org, comparison.orgs, weights)
   
   ## Step 4 Thresholding - for now just take the 1,000 closest organizations
   # This will eventually need to be updated to have a more dynamic threshold 
