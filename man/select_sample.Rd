@@ -2,7 +2,7 @@
 % Please edit documentation in R/select-sample.R
 \name{select_sample}
 \alias{select_sample}
-\title{Select Sample}
+\title{Select comparison set for appraisal}
 \usage{
 select_sample(
   org = get_org_values(state = "AL", location.type = "rural", total.expense = 1e+05, ntee
@@ -56,11 +56,14 @@ Each nonprofit has the following variables:
 }
 }
 \description{
-STILL NEED TO EDIT
-\code{select_sample} is used to select all other nonprofits that match a specified criteria,
-as well as calculate their respective distances from a reference organization.
+\code{select_sample} is used to select all other nonprofits that match a specified
+criteria, as well as calculate their respective distances from a reference
+organization using \code{calc_dist}. Generally, the reference organization is the
+nonprofit for which the user is obtaining an appraisal. This is Step 2 in
+the Appraisal Process Vignette.
 
-See ... Vignette for detailed explanation on how distance between nonprofits is calculated.
+See Appraisal Process Vignette for detailed explanation on how distance
+between nonprofits is calculated.
 }
 \examples{
 

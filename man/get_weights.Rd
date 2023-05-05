@@ -11,5 +11,11 @@ A list with 2 data frames. \code{geo} is the geographic distance weights,
 and \code{mission} is for the mission distance weights.
 }
 \description{
-Input user org characteristics, output correct weight set to be used for distance
+Obtain weight set needed to calculate distances between nonprofits. This is
+a wrapper function for \code{get_geo_weights} and \code{get_mission_weights}. This is
+function is used in \code{calc_dist}. \code{get_weights} is written as a separate function
+from \code{calc_dist} to allow the user to easily change the weights to their own
+desired values.
+
+See Appraisal Process Vignette for detailed information about these values.
 }

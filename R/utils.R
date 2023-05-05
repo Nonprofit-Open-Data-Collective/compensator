@@ -1,11 +1,12 @@
 #' @title
-#' Print a number with U.S. dollar sign and commas.
+#' Print a number with U.S. dollar sign and commas
 #'
 #' @description
-#' `dollarize(x)` returns number in U.S. dollar format rounded to the nearest integer.
+#' `dollarize(x)` inputs a numeric values and returns that number in U.S.
+#' dollar format rounded to the nearest integer.
 #'
 #' @param x Numeric value
-#' @return x printed in a character string in U.S. dollar format. 
+#' @return `x` printed in a character string in U.S. dollar format. 
 #' @export
 #'
 #' @examples

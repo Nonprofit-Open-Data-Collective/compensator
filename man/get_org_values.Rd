@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-org-values.R
 \name{get_org_values}
 \alias{get_org_values}
-\title{Get Organization Values}
+\title{Get organization values}
 \format{
 \code{get_org_values()}
 }
@@ -27,8 +27,8 @@ get_org_values(
 A list of characteristics about your organization
 }
 \description{
-Input basic information about an organization and
-return a list of more detailed information.
+Input basic information about an organization and return a list of more
+detailed information. This is Step 1 in the Appraisal Process Vignette.
 }
 \examples{
 get_org_values(state = "NY", location.type = "rural", total.expense = 5000000, ntee = "K93")

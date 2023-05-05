@@ -3,7 +3,7 @@
 \docType{data}
 \name{ntee.orig}
 \alias{ntee.orig}
-\title{ntee.orig}
+\title{Original NTEE Codes}
 \format{
 \subsection{\code{ntee.orig}}{
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-mission-dist.R
 \name{get_mission_dist}
 \alias{get_mission_dist}
-\title{get_mission_dist}
+\title{Calculate mission distance between two nonprofits}
 \format{
 \subsection{\code{get_mission_dist}}{
 }
@@ -18,10 +18,12 @@ get_mission_dist(org1, org2, mission.weights)
 \item{mission.weights}{mission.weights from output of \code{get_weights()}}
 }
 \value{
-mission distance of two orgs
+Numeric value of the geographic distance of two nonprofits.
 }
 \description{
-Calculate mission distances for regular organizations
+Calculate mission distance between two nonprofits. Primarily as an internal
+function in \code{calc_distance}, but can be used on its own. See Appraisal Process
+Vignette for detailed information on how this value is calculated.
 }
 \examples{
 org1 <- get_org_values(

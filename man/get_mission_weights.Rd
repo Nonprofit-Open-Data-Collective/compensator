@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-mission-weights.R
 \name{get_mission_weights}
 \alias{get_mission_weights}
-\title{Get weights for regular mission distance}
+\title{Get weights for mission distance}
 \usage{
 get_mission_weights()
 }
@@ -10,5 +10,10 @@ get_mission_weights()
 Data frame with 5 levels and 5 weights needed to calculated mission distances.
 }
 \description{
-Weights for mission distance
+Weights for mission distance. See Appraisal Process Vignette for the interpretation
+and usage of these values.
+
+This is primarily used as an internal function for \code{get_mission_dist}. \code{get_mission_weights}
+is written as a separate function from \code{get_mission_dist} to allow the user to easily
+change the weights to their own desired values.
 }

@@ -24,8 +24,9 @@
 ntee.crosswalk
 }
 \description{
-Crosswalk between original NTEE codes and the disaggregated version for calculating distances between two mission codes.
-See ... Vignette for details on how these values are calculated
+Crosswalk between original NTEE codes and the disaggregated version for
+calculating distances between two mission codes.
+See NTEE Codes Vignette for details on how these values are generated.
 }
 \details{
 Data from   https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies.

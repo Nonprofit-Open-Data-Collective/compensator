@@ -1,7 +1,8 @@
-#' Get Organization Values 
+#' Get organization values 
 #' 
-#' Input basic information about an organization and 
-#' return a list of more detailed information. 
+#' @description 
+#' Input basic information about an organization and return a list of more 
+#' detailed information. This is Step 1 in the Appraisal Process Vignette.
 #' 
 #' @format `get_org_values()`
 #' 
@@ -16,7 +17,6 @@
 #' @examples 
 #' get_org_values(state = "NY", location.type = "rural", total.expense = 5000000, ntee = "K93")
 #' get_org_values(state = "DC", location.type = "metro", total.expense = 210000, ntee = "A0161")
-
 #'
 get_org_values <- function(state = "CA",
                            location.type = "rural", 

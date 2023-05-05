@@ -1,11 +1,14 @@
-#' Select Sample 
+#' Select comparison set for appraisal
 #' 
 #' @description
-#' STILL NEED TO EDIT
-#' `select_sample` is used to select all other nonprofits that match a specified criteria, 
-#' as well as calculate their respective distances from a reference organization. 
+#' `select_sample` is used to select all other nonprofits that match a specified
+#' criteria, as well as calculate their respective distances from a reference 
+#' organization using `calc_dist`. Generally, the reference organization is the
+#' nonprofit for which the user is obtaining an appraisal. This is Step 2 in 
+#' the Appraisal Process Vignette. 
 #' 
-#' See ... Vignette for detailed explanation on how distance between nonprofits is calculated.
+#' See Appraisal Process Vignette for detailed explanation on how distance 
+#' between nonprofits is calculated.
 #' 
 #' @param org List output from `get_org_values()`
 #' @param search.criteria A list with the following elements: 

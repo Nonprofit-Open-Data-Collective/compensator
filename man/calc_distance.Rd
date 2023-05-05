@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc-distace.R
 \name{calc_distance}
 \alias{calc_distance}
-\title{calc_distance}
+\title{Calculate distance between two nonprofits}
 \usage{
 calc_distance(org, comparison.orgs, weights)
 }

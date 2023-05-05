@@ -10,9 +10,10 @@ get_geo_weights()
 Data frame with 2 levels and 2 weights needed to calculated geographic distances.
 }
 \description{
-At the moment, this is the same for all organizations
+Weights for geographic distance. See Appraisal Process Vignette for the interpretation
+and usage of these values.
 
-See vignette for how these values are determined.
-
-Level one represents
+This is primarily used as an internal function for \code{get_geo_dist}. \code{get_geo_weights}
+is written as a separate function from \code{get_geo_dist} to allow the user to easily
+change the weights to their own desired values.
 }

@@ -1,14 +1,16 @@
-#' get_geo_dist
+#' Calculate geographic distance between two nonprofits
 #'
-#' Calculate distances for regular organizations
+#' @description 
+#' Calculate geographic distance between two nonprofits. Primarily as an internal 
+#' function in `calc_distance`, but can be used on its own. See Appraisal Process
+#' Vignette for detailed information on how this value is calculated.
 #'
 #'
-#' @format ## `get_geo_dist`
 #' @param org1 output of `get_org_values()` for first org
 #' @param org2 output of `get_org_values()` for second org
 #' @param geo.weights geo.weights from output of `get_weights()`
 #' 
-#' @return Geographic distance of two orgs
+#' @return Numeric value of the geographic distance of two nonprofits.
 #' @export
 #' 
 #' @examples 

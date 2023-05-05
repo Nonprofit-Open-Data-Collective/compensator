@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{dollarize}
 \alias{dollarize}
-\title{Print a number with U.S. dollar sign and commas.}
+\title{Print a number with U.S. dollar sign and commas}
 \usage{
 dollarize(x)
 }
@@ -10,10 +10,11 @@ dollarize(x)
 \item{x}{Numeric value}
 }
 \value{
-x printed in a character string in U.S. dollar format.
+\code{x} printed in a character string in U.S. dollar format.
 }
 \description{
-\code{dollarize(x)} returns number in U.S. dollar format rounded to the nearest integer.
+\code{dollarize(x)} inputs a numeric values and returns that number in U.S.
+dollar format rounded to the nearest integer.
 }
 \examples{
 dollarize(10)

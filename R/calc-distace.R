@@ -1,4 +1,4 @@
-#' calc_distance
+#' Calculate distance between two nonprofits
 #'
 #' @description 
 #' Calculate distances between one organization, `org` and all other organizations in

@@ -1,8 +1,9 @@
-#' dat_filtering
+#' Filter nonprofits data set from search criteria
 #' 
 #' @description 
-#' Filtering `nonprofits.detailed` with given search criteria.
-#' EIN's that make it through this filtering, will be used to filter `nonprofits` for final comparison sets. 
+#' Filtering `nonprofits.detailed` with given search criteria to create comparison set.
+#' The EIN's that make it through this filtering will be used to filter `nonprofits` 
+#' for final comparison set output. 
 #' 
 #' `dat_filtering` is mainly used as an internal function in `select_sample`, 
 #' but can be used on its own. 

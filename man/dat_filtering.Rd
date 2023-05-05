@@ -2,7 +2,7 @@
 % Please edit documentation in R/dat-filtering.R
 \name{dat_filtering}
 \alias{dat_filtering}
-\title{dat_filtering}
+\title{Filter nonprofits data set from search criteria}
 \format{
 \subsection{\code{dat_filtering}}{
 }
@@ -50,8 +50,9 @@ Default parameters are set to include all regular organizations and exclude all 
 All entries in \code{nonprofits.detailed} data set that match the filtering criteria
 }
 \description{
-Filtering \code{nonprofits.detailed} with given search criteria.
-EIN's that make it through this filtering, will be used to filter \code{nonprofits} for final comparison sets.
+Filtering \code{nonprofits.detailed} with given search criteria to create comparison set.
+The EIN's that make it through this filtering will be used to filter \code{nonprofits}
+for final comparison set output.
 
 \code{dat_filtering} is mainly used as an internal function in \code{select_sample},
 but can be used on its own.

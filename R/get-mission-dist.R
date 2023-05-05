@@ -1,6 +1,9 @@
-#' get_mission_dist
+#' Calculate mission distance between two nonprofits
 #'
-#' Calculate mission distances for regular organizations
+#' @description 
+#' Calculate mission distance between two nonprofits. Primarily as an internal 
+#' function in `calc_distance`, but can be used on its own. See Appraisal Process
+#' Vignette for detailed information on how this value is calculated.
 #'
 #'
 #' @format ## `get_mission_dist`
@@ -8,7 +11,7 @@
 #' @param org2 output of `get_org_values()` for second org
 #' @param mission.weights mission.weights from output of `get_weights()`
 #' 
-#' @return mission distance of two orgs
+#' @return Numeric value of the geographic distance of two nonprofits.
 #' @export
 #' 
 #' @examples

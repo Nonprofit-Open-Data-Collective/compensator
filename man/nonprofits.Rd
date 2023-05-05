@@ -3,7 +3,7 @@
 \docType{data}
 \name{nonprofits}
 \alias{nonprofits}
-\title{nonprofits}
+\title{Nonprofits}
 \format{
 \subsection{\code{nonprofits}}{
 

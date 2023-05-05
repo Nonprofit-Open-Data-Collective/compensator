@@ -1,7 +1,11 @@
-#' Get Salary Appraisal
+#' Get salary appraisal
 #' 
 #' @description 
-#' function to predict salary
+#' Calculate point value and range for salary appraisal. This function is 
+#' used to calculated Step 3 in the Appraisal Process Vignette. 
+#' 
+#' See Appraisal Process Vignette for detailed explanation on how these values 
+#' are calculated
 #' 
 #' @param samp output from `select_sample()`
 #' 
@@ -12,7 +16,6 @@
 #' residual of that observation as a percent of the expected salary. `fitted.values` is 
 #' `point.value`*(1+`residual.percent`). 
 #' 
-#'  See ... Vignette for detailed explanation on how these values are calculated
 #' 
 #' @export 
 #' 

@@ -1,7 +1,12 @@
-#' Get compensation Appraisal
+#' Get compensation appraisal
 #' 
 #' @description 
-#' Wrapper function for generating entire compensation appraisal
+#' Wrapper function for generating entire compensation appraisal for a given nonprofit
+#' and a specified search criteria.
+#' 
+#' The Appraisal Process Vignette contains detailed examples on how the appraisal
+#'  is generated. The Compensator Vignette contains a few simple examples of how 
+#'  to use this function.
 #' 
 #' @param org output from `get_org_values()`
 #' @param search.criteria a list with the following items: 

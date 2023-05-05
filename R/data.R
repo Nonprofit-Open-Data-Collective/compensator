@@ -1,4 +1,4 @@
-#' nonprofits
+#' Nonprofits
 #'
 #' @description 
 #' All nonprofits that electronically filled with the IRS from 2009-2019. 
@@ -34,7 +34,7 @@
 #' 
 "nonprofits"
 
-#' nonprofits.detailed
+#' Nonprofits - detailed information
 #'
 #' More detailed information about the nonprofit, mostly regarding the mission classification.
 #' Use EIN to match with `nonprofits` data set. 
@@ -61,7 +61,7 @@
 #' }
 "nonprofits.detailed"
 
-#' ntee.orig
+#' Original NTEE Codes
 #' 
 #' Original NTEE codes and major groups listed at 
 #' https://nccs.urban.org/publication/irs-activity-codes. 
@@ -76,7 +76,7 @@
 "ntee.orig"
 
 
-#' state.abb52
+#' State abbreviations
 #' 
 #' Two letter abbreviations of all states plus Washington D.C. and Puerto Rico. 
 #' 
@@ -107,8 +107,9 @@
 
 #' NTEE Codes Crosswalk
 #' 
-#' Crosswalk between original NTEE codes and the disaggregated version for calculating distances between two mission codes. 
-#' See ... Vignette for details on how these values are calculated
+#' Crosswalk between original NTEE codes and the disaggregated version for 
+#' calculating distances between two mission codes. 
+#' See NTEE Codes Vignette for details on how these values are generated.
 #' 
 #' Data from   https://github.com/Nonprofit-Open-Data-Collective/mission-taxonomies. 
 #' 

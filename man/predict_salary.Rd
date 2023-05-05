@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict-salary.R
 \name{predict_salary}
 \alias{predict_salary}
-\title{Get Salary Appraisal}
+\title{Get salary appraisal}
 \usage{
 predict_salary(samp)
 }
@@ -18,9 +18,11 @@ A list with
 residual of that observation as a percent of the expected salary. \code{fitted.values} is
 \code{point.value}*(1+\code{residual.percent}).
 }
-
-See ... Vignette for detailed explanation on how these values are calculated
 }
 \description{
-function to predict salary
+Calculate point value and range for salary appraisal. This function is
+used to calculated Step 3 in the Appraisal Process Vignette.
+
+See Appraisal Process Vignette for detailed explanation on how these values
+are calculated
 }

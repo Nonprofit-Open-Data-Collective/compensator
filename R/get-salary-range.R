@@ -1,18 +1,19 @@
-#' Get Salary Range 
+#' Get salary range 
 #' 
 #' @description 
-#' function to get the salary range 
+#' Calculate the salary range to be reported in the final appraisal. This is 
+#' used as an internal function in `predict_salary` but can be used on it's own.
+#' See Appraisal Process Vignette for detailed information on how this range 
+#' is calculated.
 #' 
 #' @param samp output from `select_sample()`
-#' @param point.value weighted average salary range from samp
+#' @param point.value weighted average salary range from `samp` using 1 - `total.dist` as weights
 #' 
 #' @return A list with 
 #' 1. `suggested.range`: vector of minimum and maximum suggested salary range
 #' 2. `samp`: the input data frame `samp` with two new columns. `residual.percent` is the 
 #' residual of that observation as a percent of the expected salary. `fitted.values` weighted 
 #' average of all CEO compensation multiplied by (1+`residual.percent`)
-#' 
-#'  See ... Vignette for detailed explanation on how these values are calculated
 #' 
 #' 
 #' @export

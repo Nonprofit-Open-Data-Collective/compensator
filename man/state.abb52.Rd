@@ -3,7 +3,7 @@
 \docType{data}
 \name{state.abb52}
 \alias{state.abb52}
-\title{state.abb52}
+\title{State abbreviations}
 \format{
 \subsection{\code{state_abb}}{
 

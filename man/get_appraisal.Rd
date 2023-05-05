@@ -2,7 +2,7 @@
 % Please edit documentation in R/get-appraisal.R
 \name{get_appraisal}
 \alias{get_appraisal}
-\title{Get compensation Appraisal}
+\title{Get compensation appraisal}
 \usage{
 get_appraisal(org, search.criteria)
 }
@@ -60,7 +60,12 @@ CEO compensation with the following variables:
 See ... Vignette for details on how these values are calculated.
 }
 \description{
-Wrapper function for generating entire compensation appraisal
+Wrapper function for generating entire compensation appraisal for a given nonprofit
+and a specified search criteria.
+
+The Appraisal Process Vignette contains detailed examples on how the appraisal
+is generated. The Compensator Vignette contains a few simple examples of how
+to use this function.
 }
 \examples{
 

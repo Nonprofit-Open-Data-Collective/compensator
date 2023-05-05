@@ -1,21 +1,21 @@
-#'  Disaggregate NTEE Code 
+#' Obtain disaggregated NTEE code 
 #'
 #' @description 
 #' Input original NTEE code and return disaggregated NTEE code. 
 #' 
-#' A list of all available NTEE codes can be found in the `ntee.crosswalk` 
-#' data set and at https://nccs.urban.org/publication/irs-activity-codes. 
-#' 
-#' Used to calculated distances between mission codes. 
-#'
-#' @format ## `get_new_ntee`
-#' 
-#' @param old.code character string of original NTEE code 
-#' 
-#' @return A list with `new.code`, thenew disaggregated code, and other related values.
-#' See ... Vignette on how these values are calculated. 
 #' All known NTEE codes and their respective disaggregated codes are stored 
-#' in `ntee-crosswalk` data set. 
+#' in `ntee-crosswalk` data set. All NTEE codes without a further categroization
+#' can be found at https://nccs.urban.org/publication/irs-activity-codes. 
+#' 
+#' In this appraisal process, this function is used to calculated distances between 
+#' mission codes. 
+#' 
+#' @param old.code character string of original NTEE code. See above NTEE Codes Vignette for acceptable NTEE Codes. 
+#' 
+#' @return A list with `new.code`, the new disaggregated code, and other related values.
+#' See NTEE Codes Vignette  on how these values are calculated.
+#'  
+#'  
 #' @export
 #' 
 #' @examples 
