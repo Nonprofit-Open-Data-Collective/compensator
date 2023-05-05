@@ -6,14 +6,49 @@ template:
     pkgdown-nav-height: 100px
 navbar:
   structure:
-    left:  [intro,articles,  reference]
-    right: [github]
-
+    left:  [intro, articles, reference]
+    
 articles:
   - title: "Getting Started"
     desc: >
-      These vignettes provide .....
+      These vignettes provide detailed information on the nonpofit classification system and the appraisal process.
     contents:
       - ntee-codes
       - dist-calcs
       - appraisal-process
+
+home:
+  links:
+  - text: NTEE Codes List
+    href: https://nccs.urban.org/publication/irs-activity-codes
+
+reference:
+  - title: Appraisal Process 
+    contents:
+    - calc_distance
+    - dat_filtering
+    - get_appraisal
+    - get_geo_dist
+    - get_geo_weights
+    - get_mission_dist
+    - get_mission_weights
+    - get_org_values
+    - get_salary_range
+    - get_weights
+    - predict_salary
+    - select_sample
+  - title: Data
+    contents:
+    - nonprofits
+    - nonprofits.detailed
+    - ntee.crosswalk
+    - ntee.orig
+    - state.abb52
+    - state.dist.mat
+  - title: NTEE Codes
+    contents:
+    - get_new_ntee
+  - title: Miscellaneous
+    contents:
+    - dollarize
+  
