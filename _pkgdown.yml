@@ -1,25 +1,4 @@
-url: 'https://nonprofit-open-data-collective.github.io/compensator/'
-
+url: https://nonprofit-open-data-collective.github.io/compensator/
 template:
   bootstrap: 5
-  bootswatch: simplex
-  bslib:
-    pkgdown-nav-height: 100px
 
-
-navbar:
-  structure:
-    left:  [intro, articles, reference]
-    right: [github]
-
-development:
-  mode: auto
-
-articles:
-  - title: "Getting Started"
-    desc: >
-      These vignettes provide .....
-    contents:
-      - ntee-codes
-      - dist-calcs
-      - appraisal-process
