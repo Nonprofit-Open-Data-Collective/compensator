@@ -96,6 +96,7 @@ We calculate a point value expected compensation by finding the weighted average
 
 Intuitively, the CEO compensation of organizations in the comparison set that have many similar attributes to the reference nonprofit should be prioritized when creating an appraisal. Additionally, we would like to utilize the CEO compensation information of organizations that are less similar to the reference nonprofit, but would like to down-weight this compensation information due to this dissimilarity to the reference nonprofit. Since $TotalDistance_n$ is small when Organization $n$ and the reference nonprofit have similar attributes, and is large when Organization $n$ and the reference nonprofit do not have similar attributes, we create weights inversely proportional to the total distance.
 
+
 <hr style="border:2px solid gray">
 
 **Algorithm 1**: Calculate Point Value CEO Compensation Estimate

@@ -36,6 +36,6 @@ articles:
     desc: >
       These vignettes provide .....
     contents:
-      - test-vig
       - ntee-codes
+      - dist-calcs
       - appraisal-process
