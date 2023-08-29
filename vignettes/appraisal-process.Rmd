@@ -81,7 +81,10 @@ For a simple search for we use the the following formulas based on their inputs 
 
 For an advanced search we allow the user to define all of their search criteria sets as they see fit.
 
-We do have a few suggestions to follow ....
+We do have a few suggestions to follow. First, you should check the size of your comparison set. There should be enough organizations in it to provide you a reasonable range estimate at the end of Step 3. We recommend you have at least 10 organizations in the comparison set. If you define a criteria and the comparison set is small, we recommend you broaden your criteria to make the comparison set larger. 
+
+DO NOT look at the CEO compensations of the organizations in your comparison set before you calculate the appraisal. Looking at the CEO compensations of the organizations in your comparison set is a form of *data snooping*. If we look at the CEO compensations before we generate an appraisal, as humans we are likely to inject our bias into the process and include only the nonprofits with compensations we find favorable and exclude those compensations we personally do not like. 
+
 
 ## Step 3: Obtaining a Suggested Compensation Range
 
@@ -91,9 +94,8 @@ Upon the completion of Step 2, there will be $N$ organization in $ComparisonSet$
 
 #### Optional Step 3.1.1
 
-STILL NEED TO EDIT 
+At this step, there is an option to refine the $ComparisonSet$ if it is too large. In the case where the  $ComparisonSet$ has many organizations that are very far from the appraisal nonprofit and some organizations that are very close. In order to get an appraisal based on organizations that are the most similar to the original nonprofit, we can remove organizations with large distances from the $ComparisonSet$. We only recommend doing this when $ComparisonSet$ when is very large, usually more than a few hundard organizations. 
 
-Thresholding Deselecting organizations you do not want to include
 
 ### Step 3.2: Point Value Compensation Estimate
 
