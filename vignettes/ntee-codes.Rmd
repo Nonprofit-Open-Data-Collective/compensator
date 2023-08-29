@@ -26,9 +26,9 @@ indicate religious or governmental affiliation.
 
 Both the structure and the interpretation of an NTEE code varies by the
 type of nonprofit it describes, regular or specialty. Most nonprofits
-are regular organizations. These are organizations that .... . Some
-nonprofits are specialty organizations. Specialty organizations are
-those whose primary mission is to provide advocacy, research,
+are regular organizations, i.e. ones that are organized and operated for a 
+collective, public or social benefit. Some nonprofits are specialty organizations. 
+Specialty organizations are those whose primary mission is to provide advocacy, research,
 fundraising, and/or technical assistance to separate nonprofit(s).
 
 # Original NTEE Code Structure
@@ -156,7 +156,7 @@ code will have a broad category of 11 or 12.
 
 # NTEE Code structure 
 
-Here we provide a visual dendrogram that captures the overall NTEE Code structure. Hover th mouse over each node to see more information. Click on each node to expand it and see the categories inside of it.
+Here we provide a visual dendrogram that captures the overall NTEE Code structure. Hover the mouse over each node to see more information. Click on each node to expand it and see the categories inside of it.
 
 
 ```{r, echo = F}
