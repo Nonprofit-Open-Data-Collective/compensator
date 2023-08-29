@@ -163,4 +163,4 @@ In this definition mission, geography, and size are weighted equally when calcul
 However, if you believe that the three attributes are not equally important, it is possible to update the total distance formula to reflect this. The current total distance is in the form of an average. We can instead use a weighted  average using weights respective to their importance. For example if, you believed mission was twice as important as geography or size, and geography and size are equally important, your new total distance formula would be
 
 $$TotalDist_{i j}  =\frac{100}{2} (MissDist_{ij}  - MinMiss) + \frac{100}{4}(GeoDist_{ij} - MinGeo)  +
-\frac{100}{4}(SizeDist_{ij}  - MinSize). $$
+\frac{100}{4}(SizeDist_{ij}  - MinSize).$$
