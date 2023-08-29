@@ -23,7 +23,7 @@ For any nonprofit, Organization $i$, we define the following characteristics:
 
 -   $OrgType_i$, $BroadCategory_i$, $MajorGroup_i$, $TwoDigit_i$, $Division_i$, and $SubDivision_i$ be the values listed in the Disaggregated NTEE Codes section of the NTEE codes Vignette.
 
--   $LocationType_i$ - "metro", "suburban", "town", or "rural", what type of city is Organization $i$ located in? See section \_\_\_ for how this value is determined.
+-   $LocationType_i$ - "metro", "suburban", "town", or "rural", what type of city is Organization $i$ located in? See [City Type Vignette](city-type.html) for how this value is determined.
 
 -   $TotalExpense_i$ be the total annual expenses of Organization $i$ the most recent IRS filing year.
 

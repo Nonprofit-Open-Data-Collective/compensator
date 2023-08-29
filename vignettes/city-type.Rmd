@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(compensator)
 ```
 
 To determine which city type a nonprofit is located in, we use county-level Federal Information Processing System (FIPS) codes and Rural-Urban Commuting Area (RUCA) codes.
@@ -17,7 +18,7 @@ According the to Federal Communications Commission:
 
 A list of all available FIPS codes can be found [here](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt). When the IRS publishes tax return data for nonprofits, they include the 5-digit ZIP code of the primary address listed on Form 990. We can easily find the FIPS code for each nonprofit using their respective ZIP code by utalizing the cross walk published by the U.S. Department of Housing and Urban Development (HUD) [here](https://www.huduser.gov/portal/datasets/usps.html).
 
-In order to obtain the city type from the FIPS code, we use the RUCA codes from the U.S. Department of Agriculture (USDA). RUCA codes assign each county a score of 1 - 10 from most metropolitan to most rural based on the largest commuting flow in the county. For our purposes we assign RUCA code to be metropolitan, codes 2- 4 to be suburban, 4-6 as small town, and 7-10 as rural. A crosswalk between county-level FIPS codes and RUCA codes can be found on the USDA's website [https://www.ers.usda.gov/data-products/rural-urban-commuting-area-codes/](here). As of this date, the USDA is currently using the 2010 Census to determine the RUCA codes, but has plans to update this data with the 2020 Census soon. We are currently using the 2010 Census based RUCA codes.
+In order to obtain the city type from the FIPS code, we use the RUCA codes from the U.S. Department of Agriculture (USDA). RUCA codes assign each county a score of 1 - 10 from most metropolitan to most rural based on the largest commuting flow in the county. For our purposes we assign RUCA code to be metropolitan, codes 2- 4 to be suburban, 4-6 as small town, and 7-10 as rural. A crosswalk between county-level FIPS codes and RUCA codes can be found on the USDA's website [here](https://www.ers.usda.gov/data-products/rural-urban-commuting-area-codes/). As of this date, the USDA is currently using the 2010 Census to determine the RUCA codes, but has plans to update this data with the 2020 Census soon. We are currently using the 2010 Census based RUCA codes.
 
 ### Examples 
 

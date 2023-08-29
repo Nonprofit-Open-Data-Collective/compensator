@@ -72,7 +72,7 @@
                         <h4 data-toc-skip class="author">Olivia
 Beck</h4>
             
-            <h4 data-toc-skip class="date">05 May, 2023</h4>
+            <h4 data-toc-skip class="date">29 August, 2023</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/Nonprofit-Open-Data-Collective/compensator/blob/HEAD/vignettes/appraisal-process.Rmd" class="external-link"><code>vignettes/appraisal-process.Rmd</code></a></small>
       <div class="d-none name"><code>appraisal-process.Rmd</code></div>
@@ -80,6 +80,7 @@ Beck</h4>
 
     
     
+<p>Testing github pages deploy</p>
 <p>The appraisal process consists of three steps:</p>
 <div class="line-block">
 <strong>Step 1:</strong> User inputs attributes
@@ -234,7 +235,19 @@ WY\}\)</span></li>
 </h4>
 <p>For an advanced search we allow the user to define all of their
 search criteria sets as they see fit.</p>
-<p>We do have a few suggestions to follow ….</p>
+<p>We do have a few suggestions to follow. First, you should check the
+size of your comparison set. There should be enough organizations in it
+to provide you a reasonable range estimate at the end of Step 3. We
+recommend you have at least 10 organizations in the comparison set. If
+you define a criteria and the comparison set is small, we recommend you
+broaden your criteria to make the comparison set larger.</p>
+<p>DO NOT look at the CEO compensations of the organizations in your
+comparison set before you calculate the appraisal. Looking at the CEO
+compensations of the organizations in your comparison set is a form of
+<em>data snooping</em>. If we look at the CEO compensations before we
+generate an appraisal, as humans we are likely to inject our bias into
+the process and include only the nonprofits with compensations we find
+favorable and exclude those compensations we personally do not like.</p>
 </div>
 </div>
 <div class="section level2">
@@ -251,8 +264,15 @@ Calculations Vignette.</p>
 <div class="section level4">
 <h4 id="optional-step-3-1-1">Optional Step 3.1.1<a class="anchor" aria-label="anchor" href="#optional-step-3-1-1"></a>
 </h4>
-<p>STILL NEED TO EDIT</p>
-<p>Thresholding Deselecting organizations you do not want to include</p>
+<p>At this step, there is an option to refine the <span class="math inline">\(ComparisonSet\)</span> if it is too large. In the
+case where the <span class="math inline">\(ComparisonSet\)</span> has
+many organizations that are very far from the appraisal nonprofit and
+some organizations that are very close. In order to get an appraisal
+based on organizations that are the most similar to the original
+nonprofit, we can remove organizations with large distances from the
+<span class="math inline">\(ComparisonSet\)</span>. We only recommend
+doing this when <span class="math inline">\(ComparisonSet\)</span> when
+is very large, usually more than a few hundard organizations.</p>
 </div>
 </div>
 <div class="section level3">
