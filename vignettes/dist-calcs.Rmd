@@ -15,7 +15,7 @@ We first provide definitions for values used in the distance calculation.
 
 ## Functions
 
-Throughout this section, Let $I(Variable1 != Variable2)$ be 1 when Variable 1 is not the same as Variable 2, 0 when Variable1 = Variable2.
+Throughout this section, Let $I(Variable1 != Variable2)$ be 1 when $Variable1$ is not the same as $Variable2$, 0 when $Variable1$ = $Variable2$.
 
 ### Nonprofit Attributes
 
