@@ -1,6 +1,6 @@
 # compensator
 
-An R package for estimating compensation of nonprofit executives. 
+An R package for automating the compensation appraisal process for nonprofit executives. 
 
 
 ## Installation 
@@ -12,52 +12,65 @@ devtools::install_github( 'nonprofit-open-data-collective/compensator' )
 ## Usage
 
 ```r
-library(compensator)
-
+library( compensator )
+library( knitr )
 
 ### Set up initial parameters  ---------------------------------
-# Step 1, get org info 
-org <- get_org_values(state = "CA",
-                      location.type = "metro",
-                      total.expense = 1000000,
-                      ntee = "B32")
+
+# Step 1, organization that is hiring the executive:
+
+org <-
+  get_org_values(
+   state = "CA",
+   location.type = "metro",
+   total.expense = 1000000,
+   ntee = "B32" )
 
 # Step 2, get comparison orgs and calculate distances
+
 search.criteria <-
   list(
-    type.org = base::ifelse(org$type.org == "RG", "RG", 
-                c("AA", "MT", "PA", "RP", "MS", "MM", "NS")),
-    broad.category = base::ifelse(org$type.org == "RG", org$broad.category, NA),
-    major.group = base::ifelse(org$type.org == "RG", org$major.group, NA),
+    type.org = "RG",        # regular, advocacy, fundraising, etc.
+    broad.category = "B",   # reference NTEE subsector 
+    major.group = "EDU",    # reference NTEE subsector
     division = NA,
     subdivision = NA,
     univ = FALSE,
     hosp = FALSE,
     location.type = NA,
     state = state.abb52,
-    total.expense = c(0.1*org$total.expense, 10*org$total.expense)
+    total.expense = c(100000, 10000000)  # range of allowable org sizes 
   )
 
-### Method A: Using wrapper function -----------------------------------
+### METHOD A: default search function -----------------------------------
+
 ### Step 3 : Get Apprasial
-appraisal2 <- get_appraisal(org, search.criteria) 
 
-appraisal2$suggested.salary
-appraisal2$suggested.range
-reference.set <- appraisal2$reference.set
-View(reference.set)
+appraisal2 <- get_appraisal( org, search.criteria ) 
+
+appraisal2$suggested.salary    # predicted salary
+appraisal2$suggested.range     # adjusted range based on comparison orgs 
+
+appraisal2$reference.set %>%   # show comparison orgs 
+  head() %>%
+  knitr::kable()
 
 
-### Method B - Selecting Comparison Set ------------------------
+### METHOD B - Selecting Comparison Set ------------------------
+
 ### Step 2.5 : Save comparison set and select organizations you want to use
 
-#get sample with distance
-samp <- select_sample(org = org, search.criteria = search.criteria)
+samp <-
+  select_sample(
+    org = org,
+    search.criteria = search.criteria )
 
+View(samp)  # remove orgs that are not a good match
 
 ### Step 3 : Get Apprasial
-# get appraisal
-appraisal <- predict_salary(samp)
-appraisal
 
+appraisal <- predict_salary( samp )
+
+appraisal2$suggested.salary    
+appraisal2$suggested.range     
 ```
